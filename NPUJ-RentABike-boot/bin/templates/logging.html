@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>Logging</h1>
+
+<tr th:each="line : ${logging}">
+        <td th:text="${line.username}"></td>
+</tr>
+
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 drop table if exists user;
 drop table if exists user_role;
+drop table if exists logging;
 CREATE TABLE user (
 id INT(11) IDENTITY PRIMARY KEY,
 ime VARCHAR(50) NOT NULL,
@@ -14,3 +15,9 @@ username varchar(45) NOT NULL,
 role varchar(45) NOT NULL,
 FOREIGN KEY (username) REFERENCES user (username)
 );
+CREATE TABLE logging(
+id INT(11) IDENTITY PRIMARY KEY,
+username varchar(50),
+action varchar(50),
+action_time timestamp
+)
