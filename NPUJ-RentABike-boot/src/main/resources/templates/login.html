@@ -9,11 +9,10 @@
 <main>
 <section>
 	<h3>Login with Username and Password</h3>
-	<form name='f' method='POST'
-		th:action='@{/login}'>
+	<form name='f' method='POST' th:action='@{/login}'>
 		<table>
 			<tr>
-				<td>User:</td>
+				<td>Username:</td>
 				<p th:if="${param.error}" style="color:red;" >Invalid username and password!</p>
 				<p th:if="${param.logout}" style="color:green;" >You've been logged out successfully.</p>
 				<p th:if="${param.access}" style="color:red;" >Access denied</p>
@@ -26,6 +25,7 @@
 			<tr>
 				<td colspan='2'><button class="btn btn-success" name="submit" type="submit">Submit</button></td>
 			</tr>
+			
 		</table>
 	</form>
 	</section>

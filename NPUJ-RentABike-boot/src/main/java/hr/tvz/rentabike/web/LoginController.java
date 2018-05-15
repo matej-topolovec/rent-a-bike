@@ -1,10 +1,15 @@
 package hr.tvz.rentabike.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+
+
 
 @Controller
 public class LoginController {
@@ -23,8 +28,16 @@ public class LoginController {
 		if (logout != null) {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
+		
+		
 		model.setViewName("login");
+
 
 		return model;
 	}
+	
+
+	
+	
+	
 }
