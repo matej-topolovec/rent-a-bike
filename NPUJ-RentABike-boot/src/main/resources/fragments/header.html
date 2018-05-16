@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<meta charset="UTF-8" />
+
+</head>
+
+
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top"
+		th:fragment="header">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">eBike</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li th:classappend="${module == 'rentabike' ? 'active' : ''}">
+						<a href="#" th:href="@{/}">eBike</a>
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
+						<a href="#" th:href="@{/customers}">Customers</a>
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
+						href="#" th:href="@{/bikes}">Bikes</a></li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'reservations' ? 'active' : ''}">
+						<a href="#" th:href="@{/reservations}">Reservations</a>
+					</li>
+					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
+						href="#" th:href="@{/contact}">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li th:if="${#authorization.expression('!isAuthenticated()')}">
+						<a href="/signin" th:href="@{/signin}"> <span
+							class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign
+							in
+					</a>
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<a href="/logout" th:href="@{/logout}"
+						onclick="$('#form').submit();"> <span
+							class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+					</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
