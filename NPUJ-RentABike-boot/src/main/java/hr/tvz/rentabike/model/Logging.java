@@ -3,7 +3,6 @@ package hr.tvz.rentabike.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
