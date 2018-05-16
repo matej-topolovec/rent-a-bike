@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,10 @@ public class RentABikeController {
 	@Autowired
 	LoggingRepository loggingRepository;
 	
+	
+	
 	@GetMapping("/rentabike")
+	@Secured({"ROLE_USER", "ROLE_DEMO" , "ROLE_ADMIN"})
 	public String showForm(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -33,9 +37,14 @@ public class RentABikeController {
 		return "homePage";
 	}
 	
+	
+	
 	@GetMapping("/logging")
 	public String loggingPage(Model model) {
 		model.addAttribute("logging", loggingRepository.findAll());
 		return "logging";
 	}
+	
+	
+	
 }

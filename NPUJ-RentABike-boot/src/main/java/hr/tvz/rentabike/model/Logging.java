@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+
+
+
+
 @Entity
 @Table(name = "logging", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
