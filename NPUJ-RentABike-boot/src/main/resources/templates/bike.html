@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>Bike</h1>
+
+<tr th:each="line : ${bike}">
+        <td th:text="${line.id}"></td>
+         <td th:text="${line.name}"></td>
+          <td th:text="${line.quantity}"></td>
+</tr>
+
+
+</body>
+</html>
