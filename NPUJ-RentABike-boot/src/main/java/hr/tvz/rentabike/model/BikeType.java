@@ -19,6 +19,9 @@ import org.hibernate.validator.constraints.NotEmpty;
         @UniqueConstraint(columnNames = "id") })
 public class BikeType {
 	
+	
+	
+	
 	@Id
 	@Column(name= "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,6 +32,28 @@ public class BikeType {
 	@Size(min = 2, max = 20, message = "Vrsta Bicikla treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "name")
 	private String name;
+
+
+	public void setId(int id) {
+		this.id= id;
+		
+	}
+	
+	public int getId(int id) {
+		return this.id;
+		
+	}
+	
+	
+	public void setName(String name) {
+		this.name= name;
+		
+	}
+	
+	public String getName(int id) {
+		return this.name;
+		
+	}
 	
 
 }

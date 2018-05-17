@@ -6,14 +6,35 @@
 </head>
 <body>
 
-<h1>Bike</h1>
+<h1>Bikes</h1>
 
-<tr th:each="line : ${bike}">
-        <td th:text="${line.id}"></td>
-         <td th:text="${line.name}"></td>
-          <td th:text="${line.quantity}"></td>
-</tr>
+      <div class="container-fluid">
 
 
+
+      <table class="table table-striped" >
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Date</th>
+				<th>Quantity</th>
+				<th>Available</th>
+				<th>Type of bike</th>
+				<th sec:authorize="hasRole('ROLE_ADMIN')">Show</th>
+			</tr>
+
+
+
+
+      <tr th:each="line : ${bike}">
+         <td th:text="${line.id}"></td>
+          <td th:text="${line.name}"></td>
+                    
+             <td th:text="${line.quantity}"></td>
+              <td th:text="${line.available}"></td>
+      </tr>
+      
+</table>
+</div>
 </body>
 </html>

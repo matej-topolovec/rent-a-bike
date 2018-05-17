@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import hr.tvz.rentabike.model.Bike;
+import hr.tvz.rentabike.model.BikeType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 @Repository
 public class JdbcBikeRepository implements BikeRepository {
 
+	
+	
 	private JdbcTemplate jdbc;
 	private SimpleJdbcInsert bikeInserter;
 	
@@ -27,11 +30,16 @@ public class JdbcBikeRepository implements BikeRepository {
 	
 	@Override
 	public Iterable<Bike> findAll() {
-		// TODO Auto-generated method stub
+	
 		
-		return jdbc.query("select id, name, quantity from bike",
+	//	return jdbc.query("select id, name, dateAdded, quantity, available from bike",
+		//		this::mapRowToBike);
+
+	return jdbc.query("select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
+			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b JOIN type_bike tb ON b.typeid = tb.id",
 				this::mapRowToBike);
-	//	return null;
+		
+		
 	}
 
 	@Override
@@ -52,8 +60,13 @@ public class JdbcBikeRepository implements BikeRepository {
 		
 		bike.setId(rs.getInt("id"));
 		bike.setName(rs.getString("name"));
+		bike.setDate(rs.getTimestamp("dateAdded"));
 		bike.setQuantity(rs.getInt("quantity"));
-		//predavac.setPozicija(Predavac.Pozicija.valueOf(rs.getString("pozicija")));
+		bike.setAvailable(rs.getInt("available"));
+		
+	    bike.setBikeType(new BikeType());
+		bike.getBikeType().setId(rs.getInt("BikeTypeId"));
+		bike.getBikeType().setName(rs.getString("BikeTypeName"));
 		
 		return bike;
 	}

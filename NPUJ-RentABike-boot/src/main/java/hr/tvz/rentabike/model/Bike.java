@@ -25,7 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name = "Bike", uniqueConstraints = {
+@Table(name = "bike", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
 public class Bike{
 	
@@ -43,34 +43,38 @@ public class Bike{
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "date_Added")
-	Timestamp date_Added;
+	@Column(name = "dateAdded")
+	private Date dateAdded;
 	
 	@NotEmpty(message = "Niste unjeli kolièinu bicikla")
 	@Column(name = "quantity")
-	int quantity;
+	private int quantity;
 	
 	@NotEmpty(message = "Niste unjeli dostupnost bicikla")
 	@Column(name = "available")
-	int available;
+	private int available;
 		
 	
 	@Valid
 	@OneToOne(targetEntity=BikeType.class, cascade=CascadeType.ALL)
 	@JoinTable(
-			name="Bike_Type",
-            joinColumns = @JoinColumn(name = "BikeType"),
-            inverseJoinColumns = @JoinColumn(name = "Bike"))
-	private BikeType bike_type;
+			name="type_bike",
+            joinColumns = @JoinColumn(name = "Bike"),
+            inverseJoinColumns = @JoinColumn(name = "BikeType"))
+	private BikeType biketype;
+	
+	
+	
 	
 	public Bike() {}	
 
 	
-	public Bike(String name, Timestamp date_Added, int quantity, int available ){
+	public Bike(String name, Timestamp date_Added, int quantity, int available, BikeType type_bike ){
 		this.name = name;
-		this.date_Added = date_Added;
+		this.dateAdded = date_Added;
 		this.quantity = quantity;
 		this.available = available;
+		this.biketype= type_bike;
 		
 	}
 	
@@ -92,15 +96,15 @@ public class Bike{
 		this.name = name;
 	}
 
-	public void setDate(Timestamp date_Added) {
-		this.date_Added= date_Added;
+	public void setDate(Date date_Added) {
+		this.dateAdded= date_Added;
 	}
 
-	public Timestamp setDate() {
-		return date_Added;
+	public Date getDate() {
+		return dateAdded;
 	}
 
-	public int getQuntity() {
+	public int getQuantity() {
 		return this.quantity;
 	}
  
@@ -117,11 +121,11 @@ public class Bike{
 	}
  
 	public void setBikeType(BikeType bike_type) {
-		this.bike_type = bike_type;
+		this.biketype = bike_type;
 	}
 
 	public BikeType getBikeType() {
-		return this.bike_type;
+		return this.biketype;
 	}
 
 

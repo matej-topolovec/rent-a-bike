@@ -46,7 +46,7 @@ public class RentABikeController {
 		return "logging";
 	}
 	
-	@GetMapping("/rentabike")
+	@GetMapping("/bikes")
 	@Secured({"ROLE_DEMO" , "ROLE_ADMIN"})
 	public String RentABike(Model model) {
 		model.addAttribute("bike", JdbcBikeRepository.findAll());
