@@ -29,6 +29,7 @@
 					<td><input class="form-control" type='password'
 						name='password' /></td>
 				</tr>
+				<tr><a th:if="${param.error}" style="color: blue;" href="#">Forgot password? Click here to change </a></tr>
 				<tr>
 					<td colspan='2'><button class="btn btn-success" name="submit"
 							type="submit">Submit</button></td>
