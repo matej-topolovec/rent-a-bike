@@ -18,4 +18,4 @@ INSERT INTO logging(username, action, action_time) values ('TestUsername','Test 
 INSERT INTO type_bike(name) values('Cestovni');
 
 INSERT INTO bike(name, dateAdded, quantity, available, typeid)
-Values('Trek', '2018-05-15 22:55:19.77' , 5 , 1 , 1);
+Values('Trek', '2018-05-15' , 5 , 1 , 1);

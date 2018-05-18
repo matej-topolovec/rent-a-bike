@@ -1,5 +1,6 @@
 package hr.tvz.rentabike.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -27,12 +28,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "bike", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
-public class Bike{
+public class Bike implements Serializable{
 	
 	/**
 	 * 
 	 */
-
+	private static final long serialVersionUID = -5235678586005452594L;
 	@Id
 	@Column(name= "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -59,8 +60,8 @@ public class Bike{
 	@OneToOne(targetEntity=BikeType.class, cascade=CascadeType.ALL)
 	@JoinTable(
 			name="type_bike",
-            joinColumns = @JoinColumn(name = "Bike"),
-            inverseJoinColumns = @JoinColumn(name = "BikeType"))
+            joinColumns = @JoinColumn(name = "typeid"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
 	private BikeType biketype;
 	
 	

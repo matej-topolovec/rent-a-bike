@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="ISO-8859-1"/>
 <title>Insert title here</title>
@@ -28,10 +30,15 @@
 
       <tr th:each="line : ${bike}">
          <td th:text="${line.id}"></td>
-          <td th:text="${line.name}"></td>
-                    
-             <td th:text="${line.quantity}"></td>
-              <td th:text="${line.available}"></td>
+         <td th:text="${line.name}"></td>
+         
+         <td th:text="${line.quantity}"></td>
+         <td th:text="${line.available}"></td>
+         <td th:text="${line.biketype.id}"></td>
+         <td th:text="${line.biketype.name}"></td>
+         
+         
+         
       </tr>
       
 </table>

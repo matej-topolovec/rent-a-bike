@@ -60,7 +60,7 @@ public class JdbcBikeRepository implements BikeRepository {
 		
 		bike.setId(rs.getInt("id"));
 		bike.setName(rs.getString("name"));
-		bike.setDate(rs.getTimestamp("dateAdded"));
+		bike.setDate(rs.getDate("dateAdded"));
 		bike.setQuantity(rs.getInt("quantity"));
 		bike.setAvailable(rs.getInt("available"));
 		

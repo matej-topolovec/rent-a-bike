@@ -42,7 +42,7 @@ name varchar(50)
 CREATE TABLE bike(
 id INT(11) IDENTITY PRIMARY KEY,
 name varchar(50),
-dateAdded timestamp not null,
+dateAdded date not null,
 quantity int NOT NULL,
 available int NOT NULL,
 typeid int,
