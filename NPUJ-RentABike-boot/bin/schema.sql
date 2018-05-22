@@ -20,8 +20,8 @@ durationInMonths INT
 
 CREATE TABLE user (
 id INT(11) IDENTITY PRIMARY KEY,
-ime VARCHAR(50) NOT NULL,
-prezime VARCHAR(50) NOT NULL,
+name VARCHAR(50) NOT NULL,
+surname VARCHAR(50) NOT NULL,
 username VARCHAR(45),
 email VARCHAR(45),
 address varchar(50),

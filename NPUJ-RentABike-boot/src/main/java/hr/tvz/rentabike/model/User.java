@@ -62,6 +62,13 @@ public class User {
 	String name;
 	
 
+	@NotEmpty(message = "Niste unjeli prezime")
+	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
+	@Column(name = "surname")
+	String surname;
+	
+	
+	
 	@NotEmpty(message = "Niste unjeli mjesto stanovanja")
 	@Size(min = 2, max = 20, message = "mjesto stanovanja treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "address")
@@ -100,8 +107,10 @@ public class User {
      public User() {}	
 
 	
-	public User(String username, String password , String name, String address, String OIB, String phone,Date birthdate, String email ){
+	public User(String username, String password , String name, String surname , String address, String OIB, String phone,Date birthdate, String email ){
 		this.username = username;
+		this.name = name;
+		this.surname = surname;
 		this.password = password;
 		this.address = address;
 		this.OIB = OIB;
@@ -122,7 +131,7 @@ public class User {
 	
 	
 	public String getUsername() {
-		return name;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -138,6 +147,28 @@ public class User {
 	}
 
 
+	public void setName(String name) {
+		this.name= name;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	
+
+	public void setSurname(String surname) {
+		this.surname= surname;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+	
+	
+	
+	
+	
 	public void setAddress(String address) {
 		this.address = address;
 	}
@@ -177,14 +208,19 @@ public class User {
 	}
 
 	
+	
+	
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	public String getEmail() {
-		return this.phone;
+		return this.email;
 	}
 
+	
+	
 	public void set(MembershipType membership) {
 		this.membershipType = membership;
 	}
