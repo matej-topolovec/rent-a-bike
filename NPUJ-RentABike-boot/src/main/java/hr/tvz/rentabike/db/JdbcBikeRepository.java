@@ -18,6 +18,7 @@ public class JdbcBikeRepository implements BikeRepository {
 	private JdbcTemplate jdbc;
 	private SimpleJdbcInsert bikeInserter;
 	
+	
 	@Autowired
 	public JdbcBikeRepository(JdbcTemplate jdbc) {
 		this.jdbc = jdbc;
@@ -54,7 +55,7 @@ public class JdbcBikeRepository implements BikeRepository {
 		return null;
 	}
 
-	
+	 
 	private Bike mapRowToBike(ResultSet rs, int rowNum) throws SQLException{
 		Bike bike = new Bike();
 		

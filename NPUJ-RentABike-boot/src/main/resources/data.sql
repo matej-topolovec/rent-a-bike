@@ -19,3 +19,6 @@ INSERT INTO type_bike(name) values('Cestovni');
 
 INSERT INTO bike(name, dateAdded, quantity, available, typeid)
 Values('Trek', '2018-05-15' , 5 , 1 , 1);
+
+INSERT INTO bike(name, dateAdded, quantity, available, typeid)
+Values('Scott', '2018-05-15' , 3 , 1 , 1);

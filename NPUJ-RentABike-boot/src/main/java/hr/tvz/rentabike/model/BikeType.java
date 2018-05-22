@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name = "Bike", uniqueConstraints = {
+@Table(name = "bike_type", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
 public class BikeType implements Serializable{
 	

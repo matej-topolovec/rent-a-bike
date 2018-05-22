@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="ISO-8859-1"/>
+<meta charset="UTF-8"></meta>
 <title>Insert title here</title>
 </head>
 <body>
@@ -27,16 +27,15 @@
 
 
 
-
       <tr th:each="line : ${bike}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
-         
+   <!--  <td th:text="${line.dateAdded}"></td>  -->    
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
-         <td th:text="${line.biketype.id}"></td>
+   <!--  <td th:text="${line.biketype.id}"></td>
          <td th:text="${line.biketype.name}"></td>
-         
+       -->
          
          
       </tr>

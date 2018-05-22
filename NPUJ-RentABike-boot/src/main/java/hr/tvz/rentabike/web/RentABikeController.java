@@ -1,5 +1,6 @@
 package hr.tvz.rentabike.web;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -8,10 +9,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
+import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.Logging;
+
 
 @Controller
 public class RentABikeController {
@@ -46,7 +53,8 @@ public class RentABikeController {
 		return "logging";
 	}
 	
-	@GetMapping("/bikes")
+	
+	@RequestMapping(value = "/bikes", method = RequestMethod.GET )
 	@Secured({"ROLE_DEMO" , "ROLE_ADMIN"})
 	public String RentABike(Model model) {
 		model.addAttribute("bike", JdbcBikeRepository.findAll());

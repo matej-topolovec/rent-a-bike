@@ -23,6 +23,8 @@ public class Logging implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5235678586005452594L;
+	
+	
 	@Id
 	@Column(name= "id")
 	@GeneratedValue

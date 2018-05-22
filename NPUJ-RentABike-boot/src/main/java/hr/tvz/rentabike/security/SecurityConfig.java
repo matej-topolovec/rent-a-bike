@@ -25,19 +25,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.formLogin()
 		    .loginPage("/login")
-		          .defaultSuccessUrl("/home", true)
-		             .failureUrl("/login?error=true")
-		.and()
-		   .logout()
-		        .logoutSuccessUrl("/login?logout=true")
-		 .and()
-		  .authorizeRequests().antMatchers("/css/**")
-		    .permitAll()
-		     .antMatchers("/login")
-		       .anonymous().antMatchers("/**")
-		        .authenticated().anyRequest()
-		          .permitAll()
-	   .and().csrf().disable();
+		      .defaultSuccessUrl("/home", true)
+		        .failureUrl("/login?error=true")
+		          .and()
+		           .logout()
+		            .logoutSuccessUrl("/login?logout=true")
+		             .and()
+		             .rememberMe()
+		              .and()
+		               .authorizeRequests().antMatchers("/css/**")
+		                .permitAll()
+		                 .antMatchers("/login")
+		                  .anonymous()
+		                   .antMatchers("/**")
+		                    .authenticated().anyRequest()
+		                     .permitAll()
+	                          .and()
+	                            .csrf().disable();
 	}
 
 	

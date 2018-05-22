@@ -1,7 +1,6 @@
 package hr.tvz.rentabike.model;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -21,19 +21,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 
-
-
-
-
 @Entity
 @Table(name = "bike", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
-public class Bike implements Serializable{
+public class Bike{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5235678586005452594L;
+	
+	
 	@Id
 	@Column(name= "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -70,7 +68,7 @@ public class Bike implements Serializable{
 	public Bike() {}	
 
 	
-	public Bike(String name, Timestamp date_Added, int quantity, int available, BikeType type_bike ){
+	public Bike(String name, Date date_Added, int quantity, int available, BikeType type_bike ){
 		this.name = name;
 		this.dateAdded = date_Added;
 		this.quantity = quantity;

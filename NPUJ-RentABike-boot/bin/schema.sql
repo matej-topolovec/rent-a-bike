@@ -3,6 +3,20 @@ drop table if exists user_role;
 drop table if exists logging;
 drop table if exists type_bike;
 drop table if exists bike;
+drop table if exists membershipType;
+drop table if exists reservation;
+
+
+
+CREATE TABLE membershipType(
+id INT(11) IDENTITY PRIMARY KEY,
+name VARCHAR(50) not null,
+discountRate INT,
+durationInMonths INT
+);
+
+
+
 
 CREATE TABLE user (
 id INT(11) IDENTITY PRIMARY KEY,
@@ -11,9 +25,11 @@ prezime VARCHAR(50) NOT NULL,
 username VARCHAR(45),
 email VARCHAR(45),
 address varchar(50),
-phone int,
+phone varchar(20),
 password VARCHAR(100) NOT NULL ,
-enabled TINYINT NOT NULL DEFAULT 1
+membershipTypeId INT,
+enabled TINYINT NOT NULL DEFAULT 1,
+FOREIGN KEY (membershipTypeId) REFERENCES membershipType (id)
 );
 
 ALTER TABLE user ADD CONSTRAINT user_username_unique UNIQUE (username);
@@ -34,19 +50,34 @@ action_time timestamp
 );
 
 
+
 CREATE TABLE type_bike(
 id INT(11) IDENTITY PRIMARY KEY,
-name varchar(50)
+name VARCHAR(50)
 );
+
+
 
 CREATE TABLE bike(
 id INT(11) IDENTITY PRIMARY KEY,
-name varchar(50),
+name VARCHAR(50),
 dateAdded date not null,
-quantity int NOT NULL,
-available int NOT NULL,
-typeid int,
-FOREIGN KEY (typeid) REFERENCES type_bike (id)
+quantity INT NOT NULL,
+available INT NOT NULL,
+typeId INT,
+FOREIGN KEY (typeId) REFERENCES type_bike (id)
+);
+
+
+
+CREATE TABLE reservation(
+id INT(11) IDENTITY PRIMARY KEY,
+startTime date not null,
+endTime date not null,
+userId INT,
+bikeId INT,
+FOREIGN KEY (userId) REFERENCES user (id),
+FOREIGN KEY (bikeId) REFERENCES bike (id)
 );
 
 
