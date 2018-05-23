@@ -46,7 +46,7 @@ CREATE TABLE logging(
 id INT(11) IDENTITY PRIMARY KEY,
 username varchar(50),
 action varchar(50),
-action_time timestamp
+action_time date
 );
 
 

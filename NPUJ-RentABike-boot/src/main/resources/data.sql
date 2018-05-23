@@ -13,7 +13,7 @@ VALUES ('Ivo','Ivic','demo','$2a$10$62iyTepDsDslP/9tp6fQFOov32op4RqDOsmsOFaDVv8Z
 INSERT INTO user_role (username, role)
 VALUES ('demo', 'ROLE_DEMO');
 
-INSERT INTO logging(username, action, action_time) values ('TestUsername','Test action', '2018-05-15 22:55:19.77');
+INSERT INTO logging(username, action, action_time) values ('TestUsername','Test action', '2018-05-15');
 
 INSERT INTO type_bike(name) values('Cestovni');
 

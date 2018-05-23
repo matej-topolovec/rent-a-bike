@@ -1,6 +1,7 @@
 package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -28,18 +29,18 @@ public class Logging implements Serializable {
 	@Id
 	@Column(name= "id")
 	@GeneratedValue
-	int id;
+	public int id;
 	
 	@Column(name = "username")
-	String username;
+	public String username;
 	@Column(name = "action")
-	String actions;
+	public String actions;
 	@Column(name = "action_time")
-	Timestamp action_time;
+	public Date action_time;
 	
 	public Logging(){}
 	
-	public Logging(String username, String actions, Timestamp action_time){
+	public Logging(String username, String actions, Date action_time){
 		this.username = username;
 		this.actions = actions;
 		this.action_time = action_time;
@@ -61,11 +62,11 @@ public class Logging implements Serializable {
 		this.actions = actions;
 	}
 
-	public Timestamp getActionTime() {
+	public Date getActionTime() {
 		return action_time;
 	}
 
-	public void setActionTime(Timestamp action_time) {
+	public void setActionTime(Date action_time) {
 		this.action_time = action_time;
 	}
 	

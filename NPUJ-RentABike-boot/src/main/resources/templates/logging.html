@@ -1,17 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="ISO-8859-1"/>
+<meta charset="UTF-8"></meta>
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 </head>
 <body>
 
 <h1>Logging</h1>
+<div th:replace="../fragments/header :: header"></div>
 
 <tr th:each="line : ${logging}">
         <td th:text="${line.username}"></td>
 </tr>
 
+ <div class="container-fluid">
+      <table class="table table-striped" >
+			<tr>
+				<th>Id</th>
+				<th>Username</th>
+				<th>Action</th>
+				<th>Date</th>
+			</tr>
 
+	      <tr th:each="line : ${logging}">
+	         <td th:text="${line.id}"></td>
+	         <td th:text="${line.username}"></td>
+	         <td th:text="${line.actions}"></td>     
+	         <td th:text="${line.action_time}"></td>
+	      </tr>
+    </table>
+ </div>
+
+<div th:replace="../fragments/footer :: footer"></div>
 </body>
 </html>
