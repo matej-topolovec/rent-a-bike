@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Login Page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+	<div th:replace="../fragments/header :: header"></div>
+    <h3>Create new Bike</h3>
+	
+	
+	<div class="container-fluid" >	
+			<form method="POST" th:object="${Bike}" >
+			
+				<div class="form-row">
+					<div class="col-md-7 mb-3">
+						<label for="name">name: </label>
+						<input type="text" th:field="*{name}" class="form-control" />
+						<span class="validation-error"
+							th:if="${#fields.hasErrors('name')}"
+							th:errors="*{name}">Bike name error
+						</span>
+					</div>
+				
+					<div class="col-md-7 mb-3">
+						<label for="date">Date: </label>
+							<input type="text" th:field="*{date}" class="form-control" />
+						<span class="validation-error"
+							th:if="${#fields.hasErrors('date')}"
+							th:errors="*{date}">Bike date error
+						</span>
+						
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col-md-7 mb-3">			
+						<label for="quantity">Quantity: </label>
+						<input type="text" th:field="*{quantity}" class="form-control" />
+						<span class="validation-error"
+							th:if="${#fields.hasErrors('quantity')}"
+							th:errors="*{quantity}">Bike quantity error
+						</span>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="col-md-7 mb-3">	
+						<label for="available">Available: </label>
+							<input type="text" th:field="*{available}" class="form-control" />
+						<span class="validation-error"
+							th:if="${#fields.hasErrors('available')}"
+							th:errors="*{available}">Bike available error
+						</span>
+					</div>
+				</div>
+				
+				  
+				<div class="form-row">
+					<div class="col-md-7 mb-3">	
+		   				<label for="TypeOfBike">Type of Bike: </label>
+						<select th:field="*{BikeType}" class="form-control">
+							<option value="" > --type of bike--   </option>
+							<option th:each=" line : ${BikeType}"
+									th:value="${line.id}"
+									th:text="${line.name}"></option>
+						</select>
+						<span class="validation-error"
+							th:if="${#fields.hasErrors('BikeType')}"
+							th:errors="*{BikeType}">Type of bike error
+						</span>
+					</div>
+			    </div>
+			 
+			 
+			 
+				<div class="form-row">
+					<div class="col-md-7 mb-3">	
+					 <!--	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>  -->
+						<input type="submit" value="Save" class="btn btn-success" />
+					</div>
+				</div>
+			</form>
+		</div>
+	
+
+	<div th:replace="../fragments/footer :: footer"></div>
+</body>
+</html>

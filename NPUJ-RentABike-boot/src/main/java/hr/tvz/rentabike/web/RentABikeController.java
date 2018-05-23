@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
@@ -71,7 +73,7 @@ public class RentABikeController {
 	
 	
 	@GetMapping("/CreateBike")
-	public String showEditBikeForm(Model model) {
+	public String showCreateBikeForm(Model model) {
 		
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeType", new BikeType());
@@ -79,30 +81,30 @@ public class RentABikeController {
 		return "EditBike";
 	}
 	
+	
+	
+	
 	@PostMapping("/CreateBike")
-	public String processEditBikeForm(@Valid Bike Bike, Errors errors, Model model) {
+	public String processCreateBikeForm(@Valid Bike Bike, Errors errors, Model model) {
 	
 		if(errors.hasErrors()) {
 		
 			return "EditBike";
 		}
 		
-		/*
-		predavanjeRepository.save(predavanje);
-		
-		log.info("Predavanje je primljeno.");
-		
-		@SuppressWarnings("unchecked")
-		List<Predavanje> listaPredavanja = (ArrayList<Predavanje>) model.asMap().get("listaPredavanja");
-		listaPredavanja.add(predavanje);
-		
-		if(listaPredavanja.size() >= MAX_BROJ_PRIJEDLOGA_PREDAVANJA) {
-			// dodatni zadatak
-//			model.addAttribute("maxBrojDosegnut", true);
-		}
-		*/
+	
 		return "EditBike";
 	}
+	
+	
+	
+	@RequestMapping(value = "/EditBike", method = RequestMethod.GET)
+	public String processEditBikeForm(@RequestParam(value = "id", required=false) Integer id) {
+           	// findbyid
+		
+		return "EditBike";
+	}
+	
 	
 	
 }
