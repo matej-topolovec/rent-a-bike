@@ -1,26 +1,28 @@
 package hr.tvz.rentabike.web;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
+import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.Logging;
 
 
 @Controller
+@SessionAttributes({"biketype"})
 public class RentABikeController {
 	
 	@Autowired
@@ -57,8 +59,47 @@ public class RentABikeController {
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET )
 	@Secured({"ROLE_DEMO" , "ROLE_ADMIN"})
 	public String RentABike(Model model) {
-		model.addAttribute("bike", JdbcBikeRepository.findAll());
+		model.addAttribute("bikes", JdbcBikeRepository.findAll());
 		return "bike";
+	}
+	
+	
+	
+	
+	
+	@GetMapping("/EditBike")
+	public String showEditBikeForm(Model model) {
+		
+		
+		model.addAttribute("Bike", new Bike());
+		model.addAttribute("BikeType", new BikeType());
+		
+		return "EditBike";
+	}
+	
+	@PostMapping("/EditBike")
+	public String processEditBikeForm(@Valid Bike Bike, Errors errors, Model model) {
+	
+		if(errors.hasErrors()) {
+		
+			return "EditBike";
+		}
+		
+		/*
+		predavanjeRepository.save(predavanje);
+		
+		log.info("Predavanje je primljeno.");
+		
+		@SuppressWarnings("unchecked")
+		List<Predavanje> listaPredavanja = (ArrayList<Predavanje>) model.asMap().get("listaPredavanja");
+		listaPredavanja.add(predavanje);
+		
+		if(listaPredavanja.size() >= MAX_BROJ_PRIJEDLOGA_PREDAVANJA) {
+			// dodatni zadatak
+//			model.addAttribute("maxBrojDosegnut", true);
+		}
+		*/
+		return "EditBike";
 	}
 	
 	

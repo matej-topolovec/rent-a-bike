@@ -57,8 +57,9 @@ input[type="button"], input[type="submit"]{
     border-radius: 12px;
 }
 
-table{
+table, th{
 	padding:20px
+	text-align: justify; /*Tihomir*/
 }
 
 select{
@@ -75,3 +76,8 @@ div.tableDiv{
 	width:500px;
 }
 
+#bb{
+	 /*Tihomir*/
+	 margin:  25px 10px 10px 10px;
+	
+}

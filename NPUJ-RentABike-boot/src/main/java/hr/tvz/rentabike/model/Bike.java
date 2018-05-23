@@ -11,13 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
@@ -30,6 +31,9 @@ public class Bike{
 	 * 
 	 */
 	private static final long serialVersionUID = -5235678586005452594L;
+
+
+	
 	
 	
 	@Id
@@ -43,13 +47,15 @@ public class Bike{
 	private String name;
 	
 	@Column(name = "dateAdded")
-	private Date dateAdded;
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	public Date dateAdded;
 	
-	@NotEmpty(message = "Niste unjeli kolièinu bicikla")
+	@NotNull(message = "Niste unjeli kolièinu bicikla")
 	@Column(name = "quantity")
 	private int quantity;
 	
-	@NotEmpty(message = "Niste unjeli dostupnost bicikla")
+	
+	@NotNull(message = "Niste unjeli kolièinu dostupnih bicikla")
 	@Column(name = "available")
 	private int available;
 		
@@ -60,7 +66,7 @@ public class Bike{
 			name="type_bike",
             joinColumns = @JoinColumn(name = "typeid"),
             inverseJoinColumns = @JoinColumn(name = "id"))
-	private BikeType biketype;
+	public BikeType biketype;
 	
 	
 	

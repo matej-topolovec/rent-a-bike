@@ -5,15 +5,16 @@
 <head>
 <meta charset="UTF-8"></meta>
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 </head>
 <body>
 
 <h1>Bikes</h1>
+  <div th:replace="../fragments/header :: header"></div>
+  <div id ="bb"> <a th:href="@{/EditBike}" class="btn btn-primary" >Create new Bike</a></div>
 
       <div class="container-fluid">
-
-
-
       <table class="table table-striped" >
 			<tr>
 				<th>Id</th>
@@ -22,25 +23,26 @@
 				<th>Quantity</th>
 				<th>Available</th>
 				<th>Type of bike</th>
-				<th sec:authorize="hasRole('ROLE_ADMIN')">Show</th>
+				<th></th>
+				<th></th>
 			</tr>
 
 
 
-      <tr th:each="line : ${bike}">
+      <tr th:each="line : ${bikes}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
-   <!--  <td th:text="${line.dateAdded}"></td>  -->    
+         <td th:text="${line.dateAdded}"></td>     
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
-   <!--  <td th:text="${line.biketype.id}"></td>
          <td th:text="${line.biketype.name}"></td>
-       -->
-         
-         
+         <td><a th:href="@{/Editbike}" >Edit</a></td>
+         <td><a th:href="@{/Deletebike}" class="btn btn-primary" >Delete</a></td>
       </tr>
       
-</table>
-</div>
+    </table>
+   </div>
+   
+   <div th:replace="../fragments/footer :: footer"></div>
 </body>
 </html>

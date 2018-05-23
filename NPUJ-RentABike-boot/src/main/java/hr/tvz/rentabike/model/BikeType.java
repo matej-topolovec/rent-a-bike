@@ -28,13 +28,13 @@ public class BikeType implements Serializable{
 	@Id
 	@Column(name= "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	public int id;
 	
 	
 	@NotEmpty(message = "Niste unjeli vrstu bicikla")
 	@Size(min = 2, max = 20, message = "Vrsta Bicikla treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "name")
-	private String name;
+	public String name;
 
 
 	public void setId(int id) {
