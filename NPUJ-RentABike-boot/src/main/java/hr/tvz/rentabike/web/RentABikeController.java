@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.model.Bike;
@@ -29,8 +31,11 @@ public class RentABikeController {
 	LoggingRepository loggingRepository;
 	
 
+
 	@Autowired
 	JdbcBikeRepository JdbcBikeRepository;
+	
+	
 	
 	@GetMapping("/home")
 	public String showForm(Model model) {
@@ -65,11 +70,8 @@ public class RentABikeController {
 	
 	
 	
-	
-	
-	@GetMapping("/EditBike")
+	@GetMapping("/CreateBike")
 	public String showEditBikeForm(Model model) {
-		
 		
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeType", new BikeType());
@@ -77,7 +79,7 @@ public class RentABikeController {
 		return "EditBike";
 	}
 	
-	@PostMapping("/EditBike")
+	@PostMapping("/CreateBike")
 	public String processEditBikeForm(@Valid Bike Bike, Errors errors, Model model) {
 	
 		if(errors.hasErrors()) {
