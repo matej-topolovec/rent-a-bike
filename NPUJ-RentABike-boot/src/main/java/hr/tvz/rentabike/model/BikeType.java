@@ -1,19 +1,18 @@
 package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
-
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.NotEmpty;
-
-
 
 
 @Entity
@@ -36,6 +35,11 @@ public class BikeType implements Serializable{
 	@Column(name = "name")
 	public String name;
 
+	
+	@OneToMany(targetEntity=Bike.class, mappedBy="biketype", fetch=FetchType.EAGER)	
+	public Set<Bike> bikes ; 
+	//public ArrayList<Bike> bikes= new ArrayList<Bike>();
+	
 
 	public void setId(int id) {
 		this.id= id;
@@ -53,7 +57,7 @@ public class BikeType implements Serializable{
 		
 	}
 	
-	public String getName(int id) {
+	public String getName() {
 		return this.name;
 		
 	}

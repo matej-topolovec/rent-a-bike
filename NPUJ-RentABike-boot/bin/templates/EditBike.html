@@ -13,12 +13,12 @@
 	
 	
 	<div class="container-fluid" >	
-			<form method="POST" th:object="${Bike}" >
-			
+	
+			<form method="POST" th:object="${Bike}" >			
 				<div class="form-row">
 					<div class="col-md-7 mb-3">
-						<label for="name">name: </label>
-						<input type="text" th:field="*{name}" class="form-control" />
+						<label for="Bike.name">Name: </label>
+						<input type="text" th:field="${Bike.name}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('name')}"
 							th:errors="*{name}">Bike name error
@@ -26,8 +26,8 @@
 					</div>
 				
 					<div class="col-md-7 mb-3">
-						<label for="date">Date: </label>
-							<input type="text" th:field="*{date}" class="form-control" />
+						<label for="Bike.date">Date: </label>
+							<input type="text" th:field="${Bike.date}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('date')}"
 							th:errors="*{date}">Bike date error

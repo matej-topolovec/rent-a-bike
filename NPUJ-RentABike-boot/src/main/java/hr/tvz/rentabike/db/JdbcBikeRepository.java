@@ -8,12 +8,17 @@ import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 
 @Repository
 public class JdbcBikeRepository implements BikeRepository {
 
-	
+	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
+			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b JOIN type_bike tb ON b.typeid = tb.id";
 	
 	private JdbcTemplate jdbc;
 	private SimpleJdbcInsert bikeInserter;
@@ -32,29 +37,45 @@ public class JdbcBikeRepository implements BikeRepository {
 	@Override
 	public Iterable<Bike> findAll() {
 	
-		
-	//	return jdbc.query("select id, name, dateAdded, quantity, available from bike",
-		//		this::mapRowToBike);
-
-	return jdbc.query("select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
-			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b JOIN type_bike tb ON b.typeid = tb.id",
-				this::mapRowToBike);
-		
+	return jdbc.query(FIND_ALL_QUERY, this::mapRowToBike);
 		
 	}
 
 	@Override
 	public Bike findOne(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return jdbc.queryForObject(FIND_ALL_QUERY + " where id = ?", this::mapRowToBike, id);
+		
 	}
 
+	
+	
+	
 	@Override
 	public Bike save(Bike bike) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		bike.setId(saveBikeDetails(bike));	
+		return bike;
+		
+		
 	}
 
+	
+	
+	private int saveBikeDetails(Bike bike) {
+		Map<String, Object> values = new HashMap<>();
+		
+		values.put("date", bike.getDate());
+		values.put( "name", bike.getName());
+	    values.put( "quantity", bike.getQuantity());
+		values.put( "available", bike.getAvailable());
+		values.put( "biketype", bike.getBikeType());
+		return bikeInserter.executeAndReturnKey(values).intValue();
+	}
+	
+	
+	
+	
 	 
 	private Bike mapRowToBike(ResultSet rs, int rowNum) throws SQLException{
 		Bike bike = new Bike();

@@ -1,6 +1,7 @@
 package hr.tvz.rentabike.model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,7 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "bike", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
-public class Bike{
+public class Bike implements Serializable{
 	
 	/**
 	 * 
@@ -33,9 +36,7 @@ public class Bike{
 	private static final long serialVersionUID = -5235678586005452594L;
 
 
-	
-	
-	
+
 	@Id
 	@Column(name= "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -60,17 +61,13 @@ public class Bike{
 	private int available;
 		
 	
-	@Valid
-	@OneToOne(targetEntity=BikeType.class, cascade=CascadeType.ALL)
-	@JoinTable(
-			name="type_bike",
-            joinColumns = @JoinColumn(name = "typeid"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+	@ManyToOne
+	@JoinColumn(name="typeid")
 	public BikeType biketype;
 	
 	
 	
-	
+
 	public Bike() {}	
 
 	
