@@ -48,7 +48,7 @@ public class Bike implements Serializable{
 	private String name;
 	
 	@Column(name = "dateAdded")
-	@DateTimeFormat(pattern = "dd.MM.yyyy")
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date dateAdded;
 	
 	@NotNull(message = "Niste unjeli kolièinu bicikla")

@@ -44,7 +44,7 @@ public class JdbcBikeRepository implements BikeRepository {
 	@Override
 	public Bike findOne(String id) {
 	
-		return jdbc.queryForObject(FIND_ALL_QUERY + " where id = ?", this::mapRowToBike, id);
+		return jdbc.queryForObject(FIND_ALL_QUERY + " where b.id = ?", this::mapRowToBike, id);
 		
 	}
 
