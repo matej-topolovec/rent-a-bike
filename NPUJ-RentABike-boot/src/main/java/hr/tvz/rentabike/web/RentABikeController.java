@@ -1,5 +1,6 @@
 package hr.tvz.rentabike.web;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,13 @@ public class RentABikeController {
 	@GetMapping("/home")
 	public String showForm(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		
+		long millis=System.currentTimeMillis();  
+		java.sql.Date date=new java.sql.Date(millis);  
+		
 		Logging logging = new Logging();
 		logging.setUsername(auth.getName());
-		logging.setActionTime(timestamp);
+		logging.setActionTime(date);
 		logging.setActions("Get request on homepage");
 		
 		loggingRepository.save(logging);
