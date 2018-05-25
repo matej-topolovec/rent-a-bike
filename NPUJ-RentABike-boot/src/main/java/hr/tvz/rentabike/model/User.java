@@ -1,5 +1,6 @@
 package hr.tvz.rentabike.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -29,7 +31,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name = "user", uniqueConstraints = {
 @UniqueConstraint(columnNames = "id") })
-public class User {
+public class User implements Serializable{
 	
 	/**
 	 * 
@@ -76,7 +78,7 @@ public class User {
 	
 	
 	@NotEmpty(message = "Niste unjeli osobni OIB")
-	@Size(min = 11, max = 11, message = "Korisnièko ime treba imati toèno 11 znakova")
+	@Size(min = 11, max = 11, message = "OIB treba imati toèno 11 znakova")
 	@Column(name = "OIB")
 	String OIB;
 	
@@ -88,7 +90,7 @@ public class User {
 	
 	@Past(message = "Datum rodjena nije ispravan")
 	@Column(name = "birhtdate")
-	Date birhtdate;
+	public Date birhtdate;
 	
 	@NotBlank(message = "Unesite vašu email adresu")
 	@Email(message= "Email adresa nije ispravno napisana")
@@ -96,13 +98,10 @@ public class User {
 	String email;
 	
 
-	@Valid
-	@OneToOne(targetEntity=MembershipType.class, cascade=CascadeType.ALL)
-	@JoinTable(
-			name="membershipType",
-            joinColumns = @JoinColumn(name = "membershipId"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
-	MembershipType membershipType;
+	
+	@ManyToOne
+	@JoinColumn(name="membershipId")          
+	public MembershipType membershipType;
     
      public User() {}	
 

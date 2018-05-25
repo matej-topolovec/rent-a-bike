@@ -29,7 +29,7 @@ import hr.tvz.rentabike.model.Logging;
 
 @Controller
 @SessionAttributes({"biketype"})
-public class RentABikeController {
+public class RentABikeController{
 	
 	@Autowired
 	LoggingRepository loggingRepository;
@@ -39,6 +39,10 @@ public class RentABikeController {
 	
 	@Autowired
 	JdbcBikeTypeRepository JdbcBikeTypeRepository;
+	
+	@Autowired
+	hr.tvz.rentabike.db.JdbcUserRepository JdbcUserRepository;
+	
 	
 	
 	
@@ -97,6 +101,7 @@ public class RentABikeController {
 		
 			return "EditBike";
 		}
+	
 		
 		JdbcBikeRepository.save(bike); 
 		
@@ -120,6 +125,25 @@ public class RentABikeController {
 	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
 	    binder.registerCustomEditor(Date.class, editor);
 	}
+	
+	
+	
+	
+	@GetMapping("/customers")
+	public String showCustomers(Model model) {
+		
+		//TODO: Get repository Cutomers
+		model.addAttribute("customers", JdbcUserRepository.findAll());
+		
+		return "customers";
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

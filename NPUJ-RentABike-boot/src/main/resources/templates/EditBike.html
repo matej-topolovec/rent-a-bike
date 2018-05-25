@@ -19,7 +19,7 @@
         var date_input=$('input[name="date"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
-            format: 'dd/mm/yyyy',
+            format: 'dd-mm-yyyy',
             container: container,
             todayHighlight: true,
             autoclose: true,
@@ -38,17 +38,17 @@
 			<form method="POST" th:object="${Bike}" >			
 				<div class="form-row">
 					<div class="col-md-7 mb-3">
-						<label for="Bike.name">Name: </label>
-						<input type="text" th:field="${Bike.name}" class="form-control" />
+						<label for="name">Name: </label>
+						<input type="text" th:field="*{name}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('name')}"
-							th:errors="*{name}">Bike name error
+							th:errors="*{Bike.name}">Bike name error
 						</span>
 					</div>
 				
 					<div class="col-md-7 mb-3">
-						<label for="Bike.date">Date: </label>
-							<input  name="date" type="text" th:field="${Bike.date}" class="form-control" id="datepicker" placeholder="DD-MM-YYYY" />
+						<label for="date">Date: </label>
+							<input  name="date" type="text" th:field="*{date}" class="form-control" id="datepicker" placeholder="DD-MM-YYYY" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('date')}"
 							th:errors="*{date}">Bike date error

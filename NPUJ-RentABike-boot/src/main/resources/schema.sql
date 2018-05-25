@@ -10,7 +10,7 @@ drop table if exists reservation;
 
 CREATE TABLE membershipType(
 id INT(11) IDENTITY PRIMARY KEY,
-name VARCHAR(50) not null,
+name VARCHAR(50),
 discountRate INT,
 durationInMonths INT
 );
@@ -23,12 +23,14 @@ id INT(11) IDENTITY PRIMARY KEY,
 name VARCHAR(50) NOT NULL,
 surname VARCHAR(50) NOT NULL,
 username VARCHAR(45),
+OIB VARCHAR(11),
+birhtdate date,
 email VARCHAR(45),
 address varchar(50),
 phone varchar(20),
-password VARCHAR(100) NOT NULL ,
-membershipTypeId INT,
+password VARCHAR(100) NOT NULL,
 enabled TINYINT NOT NULL DEFAULT 1,
+membershipTypeId INT,
 FOREIGN KEY (membershipTypeId) REFERENCES membershipType (id)
 );
 
