@@ -29,7 +29,7 @@ VALUES ('demo', 'ROLE_DEMO');
 INSERT INTO logging(username, action, action_time) values ('TestUsername','Test action', '2018-05-15');
 
 
-INSERT INTO type_bike(name) values('Cestovni');
+INSERT INTO bike_type(name) values('Cestovni');
 
 
 INSERT INTO bike(name, dateAdded, quantity, available, typeid)

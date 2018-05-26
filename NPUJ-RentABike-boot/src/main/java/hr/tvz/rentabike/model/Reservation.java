@@ -1,25 +1,29 @@
 package hr.tvz.rentabike.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.Valid;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 @Entity
 @Table(name = "reservation", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
-public class Reservation {
+public class Reservation implements Serializable {
 
 
 	/**
@@ -33,31 +37,89 @@ public class Reservation {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "startTime")
-	Date startTime;
+	public Date startTime;
 	
+	
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "endTime")
-	Date endTime;
+	public Date endTime;
 	
 	
 	
-	@Valid
-	@OneToOne(targetEntity=User.class, cascade=CascadeType.ALL)
-	@JoinTable(
-			name="User",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
-	private User user;
+	@ManyToOne
+	@JoinColumn(name="userId")
+	public User user;
 	
 	
-	@Valid
-	@OneToOne(targetEntity=Bike.class, cascade=CascadeType.ALL)
-	@JoinTable(
-			name="bike",
-            joinColumns = @JoinColumn(name = "bikeId"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+
+	@ManyToOne
+	@JoinColumn(name="bikeId")
+	public Bike bike;
 	
-	private Bike bike;
+	
+	
+	
+	
+public Reservation() {}	
+
+	
+	public Reservation(Date startTime, Date endTime, User user, Bike bike ){
+		this.startTime = startTime;
+		this.endTime =endTime;
+		this.user = user;
+		this.bike = bike;
+	
+		
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id= id;
+	}
+	
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	
+	public Date getStartTime() {
+		return startTime;
+	}
+	
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	
+	public Date getEndTime() {
+		return endTime;
+	}
+	
+	
+	 
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+		public User getUser() {
+			return this.user;
+		}
+
+
+		public void setBike(Bike bike) {
+			this.bike = bike;
+		}
+
+		public Bike getBike() {
+			return this.bike;
+		}
+	
 	
 	
 	

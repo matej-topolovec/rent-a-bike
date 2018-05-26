@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+
+import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,12 +18,12 @@ import java.util.Map;
 @Repository
 public class JdbcBikeTypeRepository implements BikeTypeRepository {
 
-	private final String FIND_ALL_QUERY = "select id, name from type_bike";
+	private final String FIND_ALL_QUERY = "select id, name from bike_type";
 	
 	private JdbcTemplate jdbc;
 	private SimpleJdbcInsert bikeTypeInserter;
 	
-	
+	  
 	@Autowired
 	public JdbcBikeTypeRepository(JdbcTemplate jdbc) {
 		this.jdbc = jdbc;

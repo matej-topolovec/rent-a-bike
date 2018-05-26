@@ -53,7 +53,7 @@ action_time date
 
 
 
-CREATE TABLE type_bike(
+CREATE TABLE bike_type(
 id INT(11) IDENTITY PRIMARY KEY,
 name VARCHAR(50)
 );
@@ -67,7 +67,7 @@ dateAdded date not null,
 quantity INT NOT NULL,
 available INT NOT NULL,
 typeId INT,
-FOREIGN KEY (typeId) REFERENCES type_bike (id)
+FOREIGN KEY (typeId) REFERENCES bike_type (id)
 );
 
 

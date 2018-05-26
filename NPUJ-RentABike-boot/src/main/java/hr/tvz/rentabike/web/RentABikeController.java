@@ -2,7 +2,6 @@ package hr.tvz.rentabike.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
-import hr.tvz.rentabike.db.JdbcBikeTypeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Logging;
@@ -34,11 +32,15 @@ public class RentABikeController{
 	@Autowired
 	LoggingRepository loggingRepository;
 
+		
 	@Autowired
 	JdbcBikeRepository JdbcBikeRepository;
 	
+	
 	@Autowired
-	JdbcBikeTypeRepository JdbcBikeTypeRepository;
+	hr.tvz.rentabike.db.JdbcBikeTypeRepository JdbcBikeTypeRepository;
+	
+	
 	
 	@Autowired
 	hr.tvz.rentabike.db.JdbcUserRepository JdbcUserRepository;
@@ -99,11 +101,12 @@ public class RentABikeController{
 	
 		if(errors.hasErrors()) {
 		
+			
 			return "EditBike";
 		}
 	
 		
-		JdbcBikeRepository.save(bike); 
+		//JdbcBikeRepository.save(bike); 
 		
 		
 		return "EditBike";
@@ -120,6 +123,7 @@ public class RentABikeController{
 	}
 	
 		
+	//prikaz datuma na ekranu
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);

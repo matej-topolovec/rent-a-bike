@@ -3,10 +3,12 @@ package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,11 +67,14 @@ public class Bike implements Serializable{
 	@JoinColumn(name="typeid")
 	public BikeType biketype;
 	
+		
+  	
+	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.EAGER)	
+	public Set<Reservation> reservations; 
 	
 	
-
+	
 	public Bike() {}	
-
 	
 	public Bike(String name, Date date_Added, int quantity, int available, BikeType type_bike ){
 		this.name = name;
