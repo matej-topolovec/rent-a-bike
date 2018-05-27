@@ -69,7 +69,7 @@ public class Bike implements Serializable{
 	
 		
   	
-	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.EAGER)	
+	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.LAZY)	
 	public Set<Reservation> reservations; 
 	
 	
@@ -129,6 +129,7 @@ public class Bike implements Serializable{
  
 	public void setBikeType(BikeType bike_type) {
 		this.biketype = bike_type;
+		
 	}
 
 	public BikeType getBikeType() {
@@ -136,6 +137,13 @@ public class Bike implements Serializable{
 	}
 
 
+	public Set<Reservation> getSetBikes() {
+		return this.reservations;	
+	}
+	
+	public void setEmployees(Set<Reservation> reservations) {
+		this.reservations = reservations;
+		}
 
 
 	

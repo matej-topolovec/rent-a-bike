@@ -221,7 +221,7 @@ public class User implements Serializable{
 
 	
 
-	public void set(MembershipType membership) {
+	public void setMembershipType(MembershipType membership) {
 		this.membershipType = membership;
 	}
 
@@ -229,7 +229,13 @@ public class User implements Serializable{
 		return this.membershipType;
 	}
 
+	public Set<Reservation> getSetBikes() {
+		return this.reservations;	
+	}
 	
+	public void setEmployees(Set<Reservation> reservations) {
+		this.reservations = reservations;
+		}
 	
 	
 }

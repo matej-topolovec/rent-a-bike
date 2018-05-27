@@ -85,7 +85,7 @@ public class JdbcUserRepository implements UserRepository {
 		user.setEmail(rs.getString("email"));
 		
 		
-	    user.set(new MembershipType());
+	    user.setMembershipType(new MembershipType());
 		user.getMembershipType().setId(rs.getInt("MembershipTypeId"));
 		user.getMembershipType().setName(rs.getString("MembershipTypeName"));
 		user.getMembershipType().setDiscountRate(rs.getInt("MembershipTypeDiscountRate"));

@@ -49,8 +49,8 @@ public class MembershipType implements Serializable{
 	private int durationInMonths;
 	
 	
-	@OneToMany(targetEntity=User.class, mappedBy="membershipType", fetch=FetchType.EAGER)	
-	public Set<User> user ; 
+	@OneToMany(targetEntity=User.class, mappedBy="membershipType", fetch=FetchType.LAZY)	
+	public Set<User> users ; 
 	//public ArrayList<Bike> bikes= new ArrayList<Bike>();
     
     
@@ -97,6 +97,15 @@ public class MembershipType implements Serializable{
 	public int getDurationInMonths() {
 		return this.durationInMonths;
 	}
+	
+	public Set<User> getSetBikes() {
+		return this.users;	
+	}
+	
+	public void setEmployees(Set<User> users) {
+		this.users = users;
+		}
+	
 	
 	
 }

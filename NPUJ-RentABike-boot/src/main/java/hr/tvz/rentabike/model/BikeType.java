@@ -14,6 +14,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import groovyjarjarantlr.collections.List;
+
 
 @Entity
 @Table(name = "bike_type", uniqueConstraints = {
@@ -61,6 +63,14 @@ public class BikeType implements Serializable{
 		return this.name;
 		
 	}
+	
+	public Set<Bike> getSetBikes() {
+		return this.bikes;	
+	}
+	
+	public void setEmployees(Set<Bike> bikes) {
+		this.bikes = bikes;
+		}
 	
 
 }
