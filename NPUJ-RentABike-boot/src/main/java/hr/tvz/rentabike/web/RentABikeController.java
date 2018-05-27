@@ -160,10 +160,6 @@ public class RentABikeController{
 		String password = PasswordGenerator.hashPassword(user.getPassword());
 		user.setPassword(password);
 		
-		/*User userTest = new User();
-		
-		userTest = registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail());*/
-		
 		if(registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null){
 			registrationRepository.save(user);
 			
@@ -177,6 +173,7 @@ public class RentABikeController{
 		}
 		
 		else{
+			model.addAttribute("ErrorUsername", "Username or email already in use !");
 			return "registration";
 		}
 	}
