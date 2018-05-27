@@ -2,6 +2,8 @@ package hr.tvz.rentabike.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,6 +16,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
+import hr.tvz.rentabike.db.RegistrationRepository;
+import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Logging;
+import hr.tvz.rentabike.model.User;
 
 
 @Controller
@@ -45,7 +51,8 @@ public class RentABikeController{
 	@Autowired
 	hr.tvz.rentabike.db.JdbcUserRepository JdbcUserRepository;
 	
-	
+	@Autowired
+	RegistrationRepository registrationRepository;
 	
 	
 	@GetMapping("/home")
@@ -142,10 +149,37 @@ public class RentABikeController{
 		return "customers";
 	}
 	
+	@GetMapping("/registration")
+	public String getRegistration(Model model){
+		model.addAttribute("User", new User());
+		return "registration";
+	}
 	
-	
-	
-	
+	@PostMapping("/registration")
+	public String RegistrationSave(@ModelAttribute("User") User user, Model model){	
+		String password = PasswordGenerator.hashPassword(user.getPassword());
+		user.setPassword(password);
+		
+		/*User userTest = new User();
+		
+		userTest = registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail());*/
+		
+		if(registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null){
+			registrationRepository.save(user);
+			
+			List<User> listaUsera = registrationRepository.findAll();
+			
+			for(User user2 : listaUsera){
+				System.out.println(user2.getUsername()+" "+user2.getPassword());
+			}
+			
+			return "login";
+		}
+		
+		else{
+			return "registration";
+		}
+	}
 	
 	
 	

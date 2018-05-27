@@ -53,7 +53,7 @@ public class User implements Serializable{
 	
 
 	@NotEmpty(message = "Niste unjeli password")
-	@Size(min = 2, max = 20, message = "zaporka treba imati izmeðu 2 i 20 znakova")
+	@Size(min = 2, max = 100, message = "zaporka treba imati izmeðu 2 i 100 znakova")
 	@Column(name = "password")
     String password;
 	
@@ -77,13 +77,12 @@ public class User implements Serializable{
 	String address;
 	
 	
-	@NotEmpty(message = "Niste unjeli osobni OIB")
 	@Size(min = 11, max = 11, message = "OIB treba imati toèno 11 znakova")
 	@Column(name = "OIB")
 	String OIB;
 	
 
-	@NotEmpty(message = "Niste unjeli telefonski broj ime")
+	@NotEmpty(message = "Niste unjeli telefonski broj")
 	@Size(min = 2, max = 20, message = "Telefonski broj treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "phone")
 	String phone;
@@ -100,7 +99,8 @@ public class User implements Serializable{
 
 	
 	@ManyToOne
-	@JoinColumn(name="membershipId")          
+	//@JoinColumn(name="membershipId")
+	@JoinColumn(name="membershiptypeid")
 	public MembershipType membershipType;
     
 	
@@ -196,8 +196,8 @@ public class User implements Serializable{
 		this.phone = phone;
 	}
 
-	public String getPhone(String phone) {
-		return this.phone;
+	public String getPhone() {
+		return phone;
 	}
 
     

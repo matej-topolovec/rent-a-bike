@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "membershipType", uniqueConstraints = {
+@Table(name = "membershiptype", uniqueConstraints = {
 @UniqueConstraint(columnNames = "id") })
 public class MembershipType implements Serializable{
 	
@@ -41,11 +41,11 @@ public class MembershipType implements Serializable{
 	public String name;
 	
 
-    @Column(name= "discountRate")
+    @Column(name= "discountrate")
 	private int discountRate;
 
 
-    @Column(name= "durationInMonths")
+    @Column(name= "durationinmonths")
 	private int durationInMonths;
 	
 	

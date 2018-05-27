@@ -49,7 +49,7 @@ public class Bike implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
-	@Column(name = "dateAdded")
+	@Column(name = "dateadded")
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date dateAdded;
 	

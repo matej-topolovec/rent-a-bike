@@ -12,5 +12,11 @@ public class PasswordGenerator {
 		System.out.println(hashedPassword);
 
 	}
+	
+	public static String hashPassword(String password){
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password);
+		return hashedPassword;
+	}
 
 }
