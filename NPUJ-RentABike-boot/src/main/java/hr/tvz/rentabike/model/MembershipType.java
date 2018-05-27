@@ -98,11 +98,11 @@ public class MembershipType implements Serializable{
 		return this.durationInMonths;
 	}
 	
-	public Set<User> getSetBikes() {
+	public Set<User> getSetUsers() {
 		return this.users;	
 	}
 	
-	public void setEmployees(Set<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 		}
 	
