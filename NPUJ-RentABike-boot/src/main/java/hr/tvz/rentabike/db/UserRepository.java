@@ -1,12 +1,13 @@
 package hr.tvz.rentabike.db;
 
-
+import java.util.List;
 
 import hr.tvz.rentabike.model.User;
 
+
 public interface UserRepository {
 	
-	Iterable<User> findAll();
+	List<User> findAll();
 	
 	User findOne(String id);
 	

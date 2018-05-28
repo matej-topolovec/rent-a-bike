@@ -4,54 +4,43 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8"></meta>
-<title>Insert title here</title>
+<title>Customers</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatable_customers.js"></script>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 </head>
 <body>
 
-<h1>Customers</h1>
-  <div th:replace="../fragments/header :: header"></div>
-  <div id ="bb"> <a th:href="@{/bikes}" class="btn btn-info" >Bikes</a></div>
+	<h1>Customers</h1>
+	<div th:replace="../fragments/header :: header"></div>
+	<div id="bb">
+		<a th:href="@{/NewCustomer}" class="btn btn-info">New</a>
+	</div>
+	<hr></hr>
+	<div class="container-fluid">
+		<table id="customerTable" class="display">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Membership</th>
+					<th>Discount</th>
+					<th>Edit/Delete</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
 
-      <div class="container-fluid">
-      <table class="table table-striped" >
-			<tr>
-				<th>Id</th>
-				<th>Username</th>
-				<th>Name</th>
-				<th>Surname</th>
-			
-		
-		
-		
-				<th>Membership name</th>
-				<th>Discount rate</th>
-				<th>Months</th>
-				<th></th>
-				<th></th>
-			</tr>
-
-
-
-      <tr th:each="line : ${customers}">
-         <td th:text="${line.id}"></td>
-         <td th:text="${line.username}"></td>
-         <td th:text="${line.name}"></td>     
-         <td th:text="${line.surname}"></td>
-       
-       
-      
-       
-         <td th:text="${line.membershipType.name}"></td>
-         <td th:text="${line.membershipType.discountRate}"></td>
-         <td th:text="${line.membershipType.durationInMonths}"></td>
-         <td><a th:href="@{/DeleteCustomers}" class="btn btn-danger" >Delete</a></td>
-      </tr>
-      
-    </table>
-   </div>
-   
-   <div th:replace="../fragments/footer :: footer"></div>
+	<div th:replace="../fragments/footer :: footer"></div>
 </body>
 </html>
