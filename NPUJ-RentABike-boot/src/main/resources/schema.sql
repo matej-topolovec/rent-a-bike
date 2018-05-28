@@ -66,7 +66,7 @@ name VARCHAR(50),
 dateAdded date not null,
 quantity INT NOT NULL,
 available INT NOT NULL,
-typeId INT,
+typeId INT DEFAULT 1,
 FOREIGN KEY (typeId) REFERENCES bike_type (id)
 );
 
@@ -76,8 +76,8 @@ CREATE TABLE reservation(
 id INT(11) IDENTITY PRIMARY KEY,
 startTime date not null,
 endTime date not null,
-userId INT,
-bikeId INT,
+userId INT DEFAULT 1,
+bikeId INT DEFAULT 1,
 FOREIGN KEY (userId) REFERENCES user (id),
 FOREIGN KEY (bikeId) REFERENCES bike (id)
 );

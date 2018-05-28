@@ -1,3 +1,4 @@
+
 package hr.tvz.rentabike.web;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.model.Bike;
+import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.Logging;
 import hr.tvz.rentabike.model.User;
 
@@ -38,9 +40,11 @@ public class RentABikeController{
 	@Autowired
 	LoggingRepository loggingRepository;
 
-		
+
+	
+	
 	@Autowired
-	JdbcBikeRepository JdbcBikeRepository;
+	hr.tvz.rentabike.db.BikeRepository BikeRepository;
 	
 	
 	@Autowired
@@ -85,7 +89,7 @@ public class RentABikeController{
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET )
 	@Secured({"ROLE_DEMO" , "ROLE_ADMIN"})
 	public String RentABike(Model model) {
-		model.addAttribute("bikes", JdbcBikeRepository.findAll());
+		model.addAttribute("bikes", BikeRepository.findAll());
 		return "bike";
 	}
 	
@@ -95,7 +99,7 @@ public class RentABikeController{
 	public String showCreateBikeForm(Model model) {
 		
 		model.addAttribute("Bike", new Bike());
-		model.addAttribute("BikeType", JdbcBikeTypeRepository.findAll());
+		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
 		
 		return "EditBike";
 	}
@@ -104,16 +108,22 @@ public class RentABikeController{
 	
 	
 	@PostMapping("/CreateBike")
-	public String processCreateBikeForm(@Valid Bike bike, Errors errors, Model model) {
-	
+	public String processCreateBikeForm(@ModelAttribute("Bike")  Bike bike, Errors errors, Model model) {
+		
 		if(errors.hasErrors()) {
 		
 			
-			return "EditBike";
+			//return "EditBike";
 		}
 	
 		
-		//JdbcBikeRepository.save(bike); 
+		BikeRepository.save(bike); 
+		
+		Iterable<Bike> listbikes = BikeRepository.findAll();
+		
+		for(Bike bikes : listbikes){
+			System.out.println(bikes.getId() + ' ' +bikes.getName() + ' ' + bikes.getDate() + ' '+ bikes.getBikeType());
+		}
 		
 		
 		return "EditBike";
@@ -155,6 +165,9 @@ public class RentABikeController{
 		return "registration";
 	}
 	
+	
+	
+	
 	@PostMapping("/registration")
 	public String RegistrationSave(@ModelAttribute("User") User user, Model model){	
 		String password = PasswordGenerator.hashPassword(user.getPassword());
@@ -166,7 +179,7 @@ public class RentABikeController{
 			List<User> listaUsera = registrationRepository.findAll();
 			
 			for(User user2 : listaUsera){
-				System.out.println(user2.getUsername()+" "+user2.getPassword());
+				System.out.println(user2.getUsername() + " " + user2.getPassword());
 			}
 			
 			return "login";
