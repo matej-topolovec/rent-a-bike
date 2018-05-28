@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import hr.tvz.rentabike.model.MembershipType;
 import hr.tvz.rentabike.model.User;
 
-
+import java.util.List;
 
 @Repository
 public class JdbcUserRepository implements UserRepository {
@@ -42,7 +42,7 @@ public class JdbcUserRepository implements UserRepository {
 	
 	
 	@Override
-	public Iterable<User> findAll() {
+	public List<User> findAll() {
 	
 	return jdbc.query(FIND_ALL_QUERY, this::mapRowToUser);
 		

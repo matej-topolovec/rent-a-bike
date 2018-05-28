@@ -1,6 +1,7 @@
 drop table if exists user;
 drop table if exists user_role;
 drop table if exists logging;
+drop table if exists customer;
 drop table if exists type_bike;
 drop table if exists bike;
 drop table if exists membershipType;
@@ -30,6 +31,19 @@ address varchar(50),
 phone varchar(20),
 password VARCHAR(100) NOT NULL,
 enabled TINYINT NOT NULL DEFAULT 1,
+membershipTypeId INT DEFAULT 1,
+FOREIGN KEY (membershipTypeId) REFERENCES membershipType (id)
+);
+
+CREATE TABLE customer (
+id INT(11) IDENTITY PRIMARY KEY auto_increment,
+name VARCHAR(50),
+surname VARCHAR(50),
+OIB VARCHAR(11) NULL,
+birthdate date NULL,
+email VARCHAR(45),
+address varchar(50),
+phone varchar(20),
 membershipTypeId INT DEFAULT 1,
 FOREIGN KEY (membershipTypeId) REFERENCES membershipType (id)
 );

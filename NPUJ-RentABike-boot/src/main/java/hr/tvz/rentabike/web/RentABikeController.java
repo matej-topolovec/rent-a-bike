@@ -32,14 +32,14 @@ import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.Logging;
 import hr.tvz.rentabike.model.User;
 
-
 @Controller
-@SessionAttributes({"biketype"})
-public class RentABikeController{
-	
+@SessionAttributes({ "biketype" })
+public class RentABikeController {
+
 	@Autowired
 	LoggingRepository loggingRepository;
 
+<<<<<<< HEAD
 
 	
 	
@@ -47,67 +47,70 @@ public class RentABikeController{
 	hr.tvz.rentabike.db.BikeRepository BikeRepository;
 	
 	
+=======
+	@Autowired
+	JdbcBikeRepository JdbcBikeRepository;
+
+>>>>>>> 2822c0af50e75de62b4b5e28e144630e218eb8b5
 	@Autowired
 	hr.tvz.rentabike.db.JdbcBikeTypeRepository JdbcBikeTypeRepository;
-	
-	
-	
+
 	@Autowired
 	hr.tvz.rentabike.db.JdbcUserRepository JdbcUserRepository;
-	
+
+	@Autowired
+	hr.tvz.rentabike.db.JdbcUserRepository JdbcCustomerRepository;
+
 	@Autowired
 	RegistrationRepository registrationRepository;
-	
-	
+
 	@GetMapping("/home")
 	public String showForm(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		long millis=System.currentTimeMillis();  
-		java.sql.Date date=new java.sql.Date(millis);  
-		
+
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
+
 		Logging logging = new Logging();
 		logging.setUsername(auth.getName());
 		logging.setActionTime(date);
 		logging.setActions("Get request on homepage");
-		
+
 		loggingRepository.save(logging);
-		
+
 		return "homePage";
 	}
-	
-	
-	
+
 	@GetMapping("/logging")
-	@Secured({"ROLE_DEMO" , "ROLE_ADMIN"})
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String loggingPage(Model model) {
 		model.addAttribute("logging", loggingRepository.findAll());
 		return "logging";
 	}
-	
-	
-	@RequestMapping(value = "/bikes", method = RequestMethod.GET )
-	@Secured({"ROLE_DEMO" , "ROLE_ADMIN"})
+
+	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String RentABike(Model model) {
 		model.addAttribute("bikes", BikeRepository.findAll());
 		return "bike";
 	}
-	
-	
-	
+
 	@GetMapping("/CreateBike")
 	public String showCreateBikeForm(Model model) {
-		
+
 		model.addAttribute("Bike", new Bike());
+<<<<<<< HEAD
 		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
 		
+=======
+		model.addAttribute("BikeType", JdbcBikeTypeRepository.findAll());
+
+>>>>>>> 2822c0af50e75de62b4b5e28e144630e218eb8b5
 		return "EditBike";
 	}
-	
-	
-	
-	
+
 	@PostMapping("/CreateBike")
+<<<<<<< HEAD
 	public String processCreateBikeForm(@ModelAttribute("Bike")  Bike bike, Errors errors, Model model) {
 		
 		if(errors.hasErrors()) {
@@ -126,72 +129,91 @@ public class RentABikeController{
 		}
 		
 		
+=======
+	public String processCreateBikeForm(@Valid Bike bike, Errors errors, Model model) {
+
+		if (errors.hasErrors()) {
+
+			return "EditBike";
+		}
+
+		// JdbcBikeRepository.save(bike);
+
+>>>>>>> 2822c0af50e75de62b4b5e28e144630e218eb8b5
 		return "EditBike";
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/EditBike", method = RequestMethod.GET)
-	public String processEditBikeForm(@RequestParam(value = "id", required=false) Integer id) {
-           	// findbyid
-		
+	public String processEditBikeForm(@RequestParam(value = "id", required = false) Integer id) {
+		// findbyid
+
 		//
 		return "EditBike";
 	}
-	
-		
-	//prikaz datuma na ekranu
+
+	// prikaz datuma na ekranu
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
-	    binder.registerCustomEditor(Date.class, editor);
+		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
+		binder.registerCustomEditor(Date.class, editor);
 	}
-	
-	
-	
-	
+
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
-		
-		//TODO: Get repository Cutomers
-		model.addAttribute("customers", JdbcUserRepository.findAll());
-		
+
+		// TODO: Get repository Customers
+		model.addAttribute("customers", JdbcCustomerRepository.findAll());
+
 		return "customers";
 	}
-	
+
 	@GetMapping("/registration")
-	public String getRegistration(Model model){
+	public String getRegistration(Model model) {
 		model.addAttribute("User", new User());
 		return "registration";
 	}
+<<<<<<< HEAD
 	
 	
 	
 	
+=======
+
+>>>>>>> 2822c0af50e75de62b4b5e28e144630e218eb8b5
 	@PostMapping("/registration")
-	public String RegistrationSave(@ModelAttribute("User") User user, Model model){	
+	public String RegistrationSave(@ModelAttribute("User") User user, Model model) {
 		String password = PasswordGenerator.hashPassword(user.getPassword());
 		user.setPassword(password);
-		
-		if(registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null){
+
+		if (registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null) {
 			registrationRepository.save(user);
-			
+
 			List<User> listaUsera = registrationRepository.findAll();
+<<<<<<< HEAD
 			
 			for(User user2 : listaUsera){
+=======
+
+			for (User user2 : listaUsera) {
+>>>>>>> 2822c0af50e75de62b4b5e28e144630e218eb8b5
 				System.out.println(user2.getUsername() + " " + user2.getPassword());
 			}
-			
+
 			return "login";
 		}
-		
-		else{
+
+		else {
 			model.addAttribute("ErrorUsername", "Username or email already in use !");
 			return "registration";
 		}
 	}
+<<<<<<< HEAD
 	
 	
 	
 	
 }
+=======
+
+}
+>>>>>>> 2822c0af50e75de62b4b5e28e144630e218eb8b5
