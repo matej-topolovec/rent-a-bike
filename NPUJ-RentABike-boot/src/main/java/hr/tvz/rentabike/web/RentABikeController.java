@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
@@ -41,6 +43,10 @@ public class RentABikeController {
 	@Autowired
 	JdbcBikeRepository JdbcBikeRepository;
 
+	@Autowired
+	BikeRepository BikeRepository;
+	
+	
 	@Autowired
 	hr.tvz.rentabike.db.JdbcBikeTypeRepository JdbcBikeTypeRepository;
 
@@ -77,49 +83,114 @@ public class RentABikeController {
 		return "logging";
 	}
 
+	
+	
+
+	
+	//  --------------BIKE ACTION-------------------------
+	
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String RentABike(Model model) {
-		model.addAttribute("bikes", JdbcBikeRepository.findAll());
+		model.addAttribute("bikes", BikeRepository.findAll());
 		return "bike";
 	}
 
+	
+	
+	
 	@GetMapping("/CreateBike")
 	public String showCreateBikeForm(Model model) {
 
 		model.addAttribute("Bike", new Bike());
-		model.addAttribute("BikeType", JdbcBikeTypeRepository.findAll());
+		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
+		
 
 		return "EditBike";
 	}
 
-	@PostMapping("/CreateBike")
-	public String processCreateBikeForm(@Valid Bike bike, Errors errors, Model model) {
+
+	@RequestMapping(value = "/CreateBike", method = RequestMethod.POST)
+	public String processCreateBikeForm(@ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
 
 		if (errors.hasErrors()) {
 
-			return "EditBike";
+			//return "EditBike";
 		}
 
-		// JdbcBikeRepository.save(bike);
+	    BikeRepository.save(bike);
+	  
+		List<Bike> listabike = BikeRepository.findAll();
+		
+		for(Bike b : listabike){
+
+			System.out.println( b.getId()+ " " + b.getName() + " " + b.getDate() );
+		}
+	  
 
 		return "EditBike";
 	}
 
-	@RequestMapping(value = "/EditBike", method = RequestMethod.GET)
-	public String processEditBikeForm(@RequestParam(value = "id", required = false) Integer id) {
-		// findbyid
+	
+	
+	@RequestMapping(value = "/DeleteBike/{id}", method = RequestMethod.GET)
+	public String processDeleteBike(@PathVariable("id") Integer id) {
+		if(id != 0) 
+		  BikeRepository.delete(id);
+		
+		 return "redirect:/bikes";
+		
+	}
+	
+	
+	
+	@RequestMapping(value = "/EditBike/{id}", method = RequestMethod.GET)
+	public String processEditBike(@PathVariable("id") Integer id, Model model) {
+		
+		
+	    Bike bike = BikeRepository.findOne(id);
+	    if(bike != null) {
+		model.addAttribute("Bike", bike);
+	    model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
+		 return "EditBike";
+		}
+		
+		return "redirect: /bikes";
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/EditBike/{id}", method = RequestMethod.POST)
+	public String processEditBikeForm( @ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
 
-		//
+		if (errors.hasErrors()) {
+
+			//return "EditBike";
+		}
+
+		 
+		JdbcBikeRepository.updateBike(bike);
+
 		return "EditBike";
 	}
 
+	
+	@RequestMapping(value = "/BikeDetails/{id}")
+	public String getInfo(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("bike", BikeRepository.findOne(id));
+		return "bikeDetails";
+	}
+	
+		
 	// prikaz datuma na ekranu
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
 		binder.registerCustomEditor(Date.class, editor);
 	}
+
+	
 
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
@@ -129,12 +200,16 @@ public class RentABikeController {
 		return "customers";
 	}
 
+	
+	
 	@RequestMapping(value = "/customers/details/{id}")
 	public String getInfo(@PathVariable("id") String id, Model model) {
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		return "customersDetails";
 	}
 
+	
+	
 	@GetMapping("/registration")
 	public String getRegistration(Model model) {
 		model.addAttribute("User", new User());

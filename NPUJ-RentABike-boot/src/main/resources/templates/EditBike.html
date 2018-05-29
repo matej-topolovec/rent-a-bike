@@ -83,7 +83,7 @@
 		   				<label for="TypeOfBike">Type of Bike: </label>
 						<select th:field="*{BikeType}" class="form-control">
 							<option value="" > --type of bike--   </option>
-							<option th:each=" line : ${BikeTypes.id}"
+							<option th:each=" line : ${BikeTypes}"
 									th:value="${line.id}"
 									th:text="${line.id}"></option>
 						</select>

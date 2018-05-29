@@ -9,10 +9,13 @@ import hr.tvz.rentabike.model.BikeType;
 
 
 public interface BikeRepository extends JpaRepository<Bike, Integer> {
+	
 	Bike save(Bike bike);
 	List<Bike> findAll();
-
-	BikeType findFirstById(int id);
+	BikeType findFirstById(Integer id);
+	void delete(int id);
+	Bike findOne(Integer id);
+	
 }
 	
 
