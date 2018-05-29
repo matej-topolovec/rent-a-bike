@@ -111,7 +111,7 @@ public class RentABikeController {
 
 
 	@RequestMapping(value = "/CreateBike", method = RequestMethod.POST)
-	public String processCreateBikeForm(@ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
+	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike , Errors errors, Model model) {
 
 		if (errors.hasErrors()) {
 
