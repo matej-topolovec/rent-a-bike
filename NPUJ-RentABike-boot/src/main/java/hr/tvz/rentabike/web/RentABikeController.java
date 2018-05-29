@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,8 +24,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
@@ -242,5 +245,60 @@ public class RentABikeController {
 			return "registration";
 		}
 	}
+	
+	@GetMapping("/administrator")
+	public String getAdministrator(Model model){
+		List<User> listUsera = registrationRepository.findAllUsers();
+		model.addAttribute("Newuser", listUsera);
+		return "administrator";
+	}
+	
+	
+	@PostMapping("/admindelete/{id}")
+    public String deletePostAdmin(@PathVariable int id, Model model){        
+		System.out.println("Del je"); 
+		
+		List<User> listUsera = registrationRepository.findAllUsers();
+		model.addAttribute("Newuser", listUsera);
+        return "redirect:/administrator";
+    }
+	
+	@PostMapping("/adminadd/{id}")
+    public String addPostAdmin(@PathVariable int id, Model model){        
+		System.out.println("Add je"); 
+		
+		List<User> listUsera = registrationRepository.findAllUsers();
+		model.addAttribute("Newuser", listUsera);
+        return "redirect:/administrator";
+    }
+	
+	/*@DeleteMapping(value = "/administrator/{id}/delete")
+    @ResponseStatus(value = HttpStatus.OK)
+    public String deleteUser(@PathVariable("id") int idx, final RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("css", "Success");
+        redirectAttributes.addFlashAttribute("msg", "The user is deleted");
+
+        // delete the user
+        registrationRepository.delete(idx);
+        return "redirect:/users/";
+    }*/
+	
+	/*@RequestMapping(value="/adminakcije", method=RequestMethod.POST)
+	public String deleteUser(@RequestParam(value="buttonadd") int idAdd, @RequestParam(value="buttondel") int idDel, Model model) {
+		
+		if(idDel != 0){
+			System.out.println("Del je");
+		}
+		if(idAdd != 0){
+			System.out.println("Add je");
+		}
+		
+		return "administrator";
+	}*/
+	
+	
+	
+	
 
 }

@@ -35,4 +35,8 @@ public class RegistrationRestController {
 	public User findByUsernameOrEmail(String username, String email){
 		return registrationRepository.findByUsernameOrEmail(username, email);
 	}
+	
+	public List<User> findAllUsers(){
+		return registrationRepository.findAllUsers();
+	}
 }
