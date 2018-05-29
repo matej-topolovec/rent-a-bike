@@ -7,7 +7,7 @@ $(document).ready( function () {
 			    { "mData": "id"},
 		        { "mData": "name", 
 			    	fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-			    		$(nTd).html("<a href='localhost:8080/customers/details/"+oData.id+"'>"+oData.name+"</a>");
+			    		$(nTd).html("<a href='http://localhost:8080/customers/details/"+oData.id+"'>"+oData.name+" "+oData.surname+"</a>");
 			    	}
 		        },
 		        { "mData": "membershipType.name" },

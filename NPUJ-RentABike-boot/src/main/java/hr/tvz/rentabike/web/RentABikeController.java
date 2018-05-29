@@ -17,6 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
+import hr.tvz.rentabike.db.CustomerRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.model.Bike;
@@ -47,7 +49,7 @@ public class RentABikeController {
 	hr.tvz.rentabike.db.JdbcUserRepository JdbcUserRepository;
 
 	@Autowired
-	hr.tvz.rentabike.db.JdbcUserRepository JdbcCustomerRepository;
+	hr.tvz.rentabike.db.JdbcCustomerRepository JdbcCustomerRepository;
 
 	@Autowired
 	RegistrationRepository registrationRepository;
@@ -123,10 +125,15 @@ public class RentABikeController {
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
 
-		// TODO: Get repository Customers
-		model.addAttribute("customers", JdbcCustomerRepository.findAll());
+		model.addAttribute("customers", JdbcBikeTypeRepository.findAll());
 
 		return "customers";
+	}
+
+	@RequestMapping(value = "/customers/details/{id}")
+	public String getInfo(@PathVariable("id") String id, Model model) {
+		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
+		return "customersDetails";
 	}
 
 	@GetMapping("/registration")

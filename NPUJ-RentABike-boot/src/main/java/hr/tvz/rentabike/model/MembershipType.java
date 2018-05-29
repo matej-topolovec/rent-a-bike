@@ -19,60 +19,55 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name = "membershiptype", uniqueConstraints = {
-@UniqueConstraint(columnNames = "id") })
-public class MembershipType implements Serializable{
-	
+@Table(name = "membershiptype", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
+public class MembershipType implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5235678586005452594L;
-	
-	
+
 	@Id
-    @NotNull
-	@Column(name= "id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@NotNull
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	
+
 	@NotEmpty(message = "Niste unjeli ime")
 	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "name")
 	public String name;
-	
 
-    @Column(name= "discountrate")
+	@Column(name = "discountrate")
 	private int discountRate;
 
-
-    @Column(name= "durationinmonths")
+	@Column(name = "durationinmonths")
 	private int durationInMonths;
-	
-	
-	@OneToMany(targetEntity=User.class, mappedBy="membershipType", fetch=FetchType.LAZY)	
-	public Set<User> users ; 
-	//public ArrayList<Bike> bikes= new ArrayList<Bike>();
-    
-    
-    
-    public MembershipType() {}	
 
-	
-	public MembershipType(String name, int discountrate , int durationInMonths){
+	@OneToMany(targetEntity = User.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
+	public Set<User> users;
+
+	@OneToMany(targetEntity = Customer.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
+	public Set<Customer> customers;
+	// public ArrayList<Bike> bikes= new ArrayList<Bike>();
+
+	public MembershipType() {
+	}
+
+	public MembershipType(String name, int discountrate, int durationInMonths) {
 		this.name = name;
 		this.discountRate = discountrate;
 		this.durationInMonths = durationInMonths;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
-		this.id= id;
+		this.id = id;
 	}
-	
-	
+
 	public String name() {
 		return name;
 	}
@@ -82,30 +77,35 @@ public class MembershipType implements Serializable{
 	}
 
 	public void setDiscountRate(int discountRate) {
-		this.discountRate= discountRate;
+		this.discountRate = discountRate;
 	}
 
 	public int getDiscountRate() {
 		return this.discountRate;
 	}
 
-	
 	public void setDurationInMonths(int durationInMonths) {
-		this.durationInMonths= durationInMonths;
+		this.durationInMonths = durationInMonths;
 	}
 
 	public int getDurationInMonths() {
 		return this.durationInMonths;
 	}
-	
+
 	public Set<User> getSetUsers() {
-		return this.users;	
+		return this.users;
 	}
-	
+
 	public void setUsers(Set<User> users) {
 		this.users = users;
-		}
-	
-	
-	
+	}
+
+	public Set<Customer> getSetCustomers() {
+		return this.customers;
+	}
+
+	public void setCustomers(Set<Customer> customers) {
+		this.customers = customers;
+	}
+
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Customer</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+    <div th:replace="../fragments/header :: header"></div>
+	<h1 th:text="${customer.name + ' ' + customer.surname}"></h1>
+	<hr></hr>
+	<div class="container-fluid">
+		<table class="table table-striped">
+			<tr>
+				<td>OIB</td>
+				<td th:text="${customer.OIB}"></td>
+			</tr>
+			<tr>
+				<td>Birth Date</td>
+				<td th:text="${customer.birthdate}"></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td th:text="${customer.email}"></td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td th:text="${customer.address}"></td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td th:text="${customer.phone}"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div th:replace="../fragments/footer :: footer"></div>
+</body>
+</html>
