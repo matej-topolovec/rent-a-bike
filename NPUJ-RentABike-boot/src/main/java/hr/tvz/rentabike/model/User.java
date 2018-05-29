@@ -49,7 +49,7 @@ public class User implements Serializable{
 	@NotEmpty(message = "Niste unjeli korisnièko ime")
 	@Size(min = 2, max = 20, message = "Korisnièko ime treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "username")
-	String username;
+	public String username;
 	
 
 	@NotEmpty(message = "Niste unjeli password")
@@ -61,13 +61,13 @@ public class User implements Serializable{
 	@NotEmpty(message = "Niste unjeli ime")
 	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "name")
-	String name;
+	public String name;
 	
 
 	@NotEmpty(message = "Niste unjeli prezime")
 	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "surname")
-	String surname;
+	public String surname;
 	
 	
 	
