@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Customer</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+    <div th:replace="../fragments/header :: header"></div>
+	<h1 th:text="${bike.name}"></h1>
+	<hr></hr>
+	<div class="container-fluid">
+		<table class="table table-striped">
+			<tr>
+				<td>Name</td>
+				<td th:text="${bike.name}"></td>
+			</tr>
+			<tr>
+				<td>Date</td>
+				 <td th:text="${#dates.format(bike.dateAdded, 'dd-MM-yyyy')}"></td>     
+			</tr>
+			<tr>
+				<td>Quantity</td>
+				<td th:text="${bike.quantity}"></td>
+			</tr>
+			<tr>
+				<td>Available</td>
+				<td th:text="${bike.available}"></td>
+			</tr>
+			<tr>
+				<td>BikeType</td>
+				<td th:text="${bike.biketype.name}"></td>
+			</tr>
+		</table>
+	</div>
+
+	<div th:replace="../fragments/footer :: footer"></div>
+</body>
+</html>
