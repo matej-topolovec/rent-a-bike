@@ -48,7 +48,7 @@ public class BikeType implements Serializable{
 		
 	}
 	
-	public int getId(int id) {
+	public int getId() {
 		return this.id;
 		
 	}

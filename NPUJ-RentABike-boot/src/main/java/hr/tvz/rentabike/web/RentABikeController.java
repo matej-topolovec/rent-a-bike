@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
-import hr.tvz.rentabike.db.CustomerRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.model.Bike;
@@ -125,7 +124,7 @@ public class RentABikeController {
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
 
-		model.addAttribute("customers", JdbcBikeTypeRepository.findAll());
+		model.addAttribute("customers", JdbcCustomerRepository.findAll());
 
 		return "customers";
 	}

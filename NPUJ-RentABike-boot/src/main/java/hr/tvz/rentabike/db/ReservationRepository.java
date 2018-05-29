@@ -1,12 +1,14 @@
 package hr.tvz.rentabike.db;
 
+import java.util.List;
+
+
 import hr.tvz.rentabike.model.Reservation;
 
 
+public interface ReservationRepository  {
 
-public interface ReservationRepository {
-
-    Iterable<Reservation> findAll();
+    List<Reservation> findAll();
 	
 	Reservation findOne(String id);
 	

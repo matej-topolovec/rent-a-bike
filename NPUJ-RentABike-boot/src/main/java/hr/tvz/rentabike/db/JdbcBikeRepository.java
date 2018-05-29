@@ -15,10 +15,12 @@ import java.util.Map;
 
 
 @Repository
-public class JdbcBikeRepository implements BikeRepository {
+public class JdbcBikeRepository {
 
 	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
 			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b JOIN bike_type tb ON b.typeid = tb.id";
+	
+	
 	
 	private JdbcTemplate jdbc;
 	private SimpleJdbcInsert bikeInserter;
@@ -34,14 +36,14 @@ public class JdbcBikeRepository implements BikeRepository {
 	
 	
 	
-	@Override
+	
 	public Iterable<Bike> findAll() {
 	
 	return jdbc.query(FIND_ALL_QUERY, this::mapRowToBike);
 		
 	}
 
-	@Override
+	
 	public Bike findOne(String id) {
 	
 		return jdbc.queryForObject(FIND_ALL_QUERY + " where b.id = ?", this::mapRowToBike, id);
@@ -51,7 +53,7 @@ public class JdbcBikeRepository implements BikeRepository {
 	
 	
 	
-	@Override
+	
 	public Bike save(Bike bike) {
 		
 		bike.setId(saveBikeDetails(bike));	
@@ -65,8 +67,8 @@ public class JdbcBikeRepository implements BikeRepository {
 	private int saveBikeDetails(Bike bike) {
 		Map<String, Object> values = new HashMap<>();
 		
-		values.put("date", bike.getDate());
 		values.put( "name", bike.getName());
+		values.put( "dateAdded", bike.getDate());
 	    values.put( "quantity", bike.getQuantity());
 		values.put( "available", bike.getAvailable());
 		values.put( "biketype", bike.getBikeType());

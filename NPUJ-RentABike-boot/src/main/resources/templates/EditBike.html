@@ -77,15 +77,15 @@
 					</div>
 				</div>
 				
-				  
+				     
 				<div class="form-row">
 					<div class="col-md-7 mb-3">	
 		   				<label for="TypeOfBike">Type of Bike: </label>
-						<select th:field="*{biketype}" class="form-control">
+						<select th:field="*{BikeType}" class="form-control">
 							<option value="" > --type of bike--   </option>
-							<option th:each=" line : ${BikeType}"
-									th:value="${line}"
-									th:text="${line.name}"></option>
+							<option th:each=" line : ${BikeTypes.id}"
+									th:value="${line.id}"
+									th:text="${line.id}"></option>
 						</select>
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('BikeType')}"
