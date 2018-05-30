@@ -39,4 +39,13 @@ public class RegistrationRestController {
 	public List<User> findAllUsers(){
 		return registrationRepository.findAllUsers();
 	}
+	
+	public User findById(int id){
+		return registrationRepository.findById(id);
+	}
+	
+	public void delete(User user){
+		registrationRepository.delete(user);
+	}
+
 }

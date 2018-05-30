@@ -39,6 +39,8 @@
 						href="#" th:href="@{/contact}">Contact</a></li>
 					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/logging}">Logging</a></li>
+					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
+						href="#" th:href="@{/administrator}">Admin panel</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li th:if="${#authorization.expression('!isAuthenticated()')}">
