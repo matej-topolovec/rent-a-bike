@@ -37,7 +37,6 @@ import hr.tvz.rentabike.model.Logging;
 import hr.tvz.rentabike.model.User;
 
 @Controller
-@SessionAttributes({ "biketype" })
 public class RentABikeController {
 
 	@Autowired
@@ -97,6 +96,7 @@ public class RentABikeController {
 	public String RentABike(Model model) {
 		model.addAttribute("bikes", BikeRepository.findAll());
 		return "bike";
+
 	}
 
 	
@@ -116,9 +116,10 @@ public class RentABikeController {
 	@RequestMapping(value = "/CreateBike", method = RequestMethod.POST)
 	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike , Errors errors, Model model) {
 
-		if (errors.hasErrors()) {
+		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable() ) {
 
-			//return "EditBike";
+			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
+		//	return "EditBike";
 		}
 
 	    BikeRepository.save(bike);
@@ -132,6 +133,7 @@ public class RentABikeController {
 	  
 
 		return "EditBike";
+		
 	}
 
 	
@@ -141,8 +143,7 @@ public class RentABikeController {
 		if(id != 0) 
 		  BikeRepository.delete(id);
 		
-		 return "redirect:/bikes";
-		
+		return "redirect:/bikes";		
 	}
 	
 	
@@ -158,7 +159,7 @@ public class RentABikeController {
 		 return "EditBike";
 		}
 		
-		return "redirect: /bikes";
+		return "redirect:/bikes";
 	}
 	
 	
@@ -167,7 +168,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/EditBike/{id}", method = RequestMethod.POST)
 	public String processEditBikeForm( @ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
 
-		if (errors.hasErrors()) {
+		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable() ) {
 
 			//return "EditBike";
 		}
