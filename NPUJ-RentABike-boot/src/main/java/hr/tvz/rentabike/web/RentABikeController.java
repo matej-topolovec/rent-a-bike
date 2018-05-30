@@ -31,10 +31,12 @@ import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
+import hr.tvz.rentabike.db.UserRoleRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Logging;
 import hr.tvz.rentabike.model.User;
+import hr.tvz.rentabike.model.UserRole;
 
 @Controller
 @SessionAttributes({ "biketype" })
@@ -61,6 +63,9 @@ public class RentABikeController {
 
 	@Autowired
 	RegistrationRepository registrationRepository;
+	
+	@Autowired
+	UserRoleRepository userRoleRepository;
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
@@ -258,6 +263,9 @@ public class RentABikeController {
     public String deletePostAdmin(@PathVariable int id, Model model){        
 		System.out.println("Del je"); 
 		
+		User username = registrationRepository.findById(id);
+		registrationRepository.delete(username);
+		
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
         return "redirect:/administrator";
@@ -266,6 +274,12 @@ public class RentABikeController {
 	@PostMapping("/adminadd/{id}")
     public String addPostAdmin(@PathVariable int id, Model model){        
 		System.out.println("Add je"); 
+		User username = registrationRepository.findById(id);
+		UserRole userRole = new UserRole();
+		userRole.setUsername(username.getUsername());
+		userRole.setRole("ROLE_USER");
+		
+		userRoleRepository.save(userRole);
 		
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);

@@ -16,4 +16,7 @@ public interface RegistrationRepository extends JpaRepository<User, Integer> {
 	
 	@Query(value = "SELECT * FROM user WHERE username not in (select username from user_role) and name is not null", nativeQuery = true)
 	List<User> findAllUsers();
+	
+	User findById(int id);
+	void delete(User user);
 }

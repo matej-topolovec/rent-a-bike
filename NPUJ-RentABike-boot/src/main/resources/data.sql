@@ -55,6 +55,12 @@ VALUES ('demo', 'ROLE_DEMO');
 
 insert into user(name, surname,username,password, membershipTypeId,enabled) 
 values ('NoRole','NoRolic','norole','$2a$10$62iyTepDsDslP/9tp6fQFOov32op4RqDOsmsOFaDVv8ZtM2fVd16C', 1, true);
+insert into user(name, surname,username,password, membershipTypeId,enabled) 
+values ('Marko','Maric','mmaric','$2a$10$62iyTepDsDslP/9tp6fQFOov32op4RqDOsmsOFaDVv8ZtM2fVd16C', 1, true);
+insert into user(name, surname,username,password, membershipTypeId,enabled) 
+values ('Dinko','Dinkic','ddinko','$2a$10$62iyTepDsDslP/9tp6fQFOov32op4RqDOsmsOFaDVv8ZtM2fVd16C', 1, true);
+insert into user(name, surname,username,password, membershipTypeId,enabled) 
+values ('Franjo','Franjic','ffranj','$2a$10$62iyTepDsDslP/9tp6fQFOov32op4RqDOsmsOFaDVv8ZtM2fVd16C', 1, true);
 
 
 INSERT INTO logging(username, action, action_time) values ('TestUsername','Test action', '2018-05-15');
