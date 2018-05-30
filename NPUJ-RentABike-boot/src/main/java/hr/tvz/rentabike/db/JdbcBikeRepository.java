@@ -9,6 +9,7 @@ import hr.tvz.rentabike.model.BikeType;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -37,14 +38,14 @@ public class JdbcBikeRepository {
 	
 	
 	
-	public Iterable<Bike> findAll() {
+	public List<Bike> findAll() {
 	
 	return jdbc.query(FIND_ALL_QUERY, this::mapRowToBike);
 		
 	}
 
 	
-	public Bike findOne(String id) {
+	public Bike findOne(Integer id) {
 	
 		return jdbc.queryForObject(FIND_ALL_QUERY + " where b.id = ?", this::mapRowToBike, id);
 		

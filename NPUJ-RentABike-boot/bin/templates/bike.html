@@ -18,13 +18,7 @@
 <script src="/js/datatable_bikes.js"></script>
 
 
- <script type="text/javascript">
 
- $(document).ready(function() {
-	    $('#biketable').DataTable();
-	} );
- 
-    </script>
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
@@ -37,7 +31,7 @@
   <div id ="bb"> <a th:href="@{/CreateBike}" class="btn btn-primary" >Create new Bike</a></div>
 
       <div class="container-fluid">
-      <table id="biketable" class="display" >
+      <table id="bikeTable" class="display" >
       <thead>
 			<tr>
 				<th>Id</th>
@@ -45,13 +39,12 @@
 				<th>Date</th>
 				<th>Quantity</th>
 				<th>Available</th>
-				<th>Type of bike</th>
+		        <th>Type of bike</th>  
 				
 			</tr>
      </thead>
 
-
-
+<!--  
       <tr th:each="line : ${bikes}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
@@ -63,7 +56,7 @@
          <td><a th:href="@{/EditBike/{id}/(id=${line.id})}">Edit</a></td>
          <td><a th:href="@{/DeleteBike/{id}/(id=${line.id})}" class="btn btn-danger" >Delete</a></td>
       </tr>
-     
+     -->
      
     </table>
    </div>

@@ -16,7 +16,7 @@ $(document).ready( function () {
 	                data: null,
 	                className: "center",
 	                defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>'
-	            }
+				}
 			]
 	 })
 });
