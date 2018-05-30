@@ -9,7 +9,9 @@
 </head>
 <body>
 <div th:replace="../fragments/header :: header"></div>
-	<div class="col-md-6">
+<div class="container">
+  <div class="row">
+	<div class="col align-self-center">
 		<h3>Register (in construction):</h3>
 		<p style="color:red" th:text='${ErrorUsername}'></p>
 		<form name='f' method='POST' th:action='@{/registration}' th:object="${User}">
@@ -53,6 +55,8 @@
 				</tr>
 			</table>
 		</form>
+	</div>
+	</div>
 	</div>
 	<div th:replace="../fragments/footer :: footer"></div>
 </body>
