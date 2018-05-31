@@ -180,6 +180,7 @@ public class RentABikeController {
 
 		 
 		JdbcBikeRepository.updateBike(bike);
+	
 
 		return "EditBike";
 	}

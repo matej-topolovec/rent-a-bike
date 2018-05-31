@@ -13,7 +13,7 @@ public interface BikeRepository extends JpaRepository<Bike, Integer> {
 	Bike save(Bike bike);
 	List<Bike> findAll();
 	BikeType findFirstById(Integer id);
-	void delete(int id);
+	void delete(Integer id);
 	Bike findOne(Integer id);
 	
 }

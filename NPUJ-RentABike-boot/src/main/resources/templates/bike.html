@@ -16,7 +16,14 @@
 <script
 	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="/js/datatable_bikes.js"></script>
+<script type="text/javascript">
 
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+	   
+
+</script>
 
 
 
@@ -26,11 +33,13 @@
 </head>
 <body>
 
-<h1>Bikes</h1>
-  <div th:replace="../fragments/header :: header"></div>
-  <div id ="bb"> <a th:href="@{/CreateBike}" class="btn btn-primary" >Create new Bike</a></div>
 
-      <div class="container-fluid">
+  <div th:replace="../fragments/header :: header"></div>
+  
+  <h3>Bikes</h3>
+  <div id ="bb"> <a th:href="@{/CreateBike}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a></div>
+
+      <div class="container-fluid" sec:authorize="isAuthenticated()" >
       <table id="bikeTable" class="display" >
       <thead>
 			<tr>
