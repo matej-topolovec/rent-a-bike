@@ -3,7 +3,7 @@ package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -65,7 +65,7 @@ public class Bike implements Serializable{
 		
   	
 	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.LAZY)	
-	public Set<Reservation> reservations; 
+	public List<Reservation> reservations; 
 	
 	
 	
@@ -132,11 +132,11 @@ public class Bike implements Serializable{
 	}
 
 
-	public Set<Reservation> getSetBikes() {
+	public List<Reservation> getSetBikes() {
 		return this.reservations;	
 	}
 	
-	public void setEmployees(Set<Reservation> reservations) {
+	public void setEmployees(List<Reservation> reservations) {
 		this.reservations = reservations;
 		}
 

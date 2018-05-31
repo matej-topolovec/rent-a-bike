@@ -95,7 +95,7 @@ public class JdbcBikeRepository{
 		bike.setDate(rs.getDate("dateAdded"));
 		bike.setQuantity(rs.getInt("quantity"));
 		bike.setAvailable(rs.getInt("available"));
-		
+
 	    bike.setBikeType(new BikeType());
 		bike.getBikeType().setId(rs.getInt("BikeTypeId"));
 		bike.getBikeType().setName(rs.getString("BikeTypeName"));
