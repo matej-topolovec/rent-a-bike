@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.model.Bike;
 
 
@@ -19,7 +21,7 @@ import hr.tvz.rentabike.model.Bike;
 public class BikeRestControler {
 	
 	@Autowired
-    hr.tvz.rentabike.db.JdbcBikeRepository JdbcBikeRepository;
+    BikeRepository JdbcBikeRepository;
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
