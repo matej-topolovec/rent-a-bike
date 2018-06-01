@@ -28,9 +28,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import hr.tvz.rentabike.db.BikeRepository;
+import hr.tvz.rentabike.db.BikeTypeRepository;
+import hr.tvz.rentabike.db.CustomerRepository;
 import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
+import hr.tvz.rentabike.db.ReservationRepository;
+import hr.tvz.rentabike.db.UserRepository;
 import hr.tvz.rentabike.db.UserRoleRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.model.Bike;
@@ -52,19 +56,22 @@ public class RentABikeController {
 	
 	
 	@Autowired
-	hr.tvz.rentabike.db.JdbcBikeTypeRepository JdbcBikeTypeRepository;
+	BikeTypeRepository JdbcBikeTypeRepository;
 
 	@Autowired
-	hr.tvz.rentabike.db.JdbcUserRepository JdbcUserRepository;
+	UserRepository JdbcUserRepository;
 
 	@Autowired
-	hr.tvz.rentabike.db.JdbcCustomerRepository JdbcCustomerRepository;
+	CustomerRepository JdbcCustomerRepository;
 
 	@Autowired
 	RegistrationRepository registrationRepository;
 	
 	@Autowired
 	UserRoleRepository userRoleRepository;
+	
+	@Autowired
+	ReservationRepository reservationRepository;
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
@@ -311,6 +318,14 @@ public class RentABikeController {
 		
 		return "administrator";
 	}*/
+	
+	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	public String Reservations(Model model) {
+		model.addAttribute("reservations", reservationRepository.findAll());
+		return "reservations";
+
+	}
 	
 	
 	
