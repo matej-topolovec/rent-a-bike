@@ -70,8 +70,8 @@ public class RentABikeController {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	
-//	@Autowired
-	//ReservationRepository reservationRepository;
+	@Autowired
+	ReservationRepository reservationRepository;
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
@@ -131,7 +131,7 @@ public class RentABikeController {
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable() ) {
 
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
-		//	return "EditBike";
+			return "EditBike";
 		}
 
 	    JdbcBikeRepository.save(bike);
@@ -182,7 +182,7 @@ public class RentABikeController {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable() ) {
 
-			//return "EditBike";
+			return "EditBike";
 		}
 
 		 

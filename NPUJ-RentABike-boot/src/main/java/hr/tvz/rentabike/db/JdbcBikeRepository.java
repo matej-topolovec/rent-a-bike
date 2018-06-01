@@ -21,7 +21,7 @@ public class JdbcBikeRepository{
 	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
 			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b LEFT JOIN bike_type tb ON b.typeid = tb.id";
 	
-	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateAdded = ?, quantity = ? , available  = ?  where id = ?";
+	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateAdded = ?, quantity = ? , available  = ? , typeid = ? where id = ?";
 	
 	private final  String SQL_DELETE_BIKE = "delete from Bike where id = ?";
 	
@@ -57,7 +57,7 @@ public class JdbcBikeRepository{
 
 	
 	public int updateBike(Bike bike) {
-		return jdbc.update(SQL_UPDATE_BIKE, bike.getName(), bike.getDate(), bike.getQuantity(), bike.getAvailable() , bike.getId());
+		return jdbc.update(SQL_UPDATE_BIKE, bike.getName(), bike.getDate(), bike.getQuantity(), bike.getAvailable() , bike.biketype.getId(), bike.getId());
 	}
 
 	
@@ -87,7 +87,7 @@ public class JdbcBikeRepository{
 		values.put( "dateAdded", bike.getDate());
 	    values.put( "quantity", bike.getQuantity());
 		values.put( "available", bike.getAvailable());
-		values.put( "biketype", bike.getBikeType());
+		values.put( "biketype", bike.getBikeType().getId());
 		return bikeInserter.executeAndReturnKey(values).intValue();
 	}
 	

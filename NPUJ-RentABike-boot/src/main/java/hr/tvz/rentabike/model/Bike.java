@@ -21,7 +21,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-
 @Entity
 @Table(name = "bike", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id") })
@@ -31,7 +30,6 @@ public class Bike implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -5235678586005452594L;
-
 
 
 	@Id
@@ -140,10 +138,7 @@ public class Bike implements Serializable{
 		this.reservations = reservations;
 		}
 
-
 	
 }
 	
 	
-
-

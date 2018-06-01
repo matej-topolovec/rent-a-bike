@@ -105,10 +105,10 @@ $(function () {
 				
 		   				<label for="TypeOfBike"  class="col-sm-1  col-form-label">Type : </label>
 		   				   <div class="col-sm-5 mb-3">
-						<select th:field="*{BikeType}" class="form-control">
-							<option value="" > --type of bike--   </option>
+						<select th:field="*{BikeType.id}" class="form-control">
+							<option value="0" > --type of bike--   </option>
 							<option th:each=" line : ${BikeTypes}"
-									th:value="${line}"
+									th:value="${line.id}"
 									th:text="${line.name}"></option>
 						</select>
 						<span class="validation-error"
@@ -121,8 +121,7 @@ $(function () {
 			 
 			 
 				<div class="form-group row" >
-					<div class="col-md-7 mb-3">	
-					 	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>  
+					<div class="col-md-7 mb-3">	 
 						<input type="submit" value="Save" class="btn btn-success"  data-toggle="tooltip"  data-placement="bottom"  title="Click on save"/>
 					</div>
 				</div>

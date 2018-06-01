@@ -58,7 +58,7 @@ $(function () {
          <td th:text="${#dates.format(line.dateAdded, 'dd-MM-yyyy')}"></td>     
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
-           <td th:text="${line.biketype.name}"></td> 
+           <td th:text="${line.BikeType.name}"></td> 
           <td><a th:href="@{/BikeDetails/{id}/(id=${line.id})}">Details</a></td>
          <td><a th:href="@{/EditBike/{id}/(id=${line.id})}">Edit</a></td>
          <td><a th:href="@{/DeleteBike/{id}/(id=${line.id})}" class="btn btn-danger" >Delete</a></td>

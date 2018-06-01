@@ -74,7 +74,7 @@ public class JdbcBikeTypeRepository implements BikeTypeRepository {
 	 
 	private BikeType mapRowToBikeType(ResultSet rs, int rowNum) throws SQLException{
 	    BikeType bike = new BikeType();
-		bike.setId(rs.getInt("Id"));
+		bike.setId(rs.getInt("id"));
 		bike.setName(rs.getString("name"));
 		
 		return bike;
