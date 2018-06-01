@@ -23,6 +23,7 @@ public class JdbcBikeRepository{
 	
 	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateAdded = ?, quantity = ? , available  = ?  where id = ?";
 	
+	private final  String SQL_DELETE_BIKE = "delete from Bike where id = ?";
 	
 	
 	
@@ -60,7 +61,12 @@ public class JdbcBikeRepository{
 	}
 
 	
-
+	   public void delete(Integer id){
+		    
+		      jdbc.update(SQL_DELETE_BIKE, id);
+		      System.out.println("Deleted Record with ID = " + id );
+		      return;
+		   }
 
 	
 	

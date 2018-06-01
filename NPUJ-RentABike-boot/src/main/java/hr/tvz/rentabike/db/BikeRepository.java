@@ -3,10 +3,9 @@ package hr.tvz.rentabike.db;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
-import hr.tvz.rentabike.model.Logging;
+
 
 
 public interface BikeRepository extends JpaRepository<Bike, Integer>

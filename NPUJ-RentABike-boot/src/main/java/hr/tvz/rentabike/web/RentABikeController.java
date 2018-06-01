@@ -70,8 +70,8 @@ public class RentABikeController {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	
-	@Autowired
-	ReservationRepository reservationRepository;
+//	@Autowired
+	//ReservationRepository reservationRepository;
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
@@ -134,9 +134,9 @@ public class RentABikeController {
 		//	return "EditBike";
 		}
 
-	    BikeRepository.save(bike);
+	    JdbcBikeRepository.save(bike);
 	  
-		List<Bike> listabike = BikeRepository.findAll();
+		List<Bike> listabike = JdbcBikeRepository.findAll();
 		
 		for(Bike b : listabike){
 
@@ -153,7 +153,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/DeleteBike/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id) {
 		if(id != 0) 
-		  BikeRepository.delete(id);
+		  JdbcBikeRepository.delete(id);
 		
 		return "redirect:/bikes";		
 	}
@@ -320,6 +320,7 @@ public class RentABikeController {
 		return "administrator";
 	}*/
 	
+	/*
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String Reservations(Model model) {
@@ -328,7 +329,7 @@ public class RentABikeController {
 
 	}
 	
-	
+	*/
 	
 	
 

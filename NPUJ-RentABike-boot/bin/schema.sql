@@ -2,7 +2,7 @@ drop table if exists user;
 drop table if exists user_role;
 drop table if exists logging;
 drop table if exists customer;
-drop table if exists type_bike;
+drop table if exists bike_type;
 drop table if exists bike;
 drop table if exists membershipType;
 drop table if exists reservation;

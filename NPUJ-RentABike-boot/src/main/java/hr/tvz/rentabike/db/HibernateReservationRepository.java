@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.Reservation;
 
+/*
 @Repository
 @Transactional
 public class HibernateReservationRepository implements ReservationRepository {
@@ -36,3 +37,4 @@ public class HibernateReservationRepository implements ReservationRepository {
 	}
 
 }
+*/
