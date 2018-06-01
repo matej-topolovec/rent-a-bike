@@ -8,8 +8,7 @@ import hr.tvz.rentabike.model.BikeType;
 
 
 
-public interface BikeRepository extends JpaRepository<Bike, Integer>
-{
+public interface BikeRepository extends JpaRepository<Bike, Integer> {
 	
 	Bike save(Bike bike);
 	List<Bike> findAll();
