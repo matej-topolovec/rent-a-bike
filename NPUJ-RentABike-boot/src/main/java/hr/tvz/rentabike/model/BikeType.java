@@ -1,6 +1,7 @@
 package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,8 +40,8 @@ public class BikeType implements Serializable{
 
 	
 	@OneToMany(targetEntity=Bike.class, mappedBy="biketype", fetch=FetchType.EAGER)	
-	public List<Bike> bikes ; 
-	//public ArrayList<Bike> bikes= new ArrayList<Bike>();
+	//public List<Bike> bikes = new ArrayList<Bike>(); 
+	public List<Bike> bikes= new ArrayList<Bike>();
 	
 
 	public void setId(int id) {

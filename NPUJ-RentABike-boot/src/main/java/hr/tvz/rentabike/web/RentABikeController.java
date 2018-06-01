@@ -99,7 +99,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String RentABike(Model model) {
-		model.addAttribute("bikes", BikeRepository.findAll());
+		model.addAttribute("bikes", JdbcBikeRepository.findAll());
 		return "bike";
 
 	}

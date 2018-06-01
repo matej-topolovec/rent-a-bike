@@ -13,6 +13,6 @@ public interface BikeTypeRepository{
 	
 	BikeType save(BikeType biketype);
 
-	
+  
 
 }

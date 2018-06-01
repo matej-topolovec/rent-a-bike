@@ -47,7 +47,7 @@ $(function () {
 			<form method="POST" th:object="${Bike}" >			
 			
 			
-			
+
 				<div class="form-group row">
 						<label for="name" class="col-sm-1  col-form-label">Name: </label>
 						  <div class="col-sm-5 mb-3">
@@ -130,8 +130,14 @@ $(function () {
 		</div>
 	
 
-	<div th:replace="../fragments/footer :: footer"></div>
+
 
 
 </body>
+<footer>
+ <div class="footer">
+     <div th:replace="../fragments/footer :: footer"></div>
+ </div>
+</footer>
+
 </html>

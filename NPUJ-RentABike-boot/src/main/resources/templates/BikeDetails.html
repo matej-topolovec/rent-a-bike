@@ -12,7 +12,7 @@
     <div th:replace="../fragments/header :: header"></div>
 	<h1 th:text="${bike.name}"></h1>
 	<hr></hr>
-	<div class="container-fluid">
+	<div class="container-fluid" sec:authorize="hasRole('ROLE_ADMIN')" >
 		<table class="table table-striped">
 			<tr>
 				<td>Name</td>
@@ -39,6 +39,12 @@
 			<a th:href="@{/bikes}" class="btn btn-primary" >Bikes</a>
 	</div>
 
-	<div th:replace="../fragments/footer :: footer"></div>
+
 </body>
+
+<footer>
+ <div class="footer">
+     <div th:replace="../fragments/footer :: footer"></div>
+ </div>
+</footer>
 </html>

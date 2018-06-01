@@ -24,12 +24,8 @@ $(function () {
 	   
 
 </script>
-
-
-
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
-
 </head>
 <body>
 
@@ -49,11 +45,14 @@ $(function () {
 				<th>Quantity</th>
 				<th>Available</th>
 		        <th>Type of bike</th>  
-				<th>Edit/Delete</th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+			<!--  <th>Edit/Delete</th> -->
 			</tr>
      </thead>
 
-<!--  
+ 
       <tr th:each="line : ${bikes}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
@@ -65,11 +64,16 @@ $(function () {
          <td><a th:href="@{/EditBike/{id}/(id=${line.id})}">Edit</a></td>
          <td><a th:href="@{/DeleteBike/{id}/(id=${line.id})}" class="btn btn-danger" >Delete</a></td>
       </tr>
-     -->
+     
      
     </table>
    </div>
    
-   <div th:replace="../fragments/footer :: footer"></div>
+   
 </body>
+<footer>
+ <div class="footer">
+     <div th:replace="../fragments/footer :: footer"></div>
+ </div>
+</footer>
 </html>
