@@ -74,15 +74,14 @@ public class RentABikeController {
 
 	@Autowired
 	UserRoleRepository userRoleRepository;
-<<<<<<< HEAD
+
 	
 	@Autowired
 	ReservationRepository reservationRepository;
-=======
 
 	// @Autowired
 	// ReservationRepository reservationRepository;
->>>>>>> 889526de5aded3edcb663a00e15e59bb44e8ffb7
+
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
@@ -132,13 +131,12 @@ public class RentABikeController {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 
-<<<<<<< HEAD
+
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
 			return "EditBike";
-=======
-			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
-			// return "EditBike";
->>>>>>> 889526de5aded3edcb663a00e15e59bb44e8ffb7
+
+			
+
 		}
 
 		JdbcBikeRepository.save(bike);
@@ -180,11 +178,9 @@ public class RentABikeController {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 
-<<<<<<< HEAD
+
 			return "EditBike";
-=======
 			// return "EditBike";
->>>>>>> 889526de5aded3edcb663a00e15e59bb44e8ffb7
 		}
 
 		JdbcBikeRepository.updateBike(bike);
