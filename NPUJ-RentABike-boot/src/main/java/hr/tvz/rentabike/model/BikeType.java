@@ -1,7 +1,7 @@
 package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import groovyjarjarantlr.collections.List;
+
 
 
 @Entity
@@ -39,7 +39,7 @@ public class BikeType implements Serializable{
 
 	
 	@OneToMany(targetEntity=Bike.class, mappedBy="biketype", fetch=FetchType.EAGER)	
-	public Set<Bike> bikes ; 
+	public List<Bike> bikes ; 
 	//public ArrayList<Bike> bikes= new ArrayList<Bike>();
 	
 
@@ -64,11 +64,11 @@ public class BikeType implements Serializable{
 		
 	}
 	
-	public Set<Bike> getSetBikes() {
+	public List<Bike> getSetBikes() {
 		return this.bikes;	
 	}
 	
-	public void setEmployees(Set<Bike> bikes) {
+	public void setEmployees(List<Bike> bikes) {
 		this.bikes = bikes;
 		}
 	

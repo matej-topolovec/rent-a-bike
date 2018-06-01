@@ -120,7 +120,7 @@ public class RentABikeController {
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
 		
-
+         
 		return "EditBike";
 	}
 
@@ -187,6 +187,7 @@ public class RentABikeController {
 
 		 
 		JdbcBikeRepository.updateBike(bike);
+	
 
 		return "EditBike";
 	}

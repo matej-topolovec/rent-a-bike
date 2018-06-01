@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8"></meta>
-<title>Customer</title>
+<title>Bike</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 </head>
@@ -35,6 +35,8 @@
 				<td th:text="${bike.biketype.name}"></td>
 			</tr>
 		</table>
+		
+			<a th:href="@{/bikes}" class="btn btn-primary" >Bikes</a>
 	</div>
 
 	<div th:replace="../fragments/footer :: footer"></div>

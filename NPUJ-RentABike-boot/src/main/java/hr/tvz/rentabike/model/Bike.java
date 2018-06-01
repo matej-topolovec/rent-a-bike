@@ -3,9 +3,7 @@ package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,13 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -70,7 +65,7 @@ public class Bike implements Serializable{
 		
   	
 	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.LAZY)	
-	public Set<Reservation> reservations; 
+	public List<Reservation> reservations; 
 	
 	
 	
@@ -137,11 +132,11 @@ public class Bike implements Serializable{
 	}
 
 
-	public Set<Reservation> getSetBikes() {
+	public List<Reservation> getSetBikes() {
 		return this.reservations;	
 	}
 	
-	public void setEmployees(Set<Reservation> reservations) {
+	public void setEmployees(List<Reservation> reservations) {
 		this.reservations = reservations;
 		}
 

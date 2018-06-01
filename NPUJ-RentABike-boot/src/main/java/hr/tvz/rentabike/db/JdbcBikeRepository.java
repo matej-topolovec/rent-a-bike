@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 @Repository
-public class JdbcBikeRepository {
+public class JdbcBikeRepository{
 
 	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
 			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b LEFT JOIN bike_type tb ON b.typeid = tb.id";
@@ -95,7 +95,7 @@ public class JdbcBikeRepository {
 		bike.setDate(rs.getDate("dateAdded"));
 		bike.setQuantity(rs.getInt("quantity"));
 		bike.setAvailable(rs.getInt("available"));
-		
+
 	    bike.setBikeType(new BikeType());
 		bike.getBikeType().setId(rs.getInt("BikeTypeId"));
 		bike.getBikeType().setName(rs.getString("BikeTypeName"));

@@ -39,8 +39,11 @@ section, nav{
 }
 
 label{
-	font-size:20px;
+	font-size:17px;
 	color:red;
+	 text-align: right;
+	 padding-top: 12px;
+	 margin-left:15px;
 }
 
 input[type="button"], input[type="submit"]{
@@ -76,8 +79,10 @@ div.tableDiv{
 	width:500px;
 }
 
-#bb{
+#bb, h1, h3{
 	 /*Tihomir*/
 	 margin:  25px 10px 10px 10px;
-	
+	 
 }
+
+

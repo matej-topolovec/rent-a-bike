@@ -4,6 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Login Page</title>
+<meta charset="UTF-8"></meta>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 
@@ -25,6 +26,14 @@
             autoclose: true,
         })
     })
+    
+    
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+	   
+
+    
 </script>
 
 </head>
@@ -33,42 +42,55 @@
     <h3>Create new Bike</h3>
 	
 	
-	<div class="container-fluid" >	
+	<div class="container-fluid"  sec:authorize="isAuthenticated()" >	
 	
 			<form method="POST" th:object="${Bike}" >			
-				<div class="form-row">
-					<div class="col-md-7 mb-3">
-						<label for="name">Name: </label>
-						<input type="text" th:field="*{name}" class="form-control" />
+			
+			
+			
+				<div class="form-group row">
+						<label for="name" class="col-sm-1  col-form-label">Name: </label>
+						  <div class="col-sm-5 mb-3">
+						   <input type="text" th:field="*{name}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('name')}"
 							th:errors="*{Bike.name}">Bike name error
 						</span>
 					</div>
+				</div>
 				
-					<div class="col-md-7 mb-3">
-						<label for="date">Date: </label>
+				
+					<div  class="form-group row">
+						<label for="date"  class="col-sm-1  col-form-label">Date: </label>
+					    	<div class="col-sm-5 mb-3">
 							<input  name="date" type="text" th:field="*{date}" class="form-control" id="datepicker" placeholder="DD-MM-YYYY" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('date')}"
 							th:errors="*{date}">Bike date error
 						</span>
-						
+						</div>
 					</div>
-				</div>
-				<div class="form-row">
-					<div class="col-md-7 mb-3">			
-						<label for="quantity">Quantity: </label>
-						<input type="text" th:field="*{quantity}" class="form-control" />
+				
+				
+				
+				<div class="form-group row" >
+						 <label for="quantity" class="col-sm-1  col-form-label">Quantity: </label>
+						 	<div class="col-sm-5 mb-3">
+						    <input type="text" th:field="*{quantity}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('quantity')}"
 							th:errors="*{quantity}">Bike quantity error
 						</span>
 					</div>
 				</div>
-				<div class="form-row">
-					<div class="col-md-7 mb-3">	
-						<label for="available">Available: </label>
+				
+				
+				
+				
+				<div class="form-group row">
+					
+						<label for="available"  class="col-sm-1  col-form-label">Available: </label>
+						   <div class="col-sm-5 mb-3">
 							<input type="text" th:field="*{available}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('available')}"
@@ -78,9 +100,11 @@
 				</div>
 				
 				     
-				<div class="form-row">
-					<div class="col-md-7 mb-3">	
-		   				<label for="TypeOfBike">Type of Bike: </label>
+				     
+				<div class="form-group row">
+				
+		   				<label for="TypeOfBike"  class="col-sm-1  col-form-label">Type : </label>
+		   				   <div class="col-sm-5 mb-3">
 						<select th:field="*{BikeType}" class="form-control">
 							<option value="" > --type of bike--   </option>
 							<option th:each=" line : ${BikeTypes}"
@@ -96,10 +120,10 @@
 			 
 			 
 			 
-				<div class="form-row">
+				<div class="form-group row" >
 					<div class="col-md-7 mb-3">	
-					 <!--	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>  -->
-						<input type="submit" value="Save" class="btn btn-success" />
+					 	<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>  
+						<input type="submit" value="Save" class="btn btn-success"  data-toggle="tooltip"  data-placement="bottom"  title="Click on save"/>
 					</div>
 				</div>
 			</form>

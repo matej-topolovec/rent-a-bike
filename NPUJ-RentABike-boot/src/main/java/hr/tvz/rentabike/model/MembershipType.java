@@ -2,6 +2,7 @@ package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -45,10 +46,10 @@ public class MembershipType implements Serializable {
 	private int durationInMonths;
 
 	@OneToMany(targetEntity = User.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
-	public Set<User> users;
+	public List<User> users;
 
 	@OneToMany(targetEntity = Customer.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
-	public Set<Customer> customers;
+	public List<Customer> customers;
 	// public ArrayList<Bike> bikes= new ArrayList<Bike>();
 
 	public MembershipType() {
@@ -92,19 +93,19 @@ public class MembershipType implements Serializable {
 		return this.durationInMonths;
 	}
 
-	public Set<User> getSetUsers() {
+	public List<User> getSetUsers() {
 		return this.users;
 	}
 
-	public void setUsers(Set<User> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
-	public Set<Customer> getSetCustomers() {
+	public List<Customer> getSetCustomers() {
 		return this.customers;
 	}
 
-	public void setCustomers(Set<Customer> customers) {
+	public void setCustomers(List<Customer> customers) {
 		this.customers = customers;
 	}
 
