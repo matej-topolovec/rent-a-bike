@@ -12,11 +12,16 @@ $(document).ready( function () {
 		        },
 		        { "mData": "membershipType.name" },
 				{ "mData": "membershipType.discountRate" },
-				{
-	                data: null,
-	                className: "center",
-	                defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>'
-				}
+				{ "mData": "id", 
+			    	fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+			    		$(nTd).html("<a href='http://localhost:8080/customers/edit/"+oData.id+"'>Edit</a>");
+			    	}
+		        },
+				{ "mData": "id", 
+			    	fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+			    		$(nTd).html("<a href='http://localhost:8080/customers/delete/"+oData.id+"'>Delete</a>");
+			    	}
+		        }
 			]
 	 })
 });

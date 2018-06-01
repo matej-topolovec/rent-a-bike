@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Edit customer</title>
+<meta charset="UTF-8"></meta>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+<script>
+	$(document).ready(
+			function() {
+				var date_input = $('input[name="birthdate"]');
+				var container = $('.bootstrap-iso form').length > 0 ? $(
+						'.bootstrap-iso form').parent() : "body";
+				date_input.datepicker({
+					format : 'yyyy-mm-dd',
+					container : container,
+					todayHighlight : true,
+					autoclose : true,
+				})
+			})
+
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
+</head>
+
+<body>
+	<div th:replace="../fragments/header :: header"></div>
+	<h3>Edit customer</h3>
+
+
+	<div class="container-fluid" sec:authorize="isAuthenticated()">
+
+		<form method="POST" th:object="${customer}">
+
+			<div class="form-group row">
+				<label for="name" class="col-sm-1  col-form-label">Name: </label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{name}" class="form-control" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('name')}"
+						th:errors="*{customer.name}">Error in name field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="surname" class="col-sm-1  col-form-label">Surname:
+				</label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{surname}" class="form-control" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('surname')}"
+						th:errors="*{customer.surname}">Error in surname field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="OIB" class="col-sm-1  col-form-label">OIB: </label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{OIB}" class="form-control" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('OIB')}"
+						th:errors="*{customer.OIB}">Error in OIB field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="birthdate" class="col-sm-1  col-form-label">Birthdate:
+				</label>
+				<div class="col-sm-5 mb-3">
+					<input name="birthdate" type="text" th:field="*{birthdate}"
+						class="form-control" id="datepicker" placeholder="YYYY-MM-DD" />
+					<span class="validation-error"
+						th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}">Error
+						in birthdate field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="email" class="col-sm-1  col-form-label">Email: </label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{email}" class="form-control" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('email')}"
+						th:errors="*{customer.email}">Error in email field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="address" class="col-sm-1  col-form-label">Address:
+				</label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{address}" class="form-control" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('address')}"
+						th:errors="*{customer.address}">Error in address field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="phone" class="col-sm-1  col-form-label">Phone: </label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{phone}" class="form-control" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('phone')}"
+						th:errors="*{customer.phone}">Error in phone field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+
+				<label for="membershipType" class="col-sm-1  col-form-label">Select membership: </label>
+				<div class="col-sm-5 mb-3">
+					<select th:field="*{membershipType.id}" class="form-control">
+						<option value="0">--select membership type--</option>
+						<option th:each="membership : ${membershipType}" th:value="${membership.id}"
+							th:text="${membership.name}"></option>
+					</select> <span class="validation-error"
+						th:if="${#fields.hasErrors('membershipType')}" th:errors="*{membershipType}">Error in membership field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-md-7 mb-3">
+					<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <input
+						type="submit" value="Save" class="btn btn-success"
+						data-toggle="tooltip" data-placement="bottom"
+						title="Click on save" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div th:replace="../fragments/footer :: footer"></div>
+
+
+</body>
+</html>

@@ -11,5 +11,9 @@ public interface CustomerRepository {
 	Customer findOne(String id);
 
 	Customer save(Customer c);
+	
+	int updateCustomer(Customer c);
+	
+	void deleteCustomer(String id);
 
 }
