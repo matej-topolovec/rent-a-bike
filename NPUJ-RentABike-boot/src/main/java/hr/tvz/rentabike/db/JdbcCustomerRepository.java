@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import hr.tvz.rentabike.model.MembershipType;
+import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Customer;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
 	private final String FIND_ALL_QUERY = "select c.id as id, c.name as name, c.surname as surname, c.OIB as OIB, c.birthdate as birthdate,"
 			+ " c.email as email, c.address as address, c.phone as phone, m.id as MembershipTypeId, m.name as MembershipTypeName,"
 			+ " m.discountRate as MembershipTypeDiscountRate, m.durationInMonths as MembershipTypeDurationInMonths  from customer c JOIN membershipType m ON c.membershipTypeId = m.id";
+	
+	private final String SQL_UPDATE_CUSTOMER = "update customer set name = ?, surname = ?, OIB = ?, birthdate = ?, email = ?, address = ?, phone = ?, membershipTypeId = ? where id = ?";
 
 	private JdbcTemplate jdbc;
 	private SimpleJdbcInsert customerInserter;
@@ -44,6 +47,18 @@ public class JdbcCustomerRepository implements CustomerRepository {
 	public Customer findOne(String id) {
 
 		return jdbc.queryForObject(FIND_ALL_QUERY + " where c.id = ?", this::mapRowToCustomer, id);
+
+	}
+	
+	public int updateCustomer(Customer c) {
+		return jdbc.update(SQL_UPDATE_CUSTOMER, c.getName(), c.getSurname(), c.getOIB(), c.getBirthdate(), c.getEmail(), c.getAddress(), c.getPhone(), c.getMembershipType().getId(), c.getId());
+	}
+	
+	@Override
+	public void deleteCustomer(String id) {
+
+		final String DELETE_QUERY = "DELETE FROM customer WHERE id = " + id;
+		jdbc.execute(DELETE_QUERY);
 
 	}
 

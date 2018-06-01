@@ -24,7 +24,7 @@
 	<h1>Customers</h1>
 	<div th:replace="../fragments/header :: header"></div>
 	<div id="bb">
-		<a th:href="@{/NewCustomer}" class="btn btn-info">New</a>
+		<a th:href="@{/customers/new}" class="btn btn-info">New</a>
 	</div>
 	<hr></hr>
 	<div class="container-fluid">
@@ -35,7 +35,8 @@
 					<th>Name</th>
 					<th>Membership</th>
 					<th>Discount</th>
-					<th>Edit/Delete</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 		</table>
