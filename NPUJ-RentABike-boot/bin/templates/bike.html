@@ -33,25 +33,26 @@ $(function () {
   <div th:replace="../fragments/header :: header"></div>
   
   <h3>Bikes</h3>
-  <div id ="bb"> <a th:href="@{/CreateBike}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a></div>
+  <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a></div>
 
       <div class="container-fluid" sec:authorize="isAuthenticated()" >
       <table id="bikeTable" class="display" >
       <thead>
 			<tr>
+			
 				<th>Id</th>
 				<th>Name</th>
 				<th>Date</th>
 				<th>Quantity</th>
 				<th>Available</th>
 		        <th>Type of bike</th>  
-		         <th></th>
-		         <th></th>
-			<!--  <th>Edit/Delete</th> -->
+		         <th>Edit</th>
+		         <th>Delete</th>
+		
 			</tr>
      </thead>
 
- 
+ <!--  
       <tr th:each="line : ${bikes}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
@@ -59,11 +60,11 @@ $(function () {
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
            <td th:text="${line.BikeType.name}"></td> 
-          <td><a th:href="@{/BikeDetails/{id}/(id=${line.id})}">Details</a></td>
-         <td><a th:href="@{/EditBike/{id}/(id=${line.id})}">Edit</a></td>
-         <td><a th:href="@{/DeleteBike/{id}/(id=${line.id})}" class="btn btn-danger" >Delete</a></td>
+          <td><a th:href="@{/Bike/details/{id}/(id=${line.id})}">Details</a></td>
+         <td><a th:href="@{/bike/edit/{id}/(id=${line.id})}">Edit</a></td>
+         <td><a th:href="@{/bike/delete/{id}/(id=${line.id})}" class="btn btn-danger" >Delete</a></td>
       </tr>
-     
+ -->    
      
     </table>
    </div>

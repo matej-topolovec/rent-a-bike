@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 
 
 
-@Transactional
+
 @Repository
 public class JdbcBikeTypeRepository implements BikeTypeRepository {
 

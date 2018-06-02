@@ -16,12 +16,12 @@ import java.util.Map;
 
 
 @Repository
-public class JdbcBikeRepository{
+public class JdbcBikeRepository implements BikeRepository{
 
 	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
 			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b LEFT JOIN bike_type tb ON b.typeid = tb.id";
 	
-	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateAdded = ?, quantity = ? , available  = ? , typeid = ? where id = ?";
+	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateAdded = ?, quantity = ? , available  = ? , typeid = ?  where id = ?";
 	
 	private final  String SQL_DELETE_BIKE = "delete from Bike where id = ?";
 	
@@ -41,26 +41,28 @@ public class JdbcBikeRepository{
 	
 	
 	
-	
+	@Override
 	public List<Bike> findAll() {
 	
 	return jdbc.query(FIND_ALL_QUERY, this::mapRowToBike);
 		
 	}
 
-	
+	@Override
 	public Bike findOne(Integer id) {
 	
 		return jdbc.queryForObject(FIND_ALL_QUERY + " where b.id = ?", this::mapRowToBike, id);
 		
 	}
 
-	
+	@Override
 	public int updateBike(Bike bike) {
 		return jdbc.update(SQL_UPDATE_BIKE, bike.getName(), bike.getDate(), bike.getQuantity(), bike.getAvailable() , bike.biketype.getId(), bike.getId());
 	}
 
 	
+	
+	   @Override
 	   public void delete(Integer id){
 		    
 		      jdbc.update(SQL_DELETE_BIKE, id);
@@ -69,7 +71,7 @@ public class JdbcBikeRepository{
 		   }
 
 	
-	
+	   @Override
 	public Bike save(Bike bike) {
 		
 		bike.setId(saveBikeDetails(bike));	
@@ -83,11 +85,13 @@ public class JdbcBikeRepository{
 	private int saveBikeDetails(Bike bike) {
 		Map<String, Object> values = new HashMap<>();
 		
+        int i = bike.biketype.getId();
+		
 		values.put( "name", bike.getName());
 		values.put( "dateAdded", bike.getDate());
 	    values.put( "quantity", bike.getQuantity());
 		values.put( "available", bike.getAvailable());
-		values.put( "biketype", bike.getBikeType().getId());
+		values.put( "typeid", bike.biketype.getId());
 		return bikeInserter.executeAndReturnKey(values).intValue();
 	}
 	

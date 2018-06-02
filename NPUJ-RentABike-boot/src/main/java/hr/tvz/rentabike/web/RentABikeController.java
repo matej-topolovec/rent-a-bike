@@ -3,11 +3,9 @@ package hr.tvz.rentabike.web;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,15 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.BikeTypeRepository;
 import hr.tvz.rentabike.db.CustomerRepository;
 import hr.tvz.rentabike.db.MembershipTypeRepository;
-import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.db.LoggingRepository;
 import hr.tvz.rentabike.db.RegistrationRepository;
 import hr.tvz.rentabike.db.ReservationRepository;
@@ -51,11 +43,12 @@ public class RentABikeController {
 	@Autowired
 	LoggingRepository loggingRepository;
 
-	@Autowired
-	JdbcBikeRepository JdbcBikeRepository;
 
 	@Autowired
-	BikeRepository BikeRepository;
+	BikeRepository JdbcBikeRepository;
+
+	@Autowired
+	hr.tvz.rentabike.db.JpaBikeRepository JpaBikeRepository;
 
 	@Autowired
 	BikeTypeRepository JdbcBikeTypeRepository;
@@ -117,7 +110,7 @@ public class RentABikeController {
 
 	}
 
-	@GetMapping("/CreateBike")
+	@GetMapping("/bike/create")
 	public String showCreateBikeForm(Model model) {
 
 		model.addAttribute("Bike", new Bike());
@@ -126,7 +119,7 @@ public class RentABikeController {
 		return "EditBike";
 	}
 
-	@RequestMapping(value = "/CreateBike", method = RequestMethod.POST)
+	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
 	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
@@ -134,9 +127,6 @@ public class RentABikeController {
 
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
 			return "EditBike";
-
-			
-
 		}
 
 		JdbcBikeRepository.save(bike);
@@ -152,7 +142,7 @@ public class RentABikeController {
 
 	}
 
-	@RequestMapping(value = "/DeleteBike/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id) {
 		if (id != 0)
 			JdbcBikeRepository.delete(id);
@@ -160,10 +150,10 @@ public class RentABikeController {
 		return "redirect:/bikes";
 	}
 
-	@RequestMapping(value = "/EditBike/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.GET)
 	public String processEditBike(@PathVariable("id") Integer id, Model model) {
 
-		Bike bike = BikeRepository.findOne(id);
+		Bike bike = JdbcBikeRepository.findOne(id);
 		if (bike != null) {
 			model.addAttribute("Bike", bike);
 			model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
@@ -173,11 +163,11 @@ public class RentABikeController {
 		return "redirect:/bikes";
 	}
 
-	@RequestMapping(value = "/EditBike/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.POST)
 	public String processEditBikeForm(@ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
-
+			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
 
 			return "EditBike";
 			// return "EditBike";
@@ -188,9 +178,9 @@ public class RentABikeController {
 		return "EditBike";
 	}
 
-	@RequestMapping(value = "/BikeDetails/{id}")
+	@RequestMapping(value = "/bike/details/{id}")
 	public String getInfo(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("bike", BikeRepository.findOne(id));
+		model.addAttribute("bike", JdbcBikeRepository.findOne(id));
 		return "bikeDetails";
 	}
 
@@ -201,6 +191,9 @@ public class RentABikeController {
 		binder.registerCustomEditor(Date.class, editor);
 	}
 
+	
+	
+	
 	// Customer controllers
 
 	@GetMapping("/customers")

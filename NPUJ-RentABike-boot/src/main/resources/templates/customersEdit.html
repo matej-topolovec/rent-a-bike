@@ -117,7 +117,8 @@
 				<div class="col-sm-5 mb-3">
 					<select th:field="*{membershipType.id}" class="form-control">
 						<option value="0">--select membership type--</option>
-						<option th:each="membership : ${membershipType}" th:value="${membership.id}"
+						<option th:each="membership : ${membershipType}" 
+						    th:value="${membership.id}"
 							th:text="${membership.name}"></option>
 					</select> <span class="validation-error"
 						th:if="${#fields.hasErrors('membershipType')}" th:errors="*{membershipType}">Error in membership field!</span>
@@ -126,8 +127,9 @@
 
 			<div class="form-group row">
 				<div class="col-md-7 mb-3">
-					<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <input
-						type="submit" value="Save" class="btn btn-success"
+				<!--  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />  -->
+			
+					<input 	type="submit" value="Save" class="btn btn-success"
 						data-toggle="tooltip" data-placement="bottom"
 						title="Click on save" />
 				</div>
@@ -139,8 +141,6 @@
 
 
 </body>
-<<<<<<< HEAD
 </html> 
-=======
-</html>
->>>>>>> 889526de5aded3edcb663a00e15e59bb44e8ffb7
+
+

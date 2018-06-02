@@ -21,21 +21,21 @@ import hr.tvz.rentabike.model.Bike;
 public class BikeRestControler {
 	
 	@Autowired
-    BikeRepository JdbcBikeRepository;
+    BikeRepository BikeRepository;
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	public Bike save(@RequestBody Bike b) {
-		return JdbcBikeRepository.save(b);
+		return BikeRepository.save(b);
 	}
 
 	@GetMapping
 	public List<Bike> findAll() {
-		return JdbcBikeRepository.findAll();
+		return BikeRepository.findAll();
 	}
 
 	public Bike findOne(Integer id) {
-		return JdbcBikeRepository.findOne(id);
+		return BikeRepository.findOne(id);
 	}
 	
 	
