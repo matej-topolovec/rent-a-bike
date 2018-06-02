@@ -265,6 +265,7 @@ public class RentABikeController {
 	}
 
 	@GetMapping("/administrator")
+	@Secured({"ROLE_ADMIN"})
 	public String getAdministrator(Model model) {
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
@@ -272,6 +273,7 @@ public class RentABikeController {
 	}
 
 	@PostMapping("/admindelete/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public String deletePostAdmin(@PathVariable int id, Model model) {
 		System.out.println("Del je");
 
@@ -284,6 +286,7 @@ public class RentABikeController {
 	}
 
 	@PostMapping("/adminadd/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public String addPostAdmin(@PathVariable int id, Model model) {
 		System.out.println("Add je");
 		User username = registrationRepository.findById(id);
@@ -323,15 +326,15 @@ public class RentABikeController {
 	 * return "administrator"; }
 	 */
 
-	/*
-	 * @RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	 * 
-	 * @Secured({ "ROLE_DEMO", "ROLE_ADMIN" }) public String Reservations(Model
-	 * model) { model.addAttribute("reservations",
-	 * reservationRepository.findAll()); return "reservations";
-	 * 
-	 * }
-	 * 
-	 */
+	
+//	 @RequestMapping(value = "/reservations", method = RequestMethod.GET)
+//	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+//	 public String Reservations(Model model) 
+//	 {
+//		 model.addAttribute("reservations", reservationRepository.findAll());
+//		 return "reservations";
+//	 }
+	 
+	 
 
 }
