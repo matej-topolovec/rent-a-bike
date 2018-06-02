@@ -120,7 +120,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
-	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
+	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 
@@ -138,7 +138,7 @@ public class RentABikeController {
 			System.out.println(b.getId() + " " + b.getName() + " " + b.getDate());
 		}
 
-		return "EditBike";
+		return "redirect:/bikes";
 
 	}
 
@@ -164,7 +164,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.POST)
-	public String processEditBikeForm(@ModelAttribute("Bike") Bike bike, Errors errors, Model model) {
+	public String processEditBikeForm(@ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );

@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -46,11 +47,12 @@ public class Bike implements Serializable{
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date dateAdded;
 	
+	@Min(0)
 	@NotNull(message = "Niste unjeli kolièinu bicikla")
 	@Column(name = "quantity")
 	private int quantity;
 	
-	
+	@Min(0)
 	@NotNull(message = "Niste unjeli kolièinu dostupnih bicikla")
 	@Column(name = "available")
 	private int available;
