@@ -50,6 +50,9 @@
 					</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<a class="navbar-brand" th:text="${user}"></a>
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
 						<a href="/logout" th:href="@{/logout}"
 						onclick="$('#form').submit();"> <span
 							class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
