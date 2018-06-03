@@ -25,7 +25,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li th:classappend="${module == 'rentabike' ? 'active' : ''}">
-						<a href="#" th:href="@{/}">eBike</a>
+						<a href="#" th:href="@{/home}">eBike</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
 						<a href="#" th:href="@{/customers}">Customers</a>
@@ -50,7 +50,7 @@
 					</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
-						<a class="navbar-brand" th:text="${user}"></a>
+						<p class="navbar-brand">Welcome <span th:text="${user}"></span>!</p>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
 						<a href="/logout" th:href="@{/logout}"

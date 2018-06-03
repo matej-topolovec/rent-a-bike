@@ -76,12 +76,16 @@ public class RentABikeController {
 	// @Autowired
 	// ReservationRepository reservationRepository;
 
+	@GetMapping("/")
+	public String home(Model model) {
+		return showForm(model);
+	}
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
 		model.addAttribute("user", auth.getName());
+
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
 
@@ -100,6 +104,7 @@ public class RentABikeController {
 	public String loggingPage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("logging", loggingRepository.findAll());
 		return "logging";
 	}
@@ -111,6 +116,7 @@ public class RentABikeController {
 	public String RentABike(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("bikes", JdbcBikeRepository.findAll());
 		return "bike";
 
@@ -165,6 +171,7 @@ public class RentABikeController {
 	public String processEditBike(@PathVariable("id") Integer id, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		Bike bike = JdbcBikeRepository.findOne(id);
 		if (bike != null) {
 			model.addAttribute("Bike", bike);
@@ -194,6 +201,7 @@ public class RentABikeController {
 	public String getInfo(@PathVariable("id") Integer id, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("bike", JdbcBikeRepository.findOne(id));
 		return "bikeDetails";
 	}
@@ -214,6 +222,7 @@ public class RentABikeController {
 	public String showCustomers(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("customers", JdbcCustomerRepository.findAll());
 
 		return "customers";
@@ -223,6 +232,7 @@ public class RentABikeController {
 	public String getInfo(@PathVariable("id") String id, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		return "customersDetails";
 	}
@@ -231,6 +241,7 @@ public class RentABikeController {
 	public String editCustomer(@PathVariable("id") String id, Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 		return "customersEdit";
@@ -288,6 +299,7 @@ public class RentABikeController {
 	public String getAdministrator(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
+
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
 		return "administrator";
@@ -352,6 +364,7 @@ public class RentABikeController {
 	 public String Reservations(Model model) {
 		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		 model.addAttribute("user", auth.getName());
+
 		 model.addAttribute("reservations", reservationRepository.findAll()); 
 		 return "reservations";
 	 }
