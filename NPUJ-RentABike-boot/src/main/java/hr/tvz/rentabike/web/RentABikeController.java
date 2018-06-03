@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.annotation.Secured;
@@ -75,10 +76,15 @@ public class RentABikeController {
 	// @Autowired
 	// ReservationRepository reservationRepository;
 
+	@GetMapping("/")
+	public String home(Model model) {
+		return showForm(model);
+	}
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
 
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
@@ -96,6 +102,9 @@ public class RentABikeController {
 	@GetMapping("/logging")
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String loggingPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("logging", loggingRepository.findAll());
 		return "logging";
 	}
@@ -105,6 +114,9 @@ public class RentABikeController {
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String RentABike(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("bikes", JdbcBikeRepository.findAll());
 		return "bike";
 
@@ -112,6 +124,8 @@ public class RentABikeController {
 
 	@GetMapping("/bike/create")
 	public String showCreateBikeForm(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
@@ -121,7 +135,6 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
 	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
-
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 
 
@@ -145,13 +158,19 @@ public class RentABikeController {
 	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id) {
 		if (id != 0)
-			JdbcBikeRepository.delete(id);
-
+			try {
+			    JdbcBikeRepository.delete(id);
+			}
+		    catch(Exception e) {
+		    	return "ErrorHandlerModal";
+		    }
 		return "redirect:/bikes";
 	}
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.GET)
 	public String processEditBike(@PathVariable("id") Integer id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
 
 		Bike bike = JdbcBikeRepository.findOne(id);
 		if (bike != null) {
@@ -180,6 +199,9 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/details/{id}")
 	public String getInfo(@PathVariable("id") Integer id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("bike", JdbcBikeRepository.findOne(id));
 		return "bikeDetails";
 	}
@@ -198,6 +220,8 @@ public class RentABikeController {
 
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customers", JdbcCustomerRepository.findAll());
 
@@ -206,12 +230,18 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/customers/details/{id}")
 	public String getInfo(@PathVariable("id") String id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		return "customersDetails";
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.GET)
 	public String editCustomer(@PathVariable("id") String id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 		return "customersEdit";
@@ -265,13 +295,18 @@ public class RentABikeController {
 	}
 
 	@GetMapping("/administrator")
+	@Secured({"ROLE_ADMIN"})
 	public String getAdministrator(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
 		return "administrator";
 	}
 
 	@PostMapping("/admindelete/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public String deletePostAdmin(@PathVariable int id, Model model) {
 		System.out.println("Del je");
 
@@ -284,6 +319,7 @@ public class RentABikeController {
 	}
 
 	@PostMapping("/adminadd/{id}")
+	@Secured({"ROLE_ADMIN"})
 	public String addPostAdmin(@PathVariable int id, Model model) {
 		System.out.println("Add je");
 		User username = registrationRepository.findById(id);
@@ -323,15 +359,13 @@ public class RentABikeController {
 	 * return "administrator"; }
 	 */
 
-	/*
-	 * @RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	 * 
-	 * @Secured({ "ROLE_DEMO", "ROLE_ADMIN" }) public String Reservations(Model
-	 * model) { model.addAttribute("reservations",
-	 * reservationRepository.findAll()); return "reservations";
-	 * 
-	 * }
-	 * 
-	 */
+	 @RequestMapping(value = "/reservations", method = RequestMethod.GET)
+	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	 public String Reservations(Model model) {
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		 model.addAttribute("user", auth.getName());
 
+		 model.addAttribute("reservations", reservationRepository.findAll()); 
+		 return "reservations";
+	 }
 }

@@ -25,7 +25,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li th:classappend="${module == 'rentabike' ? 'active' : ''}">
-						<a href="#" th:href="@{/}">eBike</a>
+						<a href="#" th:href="@{/home}">eBike</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
 						<a href="#" th:href="@{/customers}">Customers</a>
@@ -39,7 +39,7 @@
 						href="#" th:href="@{/contact}">Contact</a></li>
 					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/logging}">Logging</a></li>
-					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
+					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/administrator}">Admin panel</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -48,6 +48,9 @@
 							class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign
 							in
 					</a>
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<p class="navbar-brand">Welcome <span th:text="${user}"></span>!</p>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
 						<a href="/logout" th:href="@{/logout}"
