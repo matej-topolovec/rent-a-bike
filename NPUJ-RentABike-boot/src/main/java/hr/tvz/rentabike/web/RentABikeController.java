@@ -164,18 +164,18 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.POST)
-	public String processEditBikeForm(@ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
+	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
 
 			return "EditBike";
-			// return "EditBike";
+		
 		}
 
 		JdbcBikeRepository.updateBike(bike);
 
-		return "EditBike";
+		return "redirect:/bikes";
 	}
 
 	@RequestMapping(value = "/bike/details/{id}")

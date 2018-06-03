@@ -23,6 +23,15 @@ $(function () {
 	})
 	   
 
+	$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#bikeTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+	
 </script>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
@@ -30,13 +39,26 @@ $(function () {
 <body>
 
 
-  <div th:replace="../fragments/header :: header"></div>
-  
-  <h3>Bikes</h3>
-  <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a></div>
 
-      <div class="container-fluid" sec:authorize="isAuthenticated()" >
-      <table id="bikeTable" class="display" >
+
+<div class="container-fluid" sec:authorize="isAuthenticated()" >
+  <div th:replace="../fragments/header :: header"></div>  
+  <h3>Bikes</h3>
+  <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a>
+
+
+
+				<div class="form-group row" id="search">
+						<label for="sr" class="col-sm-1  col-form-label">Search: </label>
+						  <div class="col-sm-7 mb-3">
+						    <input class="form-control" id="myInput" type="text" placeholder="Search.."></input>
+					</div>
+				</div>
+</div>
+
+
+            
+      <table id="bikeTable"  class="table table-striped">
       <thead>
 			<tr>
 			
@@ -46,13 +68,14 @@ $(function () {
 				<th>Quantity</th>
 				<th>Available</th>
 		        <th>Type of bike</th>  
-		         <th>Edit</th>
-		         <th>Delete</th>
+		        <th>Details</th>
+		        <th>Edit</th>
+		        <th>Delete</th>
 		
 			</tr>
      </thead>
 
- <!--  
+   
       <tr th:each="line : ${bikes}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
@@ -60,11 +83,12 @@ $(function () {
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
            <td th:text="${line.BikeType.name}"></td> 
-          <td><a th:href="@{/Bike/details/{id}/(id=${line.id})}">Details</a></td>
+          <td><a th:href="@{/bike/details/{id}/(id=${line.id})}">Details</a></td>
          <td><a th:href="@{/bike/edit/{id}/(id=${line.id})}">Edit</a></td>
-         <td><a th:href="@{/bike/delete/{id}/(id=${line.id})}" class="btn btn-danger" >Delete</a></td>
+         <td><a th:href="@{/bike/delete/{id}/(id=${line.id})}"  >Delete</a></td>
       </tr>
- -->    
+     
+     
      
     </table>
    </div>
