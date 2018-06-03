@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.annotation.Secured;
@@ -145,8 +146,12 @@ public class RentABikeController {
 	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id) {
 		if (id != 0)
-			JdbcBikeRepository.delete(id);
-
+			try {
+			    JdbcBikeRepository.delete(id);
+			}
+		    catch(Exception e) {
+		    	return "ErrorHandlerModal";
+		    }
 		return "redirect:/bikes";
 	}
 
@@ -175,7 +180,7 @@ public class RentABikeController {
 
 		JdbcBikeRepository.updateBike(bike);
 
-		return "EditBike";
+		return "redirect:/bikes";
 	}
 
 	@RequestMapping(value = "/bike/details/{id}")
@@ -323,15 +328,10 @@ public class RentABikeController {
 	 * return "administrator"; }
 	 */
 
-	/*
-	 * @RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	 * 
-	 * @Secured({ "ROLE_DEMO", "ROLE_ADMIN" }) public String Reservations(Model
-	 * model) { model.addAttribute("reservations",
-	 * reservationRepository.findAll()); return "reservations";
-	 * 
-	 * }
-	 * 
-	 */
-
+	 @RequestMapping(value = "/reservations", method = RequestMethod.GET)
+	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	 public String Reservations(Model model) { 
+		 model.addAttribute("reservations", reservationRepository.findAll()); 
+		 return "reservations";
+	 }
 }
