@@ -69,10 +69,11 @@ select{
 	margin:10px;
 }
 
-input{
+input {
 	margin:10px;
 	
 }
+
 
 div.tableDiv{
 	margin: 0 auto; 
@@ -80,16 +81,25 @@ div.tableDiv{
 }
 
 #bb, h1, h3{
-	 /*Tihomir*/
+	 
 	 margin:  25px 10px 10px 10px;
 	 
 }
 
 .footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   text-align: center;
+  
+ /* position:absolute; */ 
+   margin-bootm:0;
+   margin-top:10%;
+   width:100%;
+   height:100px;   /* Height of the footer */
+   
+
 }
+
+#search {
+	float:right;
+      width:50%;	
+
+	}
 

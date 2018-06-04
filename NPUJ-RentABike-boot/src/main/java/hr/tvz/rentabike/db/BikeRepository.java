@@ -17,7 +17,7 @@ public interface BikeRepository {
 	
 	Bike findOne(Integer id);
 	
-	int updateBike(Bike bike);
+	void updateBike(Bike bike);
 	
 }
 	
