@@ -56,8 +56,8 @@ public class JdbcBikeRepository implements BikeRepository{
 	}
 
 	@Override
-	public int updateBike(Bike bike) {
-		return jdbc.update(SQL_UPDATE_BIKE, bike.getName(), bike.getDate(), bike.getQuantity(), bike.getAvailable() , bike.biketype.getId(), bike.getId());
+	public void updateBike(Bike bike) {
+		 jdbc.update(SQL_UPDATE_BIKE, bike.getName(), bike.getDate(), bike.getQuantity(), bike.getAvailable() , bike.biketype.getId(), bike.getId());
 	}
 
 	

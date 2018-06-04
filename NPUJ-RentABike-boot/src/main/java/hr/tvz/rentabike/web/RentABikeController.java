@@ -162,6 +162,7 @@ public class RentABikeController {
 			    JdbcBikeRepository.delete(id);
 			}
 		    catch(Exception e) {
+		    	System.out.println(e);
 		    	return "ErrorHandlerModal";
 		    }
 		return "redirect:/bikes";
