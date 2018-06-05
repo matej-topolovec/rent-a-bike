@@ -44,7 +44,6 @@ public class RentABikeController {
 	@Autowired
 	LoggingRepository loggingRepository;
 
-
 	@Autowired
 	BikeRepository JdbcBikeRepository;
 
@@ -69,12 +68,22 @@ public class RentABikeController {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
-	
 	@Autowired
 	ReservationRepository reservationRepository;
 
 	// @Autowired
 	// ReservationRepository reservationRepository;
+
+	public void log(String logMessage) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
+		Logging logging = new Logging();
+		logging.setUsername(auth.getName());
+		logging.setActionTime(date);
+		logging.setActions(logMessage);
+		loggingRepository.save(logging);
+	}
 
 	@GetMapping("/")
 	public String home(Model model) {
@@ -83,19 +92,9 @@ public class RentABikeController {
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
+		log("Get request on homepage");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-
-		long millis = System.currentTimeMillis();
-		java.sql.Date date = new java.sql.Date(millis);
-
-		Logging logging = new Logging();
-		logging.setUsername(auth.getName());
-		logging.setActionTime(date);
-		logging.setActions("Get request on homepage");
-
-		loggingRepository.save(logging);
-
 		return "homePage";
 	}
 
@@ -114,6 +113,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String RentABike(Model model) {
+		log("Get request on /bikes");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -124,6 +124,7 @@ public class RentABikeController {
 
 	@GetMapping("/bike/create")
 	public String showCreateBikeForm(Model model) {
+		log("Get request on /bike/create");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -134,11 +135,12 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
-	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
+	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors,
+			BindingResult bindingResult) {
+		log("Post request on /bike/create");
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 
-
-			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
+			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 			return "EditBike";
 		}
 
@@ -157,9 +159,10 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id) {
+		log("Get request on /bike/delete/$id");
 		if (id != 0)
 			try {
-			    JdbcBikeRepository.delete(id);
+				JdbcBikeRepository.delete(id);
 			}
 		    catch(Exception e) {
 		    	System.out.println(e);
@@ -187,7 +190,7 @@ public class RentABikeController {
 	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
 
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
-			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable() );
+			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 
 			return "EditBike";
 		
@@ -214,9 +217,6 @@ public class RentABikeController {
 		binder.registerCustomEditor(Date.class, editor);
 	}
 
-	
-	
-	
 	// Customer controllers
 
 	@GetMapping("/customers")
@@ -296,7 +296,7 @@ public class RentABikeController {
 	}
 
 	@GetMapping("/administrator")
-	@Secured({"ROLE_ADMIN"})
+	@Secured({ "ROLE_ADMIN" })
 	public String getAdministrator(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -307,7 +307,7 @@ public class RentABikeController {
 	}
 
 	@PostMapping("/admindelete/{id}")
-	@Secured({"ROLE_ADMIN"})
+	@Secured({ "ROLE_ADMIN" })
 	public String deletePostAdmin(@PathVariable int id, Model model) {
 		System.out.println("Del je");
 
@@ -320,7 +320,7 @@ public class RentABikeController {
 	}
 
 	@PostMapping("/adminadd/{id}")
-	@Secured({"ROLE_ADMIN"})
+	@Secured({ "ROLE_ADMIN" })
 	public String addPostAdmin(@PathVariable int id, Model model) {
 		System.out.println("Add je");
 		User username = registrationRepository.findById(id);
@@ -360,13 +360,13 @@ public class RentABikeController {
 	 * return "administrator"; }
 	 */
 
-	 @RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
-	 public String Reservations(Model model) {
-		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		 model.addAttribute("user", auth.getName());
+	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	public String Reservations(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
 
-		 model.addAttribute("reservations", reservationRepository.findAll()); 
-		 return "reservations";
-	 }
+		model.addAttribute("reservations", reservationRepository.findAll());
+		return "reservations";
+	}
 }
