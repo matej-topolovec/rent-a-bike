@@ -101,8 +101,8 @@ public class User implements Serializable{
     
 	
 	
-	@OneToMany(targetEntity=Reservation.class, mappedBy="user", fetch=FetchType.EAGER)	
-	public List<Reservation> reservations; 
+//	@OneToMany(targetEntity=Reservation.class, mappedBy="user", fetch=FetchType.EAGER)	
+//	public List<Reservation> reservations; 
 	
 	
      public User() {}	
@@ -225,13 +225,15 @@ public class User implements Serializable{
 		return this.membershipType;
 	}
 
-	public List<Reservation> getSetBikes() {
-		return this.reservations;	
-	}
 	
-	public void setEmployees(List<Reservation> reservations) {
-		this.reservations = reservations;
-		}
-	
+//	comment because of infinity loop on JSON	
+//	public List<Reservation> getSetBikes() {
+//		return this.reservations;	
+//	}
+//	
+//	public void setEmployees(List<Reservation> reservations) {
+//		this.reservations = reservations;
+//		}
+//	
 	
 }

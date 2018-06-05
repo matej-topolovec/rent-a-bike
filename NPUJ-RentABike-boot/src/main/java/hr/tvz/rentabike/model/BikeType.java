@@ -1,8 +1,9 @@
 package hr.tvz.rentabike.model;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -39,9 +43,8 @@ public class BikeType implements Serializable{
 	public String name;
 
 	
-	@OneToMany(targetEntity=Bike.class, mappedBy="biketype", fetch=FetchType.EAGER)	
-	//public List<Bike> bikes = new ArrayList<Bike>(); 
-	public List<Bike> bikes= new ArrayList<Bike>();
+//	@OneToMany(targetEntity=Bike.class, mappedBy="biketype", cascade = CascadeType.ALL ,  fetch=FetchType.EAGER)	
+//	public List<Bike> bikes= new ArrayList<Bike>();
 	
 
 	public void setId(int id) {
@@ -65,13 +68,13 @@ public class BikeType implements Serializable{
 		
 	}
 	
-	public List<Bike> getSetBikes() {
-		return this.bikes;	
-	}
+	// public List<Bike> getSetBikes() {
+	//	return this.bikes;	
+	//}
 	
-	public void setEmployees(List<Bike> bikes) {
-		this.bikes = bikes;
-		}
+	//public void setEmployees(List<Bike> bikes) {
+		//this.bikes = bikes;
+		//}
 	
 
 }

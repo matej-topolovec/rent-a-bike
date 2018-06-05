@@ -25,9 +25,11 @@ public class HibernateBikeRepository implements BikeRepository{
 		this.sessionFactory = sessionFactory;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Bike> findAll() {
-		return sessionFactory.getCurrentSession().createQuery("FROM Bike").list();
+		return sessionFactory.getCurrentSession().createQuery("FROM Bike").list();	
+
 	}
 
     @Override

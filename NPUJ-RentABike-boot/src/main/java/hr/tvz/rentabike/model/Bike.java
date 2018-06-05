@@ -21,6 +21,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name = "bike", uniqueConstraints = {
@@ -55,6 +57,7 @@ public class Bike implements Serializable{
 	@Min(0)
 	@NotNull(message = "Niste unjeli kolièinu dostupnih bicikla")
 	@Column(name = "available")
+	
 	private int available;
 		
 	
@@ -64,8 +67,8 @@ public class Bike implements Serializable{
 	
 		
   	
-	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.LAZY)	
-	public List<Reservation> reservations; 
+//	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.LAZY)	
+//	public List<Reservation> reservations; 
 	
 	
 	
@@ -132,13 +135,13 @@ public class Bike implements Serializable{
 	}
 
 
-	public List<Reservation> getSetBikes() {
-		return this.reservations;	
-	}
+//	public List<Reservation> getSetBikes() {
+//		return this.reservations;	
+//	}
 	
-	public void setEmployees(List<Reservation> reservations) {
-		this.reservations = reservations;
-		}
+//	public void setEmployees(List<Reservation> reservations) {
+//		this.reservations = reservations;
+//		}
 
 	
 }

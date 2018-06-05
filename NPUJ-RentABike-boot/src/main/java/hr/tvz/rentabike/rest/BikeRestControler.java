@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.tvz.rentabike.db.BikeRepository;
+import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.model.Bike;
 
 
@@ -25,8 +26,9 @@ import hr.tvz.rentabike.model.Bike;
 public class BikeRestControler {
 	
 	@Autowired
-    BikeRepository BikeRepository;
-
+     BikeRepository BikeRepository;
+  
+	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(consumes="application/json")
 	public Bike save(@RequestBody Bike b) {
@@ -35,6 +37,9 @@ public class BikeRestControler {
 
 	@GetMapping
 	public List<Bike> findAll() {
+
+
+
 		return BikeRepository.findAll();
 	}
 
@@ -48,6 +53,8 @@ public class BikeRestControler {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}
 	}
+	
+	
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@GetMapping("/delete/{id}")
