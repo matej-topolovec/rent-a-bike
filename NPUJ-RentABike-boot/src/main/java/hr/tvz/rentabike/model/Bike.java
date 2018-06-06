@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,6 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -57,29 +59,28 @@ public class Bike implements Serializable{
 	@Min(0)
 	@NotNull(message = "Niste unjeli kolièinu dostupnih bicikla")
 	@Column(name = "available")
-	
 	private int available;
 		
-	
-	@ManyToOne
+	@JsonIgnore
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name="typeid")
 	public BikeType biketype;
 	
 		
-  	
-//	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.LAZY)	
-//	public List<Reservation> reservations; 
+	@JsonIgnore
+	@OneToMany(targetEntity=Reservation.class, mappedBy="bike", fetch=FetchType.EAGER)	
+	public List<Reservation> reservations; 
 	
 	
 	
 	public Bike() {}	
 	
-	public Bike(String name, Date date_Added, int quantity, int available, BikeType type_bike ){
+	public Bike(String name, Date date_Added, int quantity, int available, BikeType biketype ){
 		this.name = name;
 		this.dateAdded = date_Added;
 		this.quantity = quantity;
 		this.available = available;
-		this.biketype= type_bike;
+		this.biketype= biketype;
 		
 	}
 	
@@ -134,14 +135,15 @@ public class Bike implements Serializable{
 		return this.biketype;
 	}
 
-
-//	public List<Reservation> getSetBikes() {
-//		return this.reservations;	
-//	}
+	@JsonIgnore
+	public List<Reservation> getSetBikes() {
+		return this.reservations;	
+	}
 	
-//	public void setEmployees(List<Reservation> reservations) {
-//		this.reservations = reservations;
-//		}
+	@JsonIgnore
+	public void setEmployees(List<Reservation> reservations) {
+		this.reservations = reservations;
+		}
 
 	
 }

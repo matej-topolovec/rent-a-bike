@@ -18,6 +18,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "customer", uniqueConstraints = {
 @UniqueConstraint(columnNames = "id") })
@@ -64,6 +66,7 @@ public class Customer implements Serializable{
 	@Column(name = "phone")
 	String phone;
 
+	@JsonIgnore
 	@ManyToOne
 	//@JoinColumn(name="membershipId")
 	@JoinColumn(name="membershiptypeid")

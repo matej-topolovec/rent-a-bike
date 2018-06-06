@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "reservation", uniqueConstraints = {
@@ -48,7 +50,7 @@ public class Reservation implements Serializable {
 	public User user;
 	
 	
-
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="bikeid")
 	public Bike bike;

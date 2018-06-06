@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "membershiptype", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
 public class MembershipType implements Serializable {
@@ -45,11 +47,13 @@ public class MembershipType implements Serializable {
 	@Column(name = "durationinmonths")
 	private int durationInMonths;
 
-//	@OneToMany(targetEntity = User.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
-//	public List<User> users;
+	@JsonIgnore
+	@OneToMany(targetEntity = User.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
+	public List<User> users;
 
-//	@OneToMany(targetEntity = Customer.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
-//	public List<Customer> customers;
+	@JsonIgnore
+	@OneToMany(targetEntity = Customer.class, mappedBy = "membershipType", fetch = FetchType.LAZY)
+	public List<Customer> customers;
 	// public ArrayList<Bike> bikes= new ArrayList<Bike>();
 
 	public MembershipType() {
@@ -93,21 +97,21 @@ public class MembershipType implements Serializable {
 		return this.durationInMonths;
 	}
 
-// Comment bacause infinity on JSON work
-//	public List<User> getSetUsers() {
-//		return this.users;
-//	}
-//
-//	public void setUsers(List<User> users) {
-//		this.users = users;
-//	}
-//
-//	public List<Customer> getSetCustomers() {
-//		return this.customers;
-//	}
-//
-//	public void setCustomers(List<Customer> customers) {
-//		this.customers = customers;
-//	}
+	@JsonIgnore
+	public List<User> getUsers() {
+		return this.users;
+	}
+	@JsonIgnore
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+	@JsonIgnore
+	public List<Customer> getCustomers() {
+		return this.customers;
+	}
+	@JsonIgnore
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
 
 }

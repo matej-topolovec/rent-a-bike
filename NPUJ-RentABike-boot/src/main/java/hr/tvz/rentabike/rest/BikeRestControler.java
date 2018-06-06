@@ -37,9 +37,6 @@ public class BikeRestControler {
 
 	@GetMapping
 	public List<Bike> findAll() {
-
-
-
 		return BikeRepository.findAll();
 	}
 

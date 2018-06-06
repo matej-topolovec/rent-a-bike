@@ -135,8 +135,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
-	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors,
-			BindingResult bindingResult) {
+	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
 		log("Post request on /bike/create");
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 
@@ -210,11 +209,12 @@ public class RentABikeController {
 		return "bikeDetails";
 	}
 
-	// prikaz datuma na ekranu
+	// prikaz datuma na ekranu i validacije
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
 		binder.registerCustomEditor(Date.class, editor);
+		
 	}
 
 	// Customer controllers
