@@ -66,7 +66,7 @@ public class Customer implements Serializable{
 	@Column(name = "phone")
 	String phone;
 
-	@JsonIgnore
+	
 	@ManyToOne
 	//@JoinColumn(name="membershipId")
 	@JoinColumn(name="membershiptypeid")
