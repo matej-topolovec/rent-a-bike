@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.Constraint;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -47,6 +48,7 @@ public class Bike implements Serializable{
 	@Column(name = "name")
 	private String name;
 	
+	 
 	@Column(name = "dateadded")
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	public Date dateAdded;
@@ -61,6 +63,8 @@ public class Bike implements Serializable{
 	@Column(name = "available")
 	private int available;
 		
+	
+	
 	@JsonIgnore
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name="typeid")

@@ -61,7 +61,7 @@ $(function () {
 					<div  class="form-group row">
 						<label for="date"  class="col-sm-1  col-form-label">Date: </label>
 					    	<div class="col-sm-5 mb-3">
-							<input  name="date" type="text" th:field="*{date}" class="form-control" id="datepicker" placeholder="DD-MM-YYYY" />
+							<input  name="date" type="text" th:field="*{date}" class="form-control" placeholder="dd-mm-yyyy" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('date')}"
 							th:errors="*{date}">Bike date error
@@ -74,7 +74,7 @@ $(function () {
 				<div class="form-group row" >
 						 <label for="quantity" class="col-sm-1  col-form-label">Quantity: </label>
 						 	<div class="col-sm-5 mb-3">
-						    <input type="text" th:field="*{quantity}" class="form-control" />
+						    <input type="number" th:field="*{quantity}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('quantity')}"
 							th:errors="*{quantity}">Bike quantity error
@@ -89,7 +89,7 @@ $(function () {
 					
 						<label for="available"  class="col-sm-1  col-form-label">Available: </label>
 						   <div class="col-sm-5 mb-3">
-							<input type="text" th:field="*{available}" class="form-control" />
+							<input type="number" th:field="*{available}" class="form-control" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('available')}"
 							th:errors="*{available}">Bike available error
