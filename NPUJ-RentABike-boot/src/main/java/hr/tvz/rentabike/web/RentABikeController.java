@@ -172,6 +172,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.GET)
 	public String processEditBike(@PathVariable("id") Integer id, Model model) {
+		log("Get request on /bike/edit/$id");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -187,7 +188,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.POST)
 	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
-
+		log("Post request on /bike/edit/$id");
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 
@@ -202,6 +203,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/details/{id}")
 	public String getInfo(@PathVariable("id") Integer id, Model model) {
+		log("Get request on /bike/details/$id");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -221,6 +223,7 @@ public class RentABikeController {
 
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
+		log("Get request on /customers");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -231,6 +234,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/customers/details/{id}")
 	public String getInfo(@PathVariable("id") String id, Model model) {
+		log("Get request on /customers/details/$id");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -240,6 +244,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.GET)
 	public String editCustomer(@PathVariable("id") String id, Model model) {
+		log("Get request on /customers/edit/$id");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -251,6 +256,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.POST)
 	public String editCustomer(@Valid @ModelAttribute("customer") Customer c, BindingResult bindingResult,
 			Model model) {
+		log("Post request on /customers/edit/$id");
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 		}
@@ -260,6 +266,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
 	public String deleteCustomer(@PathVariable("id") String id) {
+		log("Get request on /customers/delete/$id");
 		if (id != "0")
 			JdbcCustomerRepository.deleteCustomer(id);
 
@@ -363,6 +370,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
 	public String Reservations(Model model) {
+		log("Get request on /reservations");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
