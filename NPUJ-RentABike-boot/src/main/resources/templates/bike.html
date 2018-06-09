@@ -43,7 +43,14 @@ $(function () {
 
 <div class="container-fluid" sec:authorize="isAuthenticated()" >
   <div th:replace="../fragments/header :: header"></div>  
-  <h3>Bikes</h3>
+  
+  
+  
+  <h3 th:text="#{bike}">Bikes</h3>
+  
+  
+  
+  
   <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a>
 
 

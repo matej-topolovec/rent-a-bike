@@ -31,6 +31,7 @@ public class HibernateBikeRepository implements BikeRepository{
 	public List<Bike> findAll() {
 		List<Bike> bikes = 
 
+
 				sessionFactory.getCurrentSession().createQuery("FROM Bike").list();	
 		Hibernate.initialize(bikes);
 		return bikes;

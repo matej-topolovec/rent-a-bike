@@ -52,17 +52,17 @@ public class BikeRestControler {
 	}
 	
 	
-	
+	//
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@GetMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
 		 BikeRepository.delete(id);
 	}
 
 	
-	
-	@PostMapping(path="/put" , consumes="application/json")
-	public void update(Bike bike){
+	// path="/put" 
+	@PutMapping(consumes="application/json")
+	public void update(@RequestBody Bike bike){
 		  BikeRepository.updateBike(bike);
 	}
 	
