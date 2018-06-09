@@ -3,8 +3,12 @@ package hr.tvz.rentabike.web;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
@@ -33,6 +37,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 
 
+@EnableAutoConfiguration
+@ComponentScan
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -166,7 +172,7 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 	
 	
-	
+	@PostConstruct
 	@Bean
 	public MessageSource messageSource() {
 	ReloadableResourceBundleMessageSource messageSource= new
