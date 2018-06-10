@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,20 +35,20 @@ public class RegistrationRestController {
 		return registrationRepository.findAll();
 	}
 	
-	public User findByUsernameOrEmail(String username, String email){
-		return registrationRepository.findByUsernameOrEmail(username, email);
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<User> findById(@PathVariable Integer id) {
+		User user = registrationRepository.findById(id);
+		if(user != null)
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 	
-	public List<User> findAllUsers(){
-		return registrationRepository.findAllUsers();
-	}
-	
-	public User findById(int id){
-		return registrationRepository.findById(id);
-	}
-	
-	public void delete(User user){
-		registrationRepository.delete(user);
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Integer id) {
+		registrationRepository.delete(id);
 	}
 
 }

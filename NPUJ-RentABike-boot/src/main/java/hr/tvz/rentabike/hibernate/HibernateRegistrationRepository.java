@@ -55,6 +55,11 @@ public class HibernateRegistrationRepository implements RegistrationRepository {
 	}
 	
 	@Override
+	public void delete(int id){
+		sessionFactory.getCurrentSession().delete(sessionFactory.getCurrentSession().get(User.class, id));
+	}
+	
+	@Override
 	public MembershipType findFirstById(int id){
 		return null;
 	}
