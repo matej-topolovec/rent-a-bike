@@ -3,8 +3,9 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8"></meta>
-<title>Bikes</title>
+<meta charset="UTF-8"></meta>  
+<!--   <meta charset=" ISO-8859-1"></meta>    --> 
+<title>Bikes</title> 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <script
@@ -43,7 +44,10 @@ $(function () {
 
 <div class="container-fluid" sec:authorize="isAuthenticated()" >
   <div th:replace="../fragments/header :: header"></div>  
-  <h3>Bikes</h3>
+  
+  
+  <h3 th:text="#{bike}"></h3>
+ 
   <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a>
 
 

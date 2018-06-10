@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.tvz.rentabike.db.BikeRepository;
+import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.model.Bike;
 
 
@@ -25,8 +26,9 @@ import hr.tvz.rentabike.model.Bike;
 public class BikeRestControler {
 	
 	@Autowired
-    BikeRepository BikeRepository;
-
+     BikeRepository BikeRepository;
+  
+	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping(consumes="application/json")
 	public Bike save(@RequestBody Bike b) {
@@ -49,16 +51,18 @@ public class BikeRestControler {
 			}
 	}
 	
+	
+	//
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@GetMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
 		 BikeRepository.delete(id);
 	}
 
 	
-	
-	@PostMapping(path="/put" , consumes="application/json")
-	public void update(Bike bike){
+	// path="/put" 
+	@PutMapping(consumes="application/json")
+	public void update(@RequestBody Bike bike){
 		  BikeRepository.updateBike(bike);
 	}
 	

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -25,9 +26,16 @@ public class HibernateBikeRepository implements BikeRepository{
 		this.sessionFactory = sessionFactory;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Bike> findAll() {
-		return sessionFactory.getCurrentSession().createQuery("FROM Bike").list();
+		List<Bike> bikes = 
+
+
+				sessionFactory.getCurrentSession().createQuery("FROM Bike").list();	
+		Hibernate.initialize(bikes);
+		return bikes;
+
 	}
 
     @Override

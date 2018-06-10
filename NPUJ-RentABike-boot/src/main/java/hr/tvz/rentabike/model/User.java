@@ -21,6 +21,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 
@@ -93,14 +95,14 @@ public class User implements Serializable{
 	String email;
 	
 
-	
+	@JsonIgnore
 	@ManyToOne
 	//@JoinColumn(name="membershipId")
 	@JoinColumn(name="membershiptypeid")
 	public MembershipType membershipType;
     
 	
-	
+	@JsonIgnore
 	@OneToMany(targetEntity=Reservation.class, mappedBy="user", fetch=FetchType.EAGER)	
 	public List<Reservation> reservations; 
 	
@@ -225,10 +227,13 @@ public class User implements Serializable{
 		return this.membershipType;
 	}
 
+	
+	@JsonIgnore	
 	public List<Reservation> getSetBikes() {
 		return this.reservations;	
 	}
 	
+	@JsonIgnore
 	public void setEmployees(List<Reservation> reservations) {
 		this.reservations = reservations;
 		}

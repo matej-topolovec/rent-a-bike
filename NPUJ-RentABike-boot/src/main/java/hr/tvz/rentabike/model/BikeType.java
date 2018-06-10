@@ -1,19 +1,26 @@
 package hr.tvz.rentabike.model;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -38,11 +45,18 @@ public class BikeType implements Serializable{
 	@Column(name = "name")
 	public String name;
 
+	@JsonIgnore
+	@OneToMany(targetEntity=Bike.class, mappedBy="biketype",  orphanRemoval = true , cascade = CascadeType.ALL, fetch=FetchType.LAZY)	
+	@Column(nullable = true)
+//	@OneToMany
+//	@JoinTable(name="bike",
+//    joinColumns = @JoinColumn(name="id"),
+//	inverseJoinColumns = @JoinColumn(name="typeid", unique=true))
+	public List<Bike> bikes = new ArrayList<Bike>();
 	
-	@OneToMany(targetEntity=Bike.class, mappedBy="biketype", fetch=FetchType.EAGER)	
-	//public List<Bike> bikes = new ArrayList<Bike>(); 
-	public List<Bike> bikes= new ArrayList<Bike>();
 	
+	
+	public BikeType() {}
 
 	public void setId(int id) {
 		this.id= id;
@@ -65,10 +79,13 @@ public class BikeType implements Serializable{
 		
 	}
 	
-	public List<Bike> getSetBikes() {
+	
+	@JsonIgnore
+	 public List<Bike> getSetBikes() {
 		return this.bikes;	
 	}
 	
+	@JsonIgnore
 	public void setEmployees(List<Bike> bikes) {
 		this.bikes = bikes;
 		}
