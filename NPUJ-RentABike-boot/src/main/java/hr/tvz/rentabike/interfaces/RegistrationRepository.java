@@ -1,4 +1,4 @@
-package hr.tvz.rentabike.db;
+package hr.tvz.rentabike.interfaces;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import hr.tvz.rentabike.model.MembershipType;
 import hr.tvz.rentabike.model.User;
 
-public interface RegistrationRepository extends JpaRepository<User, Integer> {
+public interface RegistrationRepository {
 	User save(User user);
 	List<User> findAll();
 	User findByUsernameOrEmail(String username, String email);

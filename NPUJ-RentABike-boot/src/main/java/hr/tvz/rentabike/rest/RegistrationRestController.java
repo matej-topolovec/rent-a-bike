@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import hr.tvz.rentabike.db.RegistrationRepository;
+import hr.tvz.rentabike.interfaces.RegistrationRepository;
 import hr.tvz.rentabike.model.User;
 
 @RestController
