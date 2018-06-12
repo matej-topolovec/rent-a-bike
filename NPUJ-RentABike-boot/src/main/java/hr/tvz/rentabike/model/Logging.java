@@ -28,8 +28,8 @@ public class Logging implements Serializable {
 	
 	
 	@Id
-	@Column(name= "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name= "id")
 	public int id;
 	
 	@Column(name = "username")

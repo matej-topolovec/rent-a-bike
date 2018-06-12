@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.BikeTypeRepository;
-import hr.tvz.rentabike.db.CustomerRepository;
 import hr.tvz.rentabike.db.MembershipTypeRepository;
-import hr.tvz.rentabike.db.LoggingRepository;
-import hr.tvz.rentabike.db.RegistrationRepository;
 import hr.tvz.rentabike.db.ReservationRepository;
 import hr.tvz.rentabike.db.UserRepository;
-import hr.tvz.rentabike.db.UserRoleRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
+import hr.tvz.rentabike.interfaces.CustomerRepository;
+import hr.tvz.rentabike.interfaces.LoggingRepository;
+import hr.tvz.rentabike.interfaces.RegistrationRepository;
+import hr.tvz.rentabike.interfaces.UserRoleRepository;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Customer;
 import hr.tvz.rentabike.model.Logging;
@@ -100,12 +100,13 @@ public class RentABikeController {
 	}
 
 	@GetMapping("/logging")
-	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	@Secured({ "ROLE_ADMIN" })
 	public String loggingPage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("logging", loggingRepository.findAll());
+		log("Openning logging page");
 		return "logging";
 	}
 
@@ -118,7 +119,12 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
+<<<<<<< HEAD
 		model.addAttribute("bikes", BikeRepository.findAll());
+=======
+		model.addAttribute("bikes", JdbcBikeRepository.findAll());
+		log("Openning Bike page");
+>>>>>>> d77738f394d21fb86aafc4ac4485a976759d106f
 		return "bike";
 
 	}
@@ -131,7 +137,8 @@ public class RentABikeController {
 
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
-
+		
+		log("Openning Create bike page");
 		return "EditBike";
 	}
 
@@ -152,7 +159,8 @@ public class RentABikeController {
 
 			System.out.println(b.getId() + " " + b.getName() + " " + b.getDate());
 		}
-
+		
+		log("Saved new bike");
 		return "redirect:/bikes";
 
 	}
@@ -168,6 +176,7 @@ public class RentABikeController {
 		    	System.out.println(e);
 		    	return "ErrorHandlerModal";
 		    }
+		log("Deleted bike");
 		return "redirect:/bikes";
 	}
 
@@ -183,7 +192,8 @@ public class RentABikeController {
 			model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
 			return "EditBike";
 		}
-
+		
+		log("Open edit bike page");
 		return "redirect:/bikes";
 	}
 
@@ -197,8 +207,14 @@ public class RentABikeController {
 		
 		}
 
+<<<<<<< HEAD
 		BikeRepository.updateBike(bike);
 
+=======
+		JdbcBikeRepository.updateBike(bike);
+		
+		log("Edit bike");
+>>>>>>> d77738f394d21fb86aafc4ac4485a976759d106f
 		return "redirect:/bikes";
 	}
 
@@ -208,7 +224,13 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
+<<<<<<< HEAD
 		model.addAttribute("bike", BikeRepository.findOne(id));
+=======
+		model.addAttribute("bike", JdbcBikeRepository.findOne(id));
+		
+		log("Bike details page");
+>>>>>>> d77738f394d21fb86aafc4ac4485a976759d106f
 		return "bikeDetails";
 	}
 
@@ -234,28 +256,33 @@ public class RentABikeController {
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customers", JdbcCustomerRepository.findAll());
-
+		
+		log("Open customers page");
 		return "customers";
 	}
 
 	@RequestMapping(value = "/customers/details/{id}")
-	public String getInfo(@PathVariable("id") String id, Model model) {
+	public String getDetails(@PathVariable("id") Integer id, Model model) {
 		log("Get request on /customers/details/" + id);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
+		
+		log("Open customers details page");
 		return "customersDetails";
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.GET)
-	public String editCustomer(@PathVariable("id") String id, Model model) {
+	public String editCustomer(@PathVariable("id") Integer id, Model model) {
 		log("Get request on /customers/edit/" + id);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
+		
+		log("Open edit customer page");
 		return "customersEdit";
 	}
 
@@ -267,21 +294,26 @@ public class RentABikeController {
 			System.out.println(bindingResult);
 		}
 		JdbcCustomerRepository.updateCustomer(c);
+		
+		log("Edit customer");
 		return "redirect:/customers";
 	}
 
 	@RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
-	public String deleteCustomer(@PathVariable("id") String id) {
+	public String deleteCustomer(@PathVariable("id") Integer id) {
 		log("Get request on /customers/delete/" + id);
-		if (id != "0")
+		if (id != 0)
 			JdbcCustomerRepository.deleteCustomer(id);
 
+		log("Delete customer");
 		return "redirect:/customers";
 	}
 
 	@GetMapping("/registration")
 	public String getRegistration(Model model) {
 		model.addAttribute("User", new User());
+		
+		log("Open registration form");
 		return "registration";
 	}
 
@@ -299,6 +331,7 @@ public class RentABikeController {
 				System.out.println(user2.getUsername() + " " + user2.getPassword());
 			}
 
+			log("Register new user without roles");
 			return "login";
 		}
 
@@ -316,6 +349,8 @@ public class RentABikeController {
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
+		
+		log("Open administrator page");
 		return "administrator";
 	}
 
@@ -329,6 +364,8 @@ public class RentABikeController {
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
+		
+		log("Delete user");
 		return "redirect:/administrator";
 	}
 
@@ -345,33 +382,10 @@ public class RentABikeController {
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
+		
+		log("Add roles to user");
 		return "redirect:/administrator";
 	}
-
-	/*
-	 * @DeleteMapping(value = "/administrator/{id}/delete")
-	 * 
-	 * @ResponseStatus(value = HttpStatus.OK) public String
-	 * deleteUser(@PathVariable("id") int idx, final RedirectAttributes
-	 * redirectAttributes) {
-	 * 
-	 * redirectAttributes.addFlashAttribute("css", "Success");
-	 * redirectAttributes.addFlashAttribute("msg", "The user is deleted");
-	 * 
-	 * // delete the user registrationRepository.delete(idx); return
-	 * "redirect:/users/"; }
-	 */
-
-	/*
-	 * @RequestMapping(value="/adminakcije", method=RequestMethod.POST) public
-	 * String deleteUser(@RequestParam(value="buttonadd") int
-	 * idAdd, @RequestParam(value="buttondel") int idDel, Model model) {
-	 * 
-	 * if(idDel != 0){ System.out.println("Del je"); } if(idAdd != 0){
-	 * System.out.println("Add je"); }
-	 * 
-	 * return "administrator"; }
-	 */
 
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
@@ -381,6 +395,8 @@ public class RentABikeController {
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("reservations", reservationRepository.findAll());
+		
+		log("Open reservations page");
 		return "reservations";
 	}
 }

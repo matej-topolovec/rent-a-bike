@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import hr.tvz.rentabike.model.MembershipType;
+import hr.tvz.rentabike.interfaces.CustomerRepository;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Customer;
 
@@ -44,18 +45,18 @@ public class JdbcCustomerRepository implements CustomerRepository {
 	}
 
 	@Override
-	public Customer findOne(String id) {
+	public Customer findOne(Integer id) {
 
 		return jdbc.queryForObject(FIND_ALL_QUERY + " where c.id = ?", this::mapRowToCustomer, id);
 
 	}
 	
-	public int updateCustomer(Customer c) {
-		return jdbc.update(SQL_UPDATE_CUSTOMER, c.getName(), c.getSurname(), c.getOIB(), c.getBirthdate(), c.getEmail(), c.getAddress(), c.getPhone(), c.getMembershipType().getId(), c.getId());
+	public void updateCustomer(Customer c) {
+		jdbc.update(SQL_UPDATE_CUSTOMER, c.getName(), c.getSurname(), c.getOIB(), c.getBirthdate(), c.getEmail(), c.getAddress(), c.getPhone(), c.getMembershipType().getId(), c.getId());
 	}
 	
 	@Override
-	public void deleteCustomer(String id) {
+	public void deleteCustomer(Integer id) {
 
 		final String DELETE_QUERY = "DELETE FROM customer WHERE id = " + id;
 		jdbc.execute(DELETE_QUERY);

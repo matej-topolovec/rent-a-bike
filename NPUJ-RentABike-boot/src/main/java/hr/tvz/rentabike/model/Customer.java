@@ -57,7 +57,7 @@ public class Customer implements Serializable{
 	String email;
 
 	@NotEmpty(message = "Niste unjeli mjesto stanovanja")
-	@Size(min = 2, max = 20, message = "mjesto stanovanja treba imati izmeðu 2 i 20 znakova")
+	@Size(min = 2, max = 50, message = "mjesto stanovanja treba imati izmeðu 2 i 50 znakova")
 	@Column(name = "address")
 	String address;
 

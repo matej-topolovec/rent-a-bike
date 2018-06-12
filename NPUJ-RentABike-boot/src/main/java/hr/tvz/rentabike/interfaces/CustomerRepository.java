@@ -1,4 +1,4 @@
-package hr.tvz.rentabike.db;
+package hr.tvz.rentabike.interfaces;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ public interface CustomerRepository {
 
 	List<Customer> findAll();
 
-	Customer findOne(String id);
+	Customer findOne(Integer id);
 
 	Customer save(Customer c);
 	
-	int updateCustomer(Customer c);
+	void updateCustomer(Customer c);
 	
-	void deleteCustomer(String id);
+	void deleteCustomer(Integer id);
 
 }
