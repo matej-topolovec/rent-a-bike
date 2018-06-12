@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.BikeTypeRepository;
-import hr.tvz.rentabike.db.CustomerRepository;
 import hr.tvz.rentabike.db.MembershipTypeRepository;
 import hr.tvz.rentabike.db.ReservationRepository;
 import hr.tvz.rentabike.db.UserRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
+import hr.tvz.rentabike.interfaces.CustomerRepository;
 import hr.tvz.rentabike.interfaces.LoggingRepository;
 import hr.tvz.rentabike.interfaces.RegistrationRepository;
 import hr.tvz.rentabike.interfaces.UserRoleRepository;
@@ -243,7 +243,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/details/{id}")
-	public String getInfo(@PathVariable("id") String id, Model model) {
+	public String getDetails(@PathVariable("id") Integer id, Model model) {
 		log("Get request on /customers/details/" + id);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -255,7 +255,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.GET)
-	public String editCustomer(@PathVariable("id") String id, Model model) {
+	public String editCustomer(@PathVariable("id") Integer id, Model model) {
 		log("Get request on /customers/edit/" + id);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -281,9 +281,9 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
-	public String deleteCustomer(@PathVariable("id") String id) {
+	public String deleteCustomer(@PathVariable("id") Integer id) {
 		log("Get request on /customers/delete/" + id);
-		if (id != "0")
+		if (id != 0)
 			JdbcCustomerRepository.deleteCustomer(id);
 
 		log("Delete customer");
