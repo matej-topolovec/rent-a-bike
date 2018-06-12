@@ -167,18 +167,16 @@ public class WebConfig implements WebMvcConfigurer {
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 	LocaleChangeInterceptor locale = new LocaleChangeInterceptor();
 	locale.setParamName("lang");
-	locale.setIgnoreInvalidLocale(true);
 	return locale;
 	}
 	
 	
-	@PostConstruct
+
 	@Bean
 	public MessageSource messageSource() {
 	ReloadableResourceBundleMessageSource messageSource= new
 	ReloadableResourceBundleMessageSource();
 	messageSource.setBasename("classpath:i18n/messages");
-	messageSource.setCacheSeconds(10);
 	messageSource.setDefaultEncoding("UTF-8");
 	return messageSource;
 	}
@@ -190,5 +188,11 @@ public class WebConfig implements WebMvcConfigurer {
 	bean.setValidationMessageSource(messageSource());
 	return bean;
 	}
+	
+	
+	
+	
+	
+	
 	
 }

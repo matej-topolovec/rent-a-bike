@@ -77,7 +77,7 @@ name VARCHAR(50)
 CREATE TABLE bike(
 id INT(11) IDENTITY PRIMARY KEY,
 name VARCHAR(50),
-dateAdded date not null,
+dateadded date not null,
 quantity INT NOT NULL,
 available INT NOT NULL,
 typeId INT DEFAULT 1,

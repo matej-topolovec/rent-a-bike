@@ -83,7 +83,7 @@ $(function () {
       <tr th:each="line : ${bikes}">
          <td th:text="${line.id}"></td>
          <td th:text="${line.name}"></td>
-         <td th:text="${#dates.format(line.dateAdded, 'dd-MM-yyyy')}"></td>     
+         <td th:text="${#dates.format(line.dateadded, 'dd-MM-yyyy')}"></td>     
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
            <td th:text="${line.BikeType.name}"></td> 

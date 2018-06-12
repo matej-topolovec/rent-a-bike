@@ -17,10 +17,10 @@
 
 <script>
     $(document).ready(function(){
-        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var date_input=$('input[name="dateadded"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
-            format: 'dd-mm-yyyy',
+            format: 'yyyy-mm-dd',
             container: container,
             todayHighlight: true,
             autoclose: true,
@@ -61,7 +61,7 @@ $(function () {
 					<div  class="form-group row">
 						<label for="date"  class="col-sm-1  col-form-label">Date: </label>
 					    	<div class="col-sm-5 mb-3">
-							<input  name="date" type="text" th:field="*{date}" class="form-control" placeholder="dd-mm-yyyy" />
+							<input  name="dateadded" type="text" th:field="*{date}" class="form-control" placeholder="dd-mm-yyyy" />
 						<span class="validation-error"
 							th:if="${#fields.hasErrors('date')}"
 							th:errors="*{date}">Bike date error

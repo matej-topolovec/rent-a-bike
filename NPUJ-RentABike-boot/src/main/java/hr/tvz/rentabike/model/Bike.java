@@ -50,8 +50,8 @@ public class Bike implements Serializable{
 	
 	 
 	@Column(name = "dateadded")
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	public Date dateAdded;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public Date dateadded;
 	
 	@Min(0)
 	@NotNull(message = "Niste unjeli kolièinu bicikla")
@@ -64,7 +64,7 @@ public class Bike implements Serializable{
 	private int available;
 		
 	
-	
+    //@Valid
 	@JsonIgnore
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name="typeid")
@@ -81,7 +81,7 @@ public class Bike implements Serializable{
 	
 	public Bike(String name, Date date_Added, int quantity, int available, BikeType biketype ){
 		this.name = name;
-		this.dateAdded = date_Added;
+		this.dateadded = date_Added;
 		this.quantity = quantity;
 		this.available = available;
 		this.biketype= biketype;
@@ -107,11 +107,11 @@ public class Bike implements Serializable{
 	}
 
 	public void setDate(Date date_Added) {
-		this.dateAdded= date_Added;
+		this.dateadded= date_Added;
 	}
 
 	public Date getDate() {
-		return dateAdded;
+		return dateadded;
 	}
 
 	public int getQuantity() {

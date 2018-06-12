@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +46,7 @@ public class RentABikeController {
 	LoggingRepository loggingRepository;
 
 	@Autowired
-	BikeRepository JdbcBikeRepository;
+	BikeRepository BikeRepository;
 
 	@Autowired
 	hr.tvz.rentabike.db.JpaBikeRepository JpaBikeRepository;
@@ -117,7 +118,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("bikes", JdbcBikeRepository.findAll());
+		model.addAttribute("bikes", BikeRepository.findAll());
 		return "bike";
 
 	}
@@ -135,17 +136,17 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
-	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
+	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Model model) {
 		log("Post request on /bike/create");
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
-
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
+			model.addAttribute("BikeTypes",JdbcBikeTypeRepository.findAll());
 			return "EditBike";
 		}
 
-		JdbcBikeRepository.save(bike);
+		BikeRepository.save(bike);
 
-		List<Bike> listabike = JdbcBikeRepository.findAll();
+		List<Bike> listabike = BikeRepository.findAll();
 
 		for (Bike b : listabike) {
 
@@ -161,7 +162,7 @@ public class RentABikeController {
 		log("Get request on /bike/delete/" + id);
 		if (id != 0)
 			try {
-				JdbcBikeRepository.delete(id);
+				BikeRepository.delete(id);
 			}
 		    catch(Exception e) {
 		    	System.out.println(e);
@@ -176,7 +177,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		Bike bike = JdbcBikeRepository.findOne(id);
+		Bike bike = BikeRepository.findOne(id);
 		if (bike != null) {
 			model.addAttribute("Bike", bike);
 			model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
@@ -196,7 +197,7 @@ public class RentABikeController {
 		
 		}
 
-		JdbcBikeRepository.updateBike(bike);
+		BikeRepository.updateBike(bike);
 
 		return "redirect:/bikes";
 	}
@@ -207,7 +208,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("bike", JdbcBikeRepository.findOne(id));
+		model.addAttribute("bike", BikeRepository.findOne(id));
 		return "bikeDetails";
 	}
 
@@ -217,8 +218,13 @@ public class RentABikeController {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
 		binder.registerCustomEditor(Date.class, editor);
 		
+		
 	}
-
+    
+	
+	
+	
+	
 	// Customer controllers
 
 	@GetMapping("/customers")

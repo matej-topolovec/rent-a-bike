@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -45,6 +46,9 @@ public class BikeType implements Serializable{
 	@Column(name = "name")
 	public String name;
 
+	
+	
+	
 	@JsonIgnore
 	@OneToMany(targetEntity=Bike.class, mappedBy="biketype",  orphanRemoval = true , cascade = CascadeType.ALL, fetch=FetchType.LAZY)	
 	@Column(nullable = true)
@@ -74,6 +78,7 @@ public class BikeType implements Serializable{
 		
 	}
 	
+
 	public String getName() {
 		return this.name;
 		

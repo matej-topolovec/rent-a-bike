@@ -18,10 +18,10 @@ import java.util.Map;
 @Repository
 public class JdbcBikeRepository implements BikeRepository{
 
-	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateAdded as dateAdded, b.quantity as quantity, b.available as available,"
+	private final String FIND_ALL_QUERY = "select b.id as id, b.name as name, b.dateadded as dateAdded, b.quantity as quantity, b.available as available,"
 			+ " tb.id as BikeTypeId , tb.name as BikeTypeName  from bike b  JOIN bike_type tb ON b.typeid = tb.id";
 	
-	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateAdded = ?, quantity = ? , available  = ? , typeid = ?  where id = ?";
+	private final String SQL_UPDATE_BIKE = "update bike set name = ?, dateadded = ?, quantity = ? , available  = ? , typeid = ?  where id = ?";
 	
 	private final  String SQL_DELETE_BIKE = "delete from Bike where id = ?";
 	
