@@ -8,19 +8,6 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 <meta charset="UTF-8" />
 
-<script>
-
-$(document).ready(function() {
-    $("#locales").change(function () {
-        var selectedOption = $('#locales').val();
-        if (selectedOption != ''){
-            window.location.replace('?language=' + selectedOption);
-        }
-    });
-});
-</script>
-
-
 </head>
 
 
@@ -38,55 +25,41 @@ $(document).ready(function() {
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li th:classappend="${module == 'rentabike' ? 'active' : ''}">
-						<a href="#" th:href="@{/home}" th:text="#{header.eBike}" >eBike</a>
-					</li>
-					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
-
-						<a href="#" th:href="@{/customers}" th:text="#{header.customers}">Customers</a>
-					</li>
-					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
-						href="#" th:href="@{/bikes}" th:text="#{bike.bikes}">Bikes</a></li>
-					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'reservations' ? 'active' : ''}">
-						<a href="#" th:href="@{/reservations}" th:text="#{header.reservations}"  >Reservations</a> header.reservations
-					</li>
-					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/contact}" th:text="#{header.contact}">Contact</a></li>
-					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/logging}" th:text="#{header.logging}">Logging</a></li>
-					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/administrator}" th:text="#{header.adminPanel}">Admin panel</a></li>
-						
-			
-						</ul>
 				
-
-			
-						<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}"></a>
-					</li>
-					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
-						href="#" th:href="@{/bikes}" th:text="#{tab.Bikes}">Bikes</a></li>
+				
+					
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}">
+					<a href="#" th:href="@{/bikes}" th:text="#{tab.Bikes}">Bikes</a></li>
+						
+						
+										
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'custemers' ? 'active' : ''}">
+					<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}"></a>	
+					</li>	
+						
+						
+									
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'reservations' ? 'active' : ''}">
 						<a href="#" th:href="@{/reservations}" th:text="#{tab.Reservations}">Reservations</a>
 					</li>
+					
+					
 					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/contact}" th:text="#{tab.Contact}">Contact</a></li>
+						
+						
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/logging}" th:text="#{tab.Logging}">Logging</a></li>
+						
+						
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/administrator}" th:text="#{tab.Admin}">Admin panel</a></li>
-				</ul>
+				
+						</ul>
+								
 
 				<ul class="nav navbar-nav navbar-right">
-				  	<li>
-			       <select id="locales">
-			       <option value="hr" th:selected="${#locale.language == 'hr'}" th:text="#{lang.hr}"></option>
-			       <option value="en" th:selected="${#locale.language == 'en'}" th:text="#{lang.en}"></option>
-			       </select>
-			      </li>
-				
-				
-				
+				  	
 					<li th:if="${#authorization.expression('!isAuthenticated()')}">
 						<a href="/signin" th:href="@{/signin}" th:text="#{header.signIn}"> 
 						<span class="glyphicon glyphicon-log-in" aria-hidden="true" ></span>&nbsp;Sign in </a>
