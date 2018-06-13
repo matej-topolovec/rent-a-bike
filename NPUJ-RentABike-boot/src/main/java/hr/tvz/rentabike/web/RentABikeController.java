@@ -118,15 +118,9 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-<<<<<<< HEAD
-
 		model.addAttribute("bikes", BikeRepository.findAll());
 		log("Openning Bike page");
 
-=======
-		model.addAttribute("bikes", BikeRepository.findAll());
-		log("Openning Bike page");
->>>>>>> 4084f5da3b0863e1ae7037f92a13dd2b833d4566
 		return "bike";
 
 	}
@@ -210,13 +204,11 @@ public class RentABikeController {
 		}
 
 		BikeRepository.updateBike(bike);
-<<<<<<< HEAD
+
 	
 		log("Edit bike");
 
-=======
-		log("Edit bike");
->>>>>>> 4084f5da3b0863e1ae7037f92a13dd2b833d4566
+
 		return "redirect:/bikes";
 	}
 
@@ -226,13 +218,9 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-<<<<<<< HEAD
 
 		model.addAttribute("bike", BikeRepository.findOne(id));
 		
-=======
-		model.addAttribute("bike", BikeRepository.findOne(id));
->>>>>>> 4084f5da3b0863e1ae7037f92a13dd2b833d4566
 		log("Bike details page");
 		return "bikeDetails";
 	}

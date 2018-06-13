@@ -42,7 +42,7 @@ $(document).ready(function() {
 						<a href="#" th:href="@{/home}" th:text="#{header.eBike}" >eBike</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
-<<<<<<< HEAD
+
 						<a href="#" th:href="@{/customers}" th:text="#{header.customers}">Customers</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
@@ -61,9 +61,7 @@ $(document).ready(function() {
 						</ul>
 				
 
-				
-				
-=======
+			
 						<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}"></a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
@@ -78,7 +76,7 @@ $(document).ready(function() {
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/administrator}" th:text="#{tab.Admin}">Admin panel</a></li>
 				</ul>
->>>>>>> 4084f5da3b0863e1ae7037f92a13dd2b833d4566
+
 				<ul class="nav navbar-nav navbar-right">
 				  	<li>
 			       <select id="locales">
