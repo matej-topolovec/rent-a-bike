@@ -15,28 +15,28 @@
 	<div class="container-fluid" sec:authorize="hasRole('ROLE_ADMIN')" >
 		<table class="table table-striped">
 			<tr>
-				<td>Name</td>
+				<td th:text="#{bike.name}">Name</td>
 				<td th:text="${bike.name}"></td>
 			</tr>
 			<tr>
-				<td>Date</td>
-				 <td th:text="${#dates.format(bike.dateAdded, 'dd-MM-yyyy')}"></td>     
+				<td th:text="#{bike.date}">Date</td>
+				 <td th:text="${#dates.format(bike.dateadded, 'dd-MM-yyyy')}"></td>     
 			</tr>
 			<tr>
-				<td>Quantity</td>
+				<td th:text="#{bike.quantity}">Quantity</td>
 				<td th:text="${bike.quantity}"></td>
 			</tr>
 			<tr>
-				<td>Available</td>
+				<td th:text="#{bike.available}">Available</td>
 				<td th:text="${bike.available}"></td>
 			</tr>
 			<tr>
-				<td>BikeType</td>
+				<td th:text="#{bike.typeOfBike}">BikeType</td>
 				<td th:text="${bike.biketype.name}"></td>
 			</tr>
 		</table>
 		
-			<a th:href="@{/bikes}" class="btn btn-primary" >Bikes</a>
+			<a th:href="@{/bikes}" class="btn btn-primary" th:text="#{bike.bikes}">Bikes</a>
 	</div>
 
 

@@ -17,28 +17,27 @@
 				<div class="row">
 
 					<div class="col-md-6">
-						<h5 class="text-uppercase">Rent A Bike</h5>
-						<p>Rent a bike is a service for renting bikes around city.
+						<h5 class="text-uppercase" th:text="#{footer.heading}">Rent A Bike</h5>
+						<p th:text="#{footer.content}">Rent a bike is a service for renting bikes around city.
 							Everyday we try to please our customers so that they can enjoy
 							riding a bike without worries.</p>
 					</div>
 
 					<div class="col-md-6">
-						<h5 class="text-uppercase">Links</h5>
+						<h5 class="text-uppercase" th:text="#{footer.links}">Links</h5>
 						<ul class="list-unstyled">
-							<li><a href="#!">Terms of Service</a></li>
-							<li><a href="#!">Our fans</a></li>
-							<li><a href="#!">About us</a></li>
-							<li><a href="#!">Where are we</a></li>
+							<li><a href="#!" th:text="#{footer.termsOfService}">Terms of Service</a></li>
+							<li><a href="#!" th:text="#{footer.ourFans}">Our fans</a></li>
+							<li><a href="#!" th:text="#{footer.aboutUs}">About us</a></li>
+							<li><a href="#!" th:text="#{footer.whereAreWe}">Where are we</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 
 			<!--Copyright-->
-			<div class="footer-copyright py-3 text-center">
-				© 2018 Copyright: <a href="https://www.tvz.hr"> TVZ - Praskatoni
-				</a>
+			<div class="footer-copyright py-3 text-center" th:text="#{footer.copyright}">
+				© 2018 Copyright: <a th:href="https://www.tvz.hr" th:text="#{footer.prascatoni}"> TVZ - Praskatoni  </a>
 			</div>
 
 		</footer>

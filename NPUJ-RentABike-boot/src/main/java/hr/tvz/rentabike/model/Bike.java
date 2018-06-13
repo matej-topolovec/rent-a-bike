@@ -43,8 +43,8 @@ public class Bike implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty(message = "Niste unjeli ime bicikla")
-	@Size(min = 2, max = 20, message = "Ime Bicikla treba imati izmeðu 2 i 20 znakova")
+	@NotEmpty(message = "{validation.bike.name.notEmpty}")
+	@Size(min = 2, max = 20, message = "{validation.bike.name.size}")
 	@Column(name = "name")
 	private String name;
 	
@@ -54,12 +54,12 @@ public class Bike implements Serializable{
 	public Date dateadded;
 	
 	@Min(0)
-	@NotNull(message = "Niste unjeli kolièinu bicikla")
+	@NotNull(message = "{validation.bike.notNull}")
 	@Column(name = "quantity")
 	private int quantity;
 	
 	@Min(0)
-	@NotNull(message = "Niste unjeli kolièinu dostupnih bicikla")
+	@NotNull(message = "{validation.bike.notNull}")
 	@Column(name = "available")
 	private int available;
 		

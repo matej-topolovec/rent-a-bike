@@ -48,14 +48,15 @@ $(function () {
   
   <h3 th:text="#{bike}"></h3>
  
-  <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Create bike" >Create new Bike</a>
+  <div id ="bb"> <a th:href="@{/bike/create}" class="btn btn-primary" data-toggle="tooltip" data-placement="right" th:title="#{bike.create}" 
+  th:text="#{bike.create}">Create new Bike</a>
 
 
 
 				<div class="form-group row" id="search">
-						<label for="sr" class="col-sm-1  col-form-label">Search: </label>
-						  <div class="col-sm-7 mb-3">
-						    <input class="form-control" id="myInput" type="text" placeholder="Search.."></input>
+						<label for="sr" class="col-sm-1  col-form-label" th:text="#{bike.search}">Search: </label>
+						  <div class="col-sm-7 mb-3">        
+						    <input class="form-control" id="myInput" type="text" th:placeholder ="#{bike.search}" ></input>
 					</div>
 				</div>
 </div>
@@ -67,14 +68,14 @@ $(function () {
 			<tr>
 			
 				<th>Id</th>
-				<th>Name</th>
-				<th>Date</th>
-				<th>Quantity</th>
-				<th>Available</th>
-		        <th>Type of bike</th>  
-		        <th>Details</th>
-		        <th>Edit</th>
-		        <th>Delete</th>
+				<th th:text="#{bike.name}">Name</th>
+				<th th:text="#{bike.date}" >Date</th>
+				<th th:text="#{bike.quantity}">Quantity</th>
+				<th th:text="#{bike.available}">Available</th>
+		        <th th:text="#{bike.typeOfBike}">Type of bike</th>  
+		        <th th:text="#{bike.details}">Details</th>
+		        <th th:text="#{bike.edit}">Edit</th>
+		        <th th:text="#{bike.delete}">Delete</th>
 		
 			</tr>
      </thead>
@@ -87,9 +88,9 @@ $(function () {
          <td th:text="${line.quantity}"></td>
          <td th:text="${line.available}"></td>
            <td th:text="${line.BikeType.name}"></td> 
-          <td><a th:href="@{/bike/details/{id}/(id=${line.id})}">Details</a></td>
-         <td><a th:href="@{/bike/edit/{id}/(id=${line.id})}">Edit</a></td>
-         <td><a th:href="@{/bike/delete/{id}/(id=${line.id})}"  >Delete</a></td>
+          <td><a th:href="@{/bike/details/{id}/(id=${line.id})}" th:text="#{bike.details}">Details</a></td>
+         <td ><a th:href="@{/bike/edit/{id}/(id=${line.id})}" th:text="#{bike.edit}">Edit</a></td>
+         <td ><a th:href="@{/bike/delete/{id}/(id=${line.id})}" th:text="#{bike.delete}" >Delete</a></td>
       </tr>
      
      

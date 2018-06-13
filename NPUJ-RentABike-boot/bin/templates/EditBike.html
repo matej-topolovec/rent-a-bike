@@ -39,7 +39,7 @@ $(function () {
 </head>
 <body>
 	<div th:replace="../fragments/header :: header"></div>
-    <h3>Create new Bike</h3>
+    <h3 th:text="#{bike.createCaption}">Create new Bike</h3>
 	
 	
 	<div class="container-fluid"  sec:authorize="isAuthenticated()" >	
@@ -47,7 +47,7 @@ $(function () {
 			<form method="POST" th:object="${Bike}" >			
 						
 				<div class="form-group row">
-						<label for="name" class="col-sm-1  col-form-label">Name: </label>
+						<label for="name" class="col-sm-1  col-form-label"  th:text="#{bike.name}">Name: </label>
 						  <div class="col-sm-5 mb-3">
 						   <input type="text" th:field="*{name}" class="form-control" />
 						<span class="validation-error"
@@ -59,7 +59,7 @@ $(function () {
 				
 				
 					<div  class="form-group row">
-						<label for="date"  class="col-sm-1  col-form-label">Date: </label>
+						<label for="date"  class="col-sm-1  col-form-label" th:text="#{bike.date}">Date: </label>
 					    	<div class="col-sm-5 mb-3">
 							<input  name="dateadded" type="text" th:field="*{date}" class="form-control" placeholder="dd-mm-yyyy" />
 						<span class="validation-error"
@@ -72,7 +72,7 @@ $(function () {
 				
 				
 				<div class="form-group row" >
-						 <label for="quantity" class="col-sm-1  col-form-label">Quantity: </label>
+						 <label for="quantity" class="col-sm-1  col-form-label" th:text="#{bike.quantity}">Quantity: </label>
 						 	<div class="col-sm-5 mb-3">
 						    <input type="number" th:field="*{quantity}" class="form-control" />
 						<span class="validation-error"
@@ -87,7 +87,7 @@ $(function () {
 				
 				<div class="form-group row">
 					
-						<label for="available"  class="col-sm-1  col-form-label">Available: </label>
+						<label for="available"  class="col-sm-1  col-form-label" th:text="#{bike.available}">Available: </label>
 						   <div class="col-sm-5 mb-3">
 							<input type="number" th:field="*{available}" class="form-control" />
 						<span class="validation-error"
@@ -101,10 +101,10 @@ $(function () {
 				     
 				<div class="form-group row">
 				
-		   				<label for="TypeOfBike"  class="col-sm-1  col-form-label">Type : </label>
+		   				<label for="TypeOfBike"  class="col-sm-1  col-form-label" th:text="#{bike.typeOfBike}">Type : </label>
 		   				   <div class="col-sm-5 mb-3">
-						<select th:field="*{BikeType.id}" class="form-control">
-							<option value="0" > --type of bike--   </option>
+						<select th:field="*{BikeType.id}" class="form-control" >
+							<option value="0" th:text="#{bike.chooseValue}" > --type of bike--   </option>
 							<option th:each=" line : ${BikeTypes}"
 									th:value="${line.id}"
 									th:text="${line.name}"></option>
@@ -120,7 +120,8 @@ $(function () {
 			 
 				<div class="form-group row" >
 					<div class="col-md-7 mb-3">	 
-						<input type="submit" value="Save" class="btn btn-success"  data-toggle="tooltip"  data-placement="bottom"  title="Click on save"/>
+						<input type="submit" th:value="#{bike.save}"  class="btn btn-success"  data-toggle="tooltip"  
+						data-placement="bottom"  title="Click on save"  />
 					</div>
 				</div>
 			</form>

@@ -7,6 +7,19 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 <meta charset="UTF-8" />
 
+<script>
+
+$(document).ready(function() {
+    $("#locales").change(function () {
+        var selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('?language=' + selectedOption);
+        }
+    });
+});
+</script>
+
+
 </head>
 
 
@@ -20,42 +33,56 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand">eBike</a>
+				<a class="navbar-brand" th:text="#{header.eBike}">eBike</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li th:classappend="${module == 'rentabike' ? 'active' : ''}">
-						<a href="#" th:href="@{/home}">eBike</a>
+						<a href="#" th:href="@{/home}" th:text="#{header.eBike}" >eBike</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
-						<a href="#" th:href="@{/customers}">Customers</a>
+						<a href="#" th:href="@{/customers}" th:text="#{header.customers}">Customers</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
-						href="#" th:href="@{/bikes}">Bikes</a></li>
+						href="#" th:href="@{/bikes}" th:text="#{bike.bikes}">Bikes</a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'reservations' ? 'active' : ''}">
-						<a href="#" th:href="@{/reservations}">Reservations</a>
+						<a href="#" th:href="@{/reservations}" th:text="#{header.reservations}"  >Reservations</a> header.reservations
 					</li>
 					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/contact}">Contact</a></li>
+						href="#" th:href="@{/contact}" th:text="#{header.contact}">Contact</a></li>
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/logging}">Logging</a></li>
+						href="#" th:href="@{/logging}" th:text="#{header.logging}">Logging</a></li>
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/administrator}">Admin panel</a></li>
-				</ul>
+						href="#" th:href="@{/administrator}" th:text="#{header.adminPanel}">Admin panel</a></li>
+						
+			
+						</ul>
+				
+
+				
+				
 				<ul class="nav navbar-nav navbar-right">
+				  	<li>
+			       <select id="locales">
+			       <option value="hr" th:selected="${#locale.language == 'hr'}" th:text="#{lang.hr}"></option>
+			       <option value="en" th:selected="${#locale.language == 'en'}" th:text="#{lang.en}"></option>
+			       </select>
+			      </li>
+				
+				
+				
 					<li th:if="${#authorization.expression('!isAuthenticated()')}">
-						<a href="/signin" th:href="@{/signin}"> <span
-							class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign
-							in
-					</a>
+						<a href="/signin" th:href="@{/signin}" th:text="#{header.signIn}"> 
+						<span class="glyphicon glyphicon-log-in" aria-hidden="true" ></span>&nbsp;Sign in </a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
-						<p class="navbar-brand">Welcome <span th:text="${user}"></span>!</p>
+						<p class="navbar-brand"  th:text="#{header.welcome}" style="text-align:right !important;" > Welcome </p>  <!-- <span th:text="${user}"></span>! </p> -->
 					</li>
+					<li> <span class="navbar-brand"  th:text="${user}" style="text-align:left;" ></span>  </li>
+					
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
-						<a href="/logout" th:href="@{/logout}"
-						onclick="$('#form').submit();"> <span
-							class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+						<a href="/logout" th:href="@{/logout}" onclick="$('#form').submit();" th:text="#{header.logout}" > 
+						<span class="glyphicon glyphicon-log-out" aria-hidden="true" ></span>&nbsp;Logout
 					</a>
 					</li>
 				</ul>

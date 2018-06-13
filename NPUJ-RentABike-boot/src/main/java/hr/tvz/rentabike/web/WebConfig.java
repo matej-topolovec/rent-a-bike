@@ -3,8 +3,6 @@ package hr.tvz.rentabike.web;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
