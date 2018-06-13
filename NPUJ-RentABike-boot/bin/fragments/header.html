@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
@@ -41,6 +42,7 @@ $(document).ready(function() {
 						<a href="#" th:href="@{/home}" th:text="#{header.eBike}" >eBike</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
+<<<<<<< HEAD
 						<a href="#" th:href="@{/customers}" th:text="#{header.customers}">Customers</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
@@ -61,6 +63,22 @@ $(document).ready(function() {
 
 				
 				
+=======
+						<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}"></a>
+					</li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
+						href="#" th:href="@{/bikes}" th:text="#{tab.Bikes}">Bikes</a></li>
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'reservations' ? 'active' : ''}">
+						<a href="#" th:href="@{/reservations}" th:text="#{tab.Reservations}">Reservations</a>
+					</li>
+					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
+						href="#" th:href="@{/contact}" th:text="#{tab.Contact}">Contact</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
+						href="#" th:href="@{/logging}" th:text="#{tab.Logging}">Logging</a></li>
+					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
+						href="#" th:href="@{/administrator}" th:text="#{tab.Admin}">Admin panel</a></li>
+				</ul>
+>>>>>>> 4084f5da3b0863e1ae7037f92a13dd2b833d4566
 				<ul class="nav navbar-nav navbar-right">
 				  	<li>
 			       <select id="locales">

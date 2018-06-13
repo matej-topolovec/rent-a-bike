@@ -23,6 +23,7 @@ public class HibernateLoggingRepository implements LoggingRepository {
 		return logging;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Logging> findAll() {
 		return sessionFactory.getCurrentSession().createQuery("FROM Logging").list();
