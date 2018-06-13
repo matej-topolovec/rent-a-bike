@@ -3,10 +3,13 @@ package hr.tvz.rentabike.web;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,6 +73,9 @@ public class RentABikeController {
 
 	@Autowired
 	ReservationRepository reservationRepository;
+	
+	@Autowired
+	MessageSource messageSource;
 
 	// @Autowired
 	// ReservationRepository reservationRepository;
@@ -92,7 +98,6 @@ public class RentABikeController {
 
 	@GetMapping("/home")
 	public String showForm(Model model) {
-		log("Get request on homepage");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 		return "homePage";
@@ -100,12 +105,14 @@ public class RentABikeController {
 
 	@GetMapping("/logging")
 	@Secured({ "ROLE_ADMIN" })
-	public String loggingPage(Model model) {
+	public String loggingPage(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("logging", loggingRepository.findAll());
-		log("Openning logging page");
+		
+		String logMessage = messageSource.getMessage("logging.loggingPageGet", null, locale);
+		log(logMessage);
 		return "logging";
 	}
 
@@ -113,34 +120,35 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
-	public String RentABike(Model model) {
-		log("Get request on /bikes");
+	public String RentABike(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("bikes", BikeRepository.findAll());
-		log("Openning Bike page");
+		
+		String logMessage = messageSource.getMessage("logging.bikesPageGet", null, locale);
+		log(logMessage);
 
 		return "bike";
 
 	}
 
 	@GetMapping("/bike/create")
-	public String showCreateBikeForm(Model model) {
-		log("Get request on /bike/create");
+	public String showCreateBikeForm(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
 		
-		log("Openning Create bike page");
+		String logMessage = messageSource.getMessage("logging.bikesCreateGet", null, locale);
+		log(logMessage);
 		return "EditBike";
 	}
 
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
-	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Model model) {
-		log("Post request on /bike/create");
+	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Model model,
+			Locale locale) {
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 			model.addAttribute("BikeTypes",JdbcBikeTypeRepository.findAll());
@@ -156,14 +164,14 @@ public class RentABikeController {
 			System.out.println(b.getId() + " " + b.getName() + " " + b.getDate());
 		}
 		
-		log("Saved new bike");
+		String logMessage = messageSource.getMessage("logging.bikesCreatePost", null, locale);
+		log(logMessage);
 		return "redirect:/bikes";
 
 	}
 
 	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
-	public String processDeleteBike(@PathVariable("id") Integer id) {
-		log("Get request on /bike/delete/" + id);
+	public String processDeleteBike(@PathVariable("id") Integer id, Locale locale) {
 		if (id != 0)
 			try {
 				BikeRepository.delete(id);
@@ -172,13 +180,14 @@ public class RentABikeController {
 		    	System.out.println(e);
 		    	return "ErrorHandlerModal";
 		    }
-		log("Deleted bike");
+		
+		String logMessage = messageSource.getMessage("logging.bikesDelete", null, locale);
+		log(logMessage);
 		return "redirect:/bikes";
 	}
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.GET)
-	public String processEditBike(@PathVariable("id") Integer id, Model model) {
-		log("Get request on /bike/edit/" + id);
+	public String processEditBike(@PathVariable("id") Integer id, Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
@@ -189,13 +198,13 @@ public class RentABikeController {
 			return "EditBike";
 		}
 		
-		log("Open edit bike page");
+		String logMessage = messageSource.getMessage("logging.bikesEdit", null, locale);
+		log(logMessage);
 		return "redirect:/bikes";
 	}
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.POST)
-	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult) {
-		log("Post request on /bike/edit/" + bike.getId());
+	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Locale locale) {
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 
@@ -204,24 +213,24 @@ public class RentABikeController {
 		}
 
 		BikeRepository.updateBike(bike);
-
-	
-		log("Edit bike");
+		
+		String logMessage = messageSource.getMessage("logging.bikesEditId", null, locale);
+		log(logMessage);
 
 
 		return "redirect:/bikes";
 	}
 
 	@RequestMapping(value = "/bike/details/{id}")
-	public String getInfo(@PathVariable("id") Integer id, Model model) {
-		log("Get request on /bike/details/" + id);
+	public String getInfo(@PathVariable("id") Integer id, Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 
 		model.addAttribute("bike", BikeRepository.findOne(id));
 		
-		log("Bike details page");
+		String logMessage = messageSource.getMessage("logging.bikesDetails", null, locale);
+		log(logMessage);
 		return "bikeDetails";
 	}
 
@@ -241,75 +250,76 @@ public class RentABikeController {
 	// Customer controllers
 
 	@GetMapping("/customers")
-	public String showCustomers(Model model) {
-		log("Get request on /customers");
+	public String showCustomers(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customers", JdbcCustomerRepository.findAll());
 		
-		log("Open customers page");
+		String logMessage = messageSource.getMessage("logging.customersGet", null, locale);
+		log(logMessage);
 		return "customers";
 	}
 
 	@RequestMapping(value = "/customers/details/{id}")
-	public String getDetails(@PathVariable("id") Integer id, Model model) {
-		log("Get request on /customers/details/" + id);
+	public String getDetails(@PathVariable("id") Integer id, Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		
-		log("Open customers details page");
+		String logMessage = messageSource.getMessage("logging.customersDetails", null, locale);
+		log(logMessage);
 		return "customersDetails";
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.GET)
-	public String editCustomer(@PathVariable("id") Integer id, Model model) {
-		log("Get request on /customers/edit/" + id);
+	public String editCustomer(@PathVariable("id") Integer id, Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 		
-		log("Open edit customer page");
+		String logMessage = messageSource.getMessage("logging.customersEdit", null, locale);
+		log(logMessage);
 		return "customersEdit";
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.POST)
 	public String editCustomer(@Valid @ModelAttribute("customer") Customer c, BindingResult bindingResult,
-			Model model) {
-		log("Post request on /customers/edit/" + c.getId());
+			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 		}
 		JdbcCustomerRepository.updateCustomer(c);
 		
-		log("Edit customer");
+		String logMessage = messageSource.getMessage("logging.customersEditId", null, locale);
+		log(logMessage);
 		return "redirect:/customers";
 	}
 
 	@RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
-	public String deleteCustomer(@PathVariable("id") Integer id) {
-		log("Get request on /customers/delete/" + id);
+	public String deleteCustomer(@PathVariable("id") Integer id, Locale locale) {
 		if (id != 0)
 			JdbcCustomerRepository.deleteCustomer(id);
 
-		log("Delete customer");
+		String logMessage = messageSource.getMessage("logging.customersDelete", null, locale);
+		log(logMessage);
 		return "redirect:/customers";
 	}
 
 	@GetMapping("/registration")
-	public String getRegistration(Model model) {
+	public String getRegistration(Model model, Locale locale) {
 		model.addAttribute("User", new User());
 		
-		log("Open registration form");
+		String logMessage = messageSource.getMessage("logging.registrationGet", null, locale);
+		log(logMessage);
 		return "registration";
 	}
 
 	@PostMapping("/registration")
-	public String RegistrationSave(@ModelAttribute("User") User user, Model model) {
+	public String RegistrationSave(@ModelAttribute("User") User user, Model model, Locale locale) {
 		String password = PasswordGenerator.hashPassword(user.getPassword());
 		user.setPassword(password);
 
@@ -322,7 +332,8 @@ public class RentABikeController {
 				System.out.println(user2.getUsername() + " " + user2.getPassword());
 			}
 
-			log("Register new user without roles");
+			String logMessage = messageSource.getMessage("logging.registrationPost", null, locale);
+			log(logMessage);
 			return "login";
 		}
 
@@ -334,20 +345,21 @@ public class RentABikeController {
 
 	@GetMapping("/administrator")
 	@Secured({ "ROLE_ADMIN" })
-	public String getAdministrator(Model model) {
+	public String getAdministrator(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
 		
-		log("Open administrator page");
+		String logMessage = messageSource.getMessage("logging.administratorGet", null, locale);
+		log(logMessage);
 		return "administrator";
 	}
 
 	@PostMapping("/admindelete/{id}")
 	@Secured({ "ROLE_ADMIN" })
-	public String deletePostAdmin(@PathVariable int id, Model model) {
+	public String deletePostAdmin(@PathVariable int id, Model model, Locale locale) {
 		System.out.println("Del je");
 
 		User username = registrationRepository.findById(id);
@@ -356,13 +368,14 @@ public class RentABikeController {
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
 		
-		log("Delete user");
+		String logMessage = messageSource.getMessage("logging.administratorDelete", null, locale);
+		log(logMessage);
 		return "redirect:/administrator";
 	}
 
 	@PostMapping("/adminadd/{id}")
 	@Secured({ "ROLE_ADMIN" })
-	public String addPostAdmin(@PathVariable int id, Model model) {
+	public String addPostAdmin(@PathVariable int id, Model model, Locale locale) {
 		System.out.println("Add je");
 		User username = registrationRepository.findById(id);
 		UserRole userRole = new UserRole();
@@ -374,20 +387,21 @@ public class RentABikeController {
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
 		
-		log("Add roles to user");
+		String logMessage = messageSource.getMessage("logging.administratorPost", null, locale);
+		log(logMessage);
 		return "redirect:/administrator";
 	}
 
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
 	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
-	public String Reservations(Model model) {
-		log("Get request on /reservations");
+	public String Reservations(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("reservations", reservationRepository.findAll());
 		
-		log("Open reservations page");
+		String logMessage = messageSource.getMessage("logging.reservationsGet", null, locale);
+		log(logMessage);
 		return "reservations";
 	}
 }
