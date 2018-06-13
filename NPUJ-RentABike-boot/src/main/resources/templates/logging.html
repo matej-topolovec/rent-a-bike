@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 <meta charset="UTF-8"></meta>
 <title>Insert title here</title>
@@ -10,16 +11,16 @@
 </head>
 <body>
 
-<h1>Logging</h1>
+<h1 th:text="#{logging.header}"></h1>
 <div th:replace="../fragments/header :: header"></div>
 
  <div class="container-fluid">
       <table class="table table-striped" >
 			<tr>
 				<th>Id</th>
-				<th>Username</th>
-				<th>Action</th>
-				<th>Date</th>
+				<th th:text="#{logging.username}"></th>
+				<th th:text="#{logging.action}"></th>
+				<th th:text="#{logging.date}"></th>
 			</tr>
 
 	      <tr th:each="line : ${logging}">

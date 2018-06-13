@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 <title>Login Page</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
@@ -12,46 +13,46 @@
 <div class="container">
   <div class="row">
 	<div class="col align-self-center">
-		<h3>Register (in construction):</h3>
+		<h3 th:text="#{register.header}"></h3>
 		<p style="color:red" th:text='${ErrorUsername}'></p>
 		<form name='f' method='POST' th:action='@{/registration}' th:object="${User}">
 			<table>
 				<tr>
-					<td>Ime:</td>
+					<td th:text="#{register.name}"></td>
 					<td><input class="form-control" type='text' name='name' th:field='${User.name}'
 						value='' /></td>
 				</tr>
 				<tr>
-					<td>Prezime:</td>
+					<td th:text="#{register.surname}"></td>
 					<td><input class="form-control" type='text' name='surname' th:field='${User.surname}'
 						value='' /></td>
 				</tr>
 				<tr>
-					<td>Username:</td>
+					<td th:text="#{register.username}"></td>
 					<td><input class="form-control" type='text' name='username' th:field='${User.username}'
 						value='' /></td>
 				</tr>
 				<tr>
-					<td>Password:</td>
+					<td th:text="#{register.password}"></td>
 					<td><input class="form-control" type='password' th:field='${User.password}'
 						name='password' /></td>
 				</tr>
 				<tr>
-					<td>Email:</td>
+					<td th:text="#{register.email}"></td>
 					<td><input class="form-control" type='email' name='email' th:field='${User.email}'
 						value='' /></td>
 				</tr>
 				<tr>
-					<td>Address:</td>
+					<td th:text="#{register.address}"></td>
 					<td><input class="form-control" type='text' name='address' th:field='${User.address}' /></td>
 				</tr>
 				<tr>
-					<td>Phone:</td>
+					<td th:text="#{register.phone}"></td>
 					<td><input class="form-control" type='text' name='phone' th:field='${User.phone}' /></td>
 				</tr>
 				<tr>
 					<td colspan='2'><button class="btn btn-success" name="submit"
-							type="submit">Register</button></td>
+							type="submit" th:text="#{register.register}"></button></td>
 				</tr>
 			</table>
 		</form>

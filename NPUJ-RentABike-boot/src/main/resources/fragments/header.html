@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
@@ -28,19 +29,19 @@
 						<a href="#" th:href="@{/home}">eBike</a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
-						<a href="#" th:href="@{/customers}">Customers</a>
+						<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}"></a>
 					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}"><a
-						href="#" th:href="@{/bikes}">Bikes</a></li>
+						href="#" th:href="@{/bikes}" th:text="#{tab.Bikes}">Bikes</a></li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'reservations' ? 'active' : ''}">
-						<a href="#" th:href="@{/reservations}">Reservations</a>
+						<a href="#" th:href="@{/reservations}" th:text="#{tab.Reservations}">Reservations</a>
 					</li>
 					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/contact}">Contact</a></li>
+						href="#" th:href="@{/contact}" th:text="#{tab.Contact}">Contact</a></li>
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/logging}">Logging</a></li>
+						href="#" th:href="@{/logging}" th:text="#{tab.Logging}">Logging</a></li>
 					<li sec:authorize="hasRole('ROLE_ADMIN')" th:classappend="${module == 'contact' ? 'active' : ''}"><a
-						href="#" th:href="@{/administrator}">Admin panel</a></li>
+						href="#" th:href="@{/administrator}" th:text="#{tab.Admin}">Admin panel</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li th:if="${#authorization.expression('!isAuthenticated()')}">

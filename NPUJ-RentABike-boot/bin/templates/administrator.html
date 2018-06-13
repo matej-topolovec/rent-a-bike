@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
 <head>
 <title>Login Page</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
@@ -13,11 +14,11 @@
 	<div class="container-fluid">
       <table class="table table-striped" id="myTableRow" >
 			<tr>
-				<th>Name</th>
-				<th>Surname</th>
-				<th>Username</th>
-				<th></th>
-				<th></th>
+				<th th:text="#{admin.name}"></th>
+				<th th:text="#{admin.surname}">Surname</th>
+				<th th:text="#{admin.username}">Username</th>
+				<th th:text="#{admin.add}"></th>
+				<th th:text="#{admin.delete}"></th>
 			</tr>
 
 	      <tr th:each="line : ${Newuser}">
@@ -26,12 +27,12 @@
 	         <td th:text="${line.username}"></td>
 	         <td>
 	         	<form th:action="@{|/adminadd/${line.id}|}" method="POST">
-		            <button class="btn btn-success" type="submit">Add</button>
+		            <button class="btn btn-success" type="submit" th:text="#{admin.add}"></button>
 		        </form>
 		    </td>
 	         <td>
 	         	<form th:action="@{|/admindelete/${line.id}|}" method="POST">
-		            <button class="btn btn-danger" type="submit">Delete</button>
+		            <button class="btn btn-danger" type="submit" th:text="#{admin.delete}"></button>
 		        </form>
 		    </td>
 	      </tr>
