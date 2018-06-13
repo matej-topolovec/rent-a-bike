@@ -27,14 +27,18 @@
 				<ul class="nav navbar-nav">
 				
 				
+				
+				  	<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'homes' ? 'active' : ''}">
+					<a href="#" th:href="@{/home}" th:text="#{tab.Home}">Home</a></li>
+					
 					
 					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'bikes' ? 'active' : ''}">
 					<a href="#" th:href="@{/bikes}" th:text="#{tab.Bikes}">Bikes</a></li>
 						
 						
 										
-					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'custemers' ? 'active' : ''}">
-					<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}"></a>	
+					<li th:if="${#authorization.expression('isAuthenticated()')}" th:classappend="${module == 'customers' ? 'active' : ''}">
+					<a href="#" th:href="@{/customers}" th:text="#{tab.Customer}">Customers</a>	
 					</li>	
 						
 						

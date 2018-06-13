@@ -236,10 +236,7 @@ public class RentABikeController {
     
 	
 	
-	
-	
 	// Customer controllers
-
 	@GetMapping("/customers")
 	public String showCustomers(Model model) {
 		log("Get request on /customers");

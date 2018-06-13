@@ -22,6 +22,7 @@ public class HibernateCustomerRepository implements CustomerRepository {
 	
 	@Override
 	public List<Customer> findAll() {
+		@SuppressWarnings("unchecked")
 		List<Customer> customers = sessionFactory.getCurrentSession().createQuery("FROM Customer").list();
 		Hibernate.initialize(customers);
 		return customers;
