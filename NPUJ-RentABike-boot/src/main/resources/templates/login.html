@@ -12,11 +12,6 @@
 <body onload='document.f.j_username.focus();'>
 	<div th:replace="../fragments/header :: header"></div>
 
-<div class="col align-self-center">
-	<a th:href="@{/login?lang=en}"><img th:src="@{/images/flag_en.png}" style="width: 150px; height: 150px;"/></a>
-	<a th:href="@{/login?lang=hr}"><img th:src="@{/images/flag_hr.png}" style="width: 150px; height: 150px;"/></a>
-	<a th:href="@{/login?lang=gr}"><img th:src="@{/images/flag_gr.png}" style="width: 150px; height: 150px;"/></a>
-</div>
 <div class="container">
   <div class="row">
 	<div class="col align-self-center">
@@ -25,11 +20,11 @@
 			<table>
 				<tr>
 					<td th:text="#{login.username}"></td>
-					<p th:if="${param.error}" style="color: red;" th:text="#{login.kriviuser}">Invalid username
+					<p th:if="${param.error}" style="color: red;" th:text="#{login.error}">Invalid username
 						and password!</p>
-					<p th:if="${param.logout}" style="color: green;" th:text="#{login.logoutsuc}">You've been
+					<p th:if="${param.logout}" style="color: green;" th:text="#{login.success}">You've been
 						logged out successfully.</p>
-					<p th:if="${param.access}" style="color: red;" th:text="#{login.odbijen}">Access denied</p>
+					<p th:if="${param.access}" style="color: red;" th:text="#{login.denied}">Access denied</p>
 					<td><input class="form-control" type='text' name='username'
 						value='' /></td>
 				</tr>
