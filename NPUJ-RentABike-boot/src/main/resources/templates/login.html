@@ -11,6 +11,12 @@
 </head>
 <body onload='document.f.j_username.focus();'>
 	<div th:replace="../fragments/header :: header"></div>
+
+<div class="col align-self-center">
+	<a th:href="@{/login?lang=en}"><img th:src="@{/images/flag_en.png}" style="width: 150px; height: 150px;"/></a>
+	<a th:href="@{/login?lang=hr}"><img th:src="@{/images/flag_hr.png}" style="width: 150px; height: 150px;"/></a>
+	<a th:href="@{/login?lang=gr}"><img th:src="@{/images/flag_gr.png}" style="width: 150px; height: 150px;"/></a>
+</div>
 <div class="container">
   <div class="row">
 	<div class="col align-self-center">

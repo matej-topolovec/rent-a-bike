@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		             .and()
 		             .rememberMe()
 		              .and()
-		               .authorizeRequests().antMatchers("/css/**")
+		               .authorizeRequests().antMatchers("/css/**","/images/**")
 		                .permitAll()
 		                 .antMatchers("/login","/registration")
 		                  .anonymous()
