@@ -1,21 +1,14 @@
 package hr.tvz.rentabike.hibernate;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import hr.tvz.rentabike.interfaces.RegistrationRepository;
-import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.MembershipType;
 import hr.tvz.rentabike.model.User;
 
@@ -32,6 +25,7 @@ public class HibernateRegistrationRepository implements RegistrationRepository {
 		return user;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public User findByUsernameOrEmail(String username, String email){
 		Query query = sessionFactory.getCurrentSession().createQuery("FROM User where username = :username and email = :email");
@@ -44,6 +38,7 @@ public class HibernateRegistrationRepository implements RegistrationRepository {
 			return testList.get(0);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAll() {
 		return sessionFactory.getCurrentSession().createQuery("FROM User").list();
@@ -64,12 +59,14 @@ public class HibernateRegistrationRepository implements RegistrationRepository {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllUsers(){
 		return sessionFactory.getCurrentSession()
 				.createQuery("FROM User WHERE username not in (select username from UserRole) and name is not null").list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public User findById(int id){
 		Query query = sessionFactory.getCurrentSession()
