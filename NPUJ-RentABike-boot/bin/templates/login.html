@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+	
 <head>
 <title>Login Page</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
@@ -12,7 +14,7 @@
 <div class="container">
   <div class="row">
 	<div class="col align-self-center">
-		<h3>Login with Username and Password</h3>
+		<h3 th:text="#{akcijaHome}"></h3>
 		<form name='f' method='POST' th:action='@{/login}'>
 			<table>
 				<tr>
