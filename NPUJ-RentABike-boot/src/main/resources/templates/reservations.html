@@ -23,16 +23,15 @@
 
 <h1>Reservations</h1>
   <div th:replace="../fragments/header :: header"></div>
-  <!-- <div id ="bb"> <a th:href="@{/CreateBike}" class="btn btn-primary" >Create new Bike</a></div> -->
-
+  
       <div class="container-fluid">
       <table class="display" >
       <thead>
 			<tr>
-				<th>Start date</th>
-				<th>End date</th>
-				<th>Customer</th> 
-				<th>Bike</th> 
+				<th th:text="#{reservation.startDate}">Start date</th>
+				<th th:text="#{reservation.endDate}">End date</th>
+				<th th:text="#{reservation.customer}">Customer</th> 
+				<th th:text="#{reservation.bike}">Bike</th> 
 			</tr>
      </thead>
 

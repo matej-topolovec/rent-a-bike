@@ -78,25 +78,6 @@
 
 				<ul class="nav navbar-nav navbar-right">
 
-					<li><a th:href="@{${#httpServletRequest.requestURI}(lang=en)}"><img
-							th:src="@{images/flag_en.png}"
-							style="width: 20px; height: 20px;" /></a></li>
-					<li><a th:href="@{${#httpServletRequest.requestURI}(lang=hr)}"><img
-							th:src="@{images/flag_hr.png}"
-							style="width: 20px; height: 20px;" /></a></li>
-					<li><a th:href="@{${#httpServletRequest.requestURI}(lang=gr)}"><img
-							th:src="@{images/flag_gr.png}"
-							style="width: 20px; height: 20px;" /></a></li>
-					<li><a th:href="@{${#httpServletRequest.requestURI}(lang=es)}"><img
-							th:src="@{images/flag_es.png}"
-							style="width: 20px; height: 20px;" /></a></li>
-
-					<li th:if="${#authorization.expression('!isAuthenticated()')}">
-						<a href="/signin" th:href="@{/signin}" th:text="#{header.signIn}">
-							<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign
-							in
-					</a>
-					</li>
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
 						<p class="navbar-brand" th:text="#{header.welcome}"
 							style="text-align: right !important;">Welcome</p> <!-- <span th:text="${user}"></span>! </p> -->
@@ -108,6 +89,12 @@
 						<a href="/logout" th:href="@{/logout}"
 						onclick="$('#form').submit();" th:text="#{header.logout}"> <span
 							class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+					</a>
+					</li>
+					<li th:if="${#authorization.expression('!isAuthenticated()')}">
+						<a href="/signin" th:href="@{/signin}" th:text="#{header.signIn}">
+							<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign
+							in
 					</a>
 					</li>
 				</ul>

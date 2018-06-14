@@ -2,21 +2,29 @@ package hr.tvz.rentabike.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.Constraint;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,36 +41,36 @@ public class Customer implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@NotEmpty(message = "Niste unijeli ime")
+	@NotEmpty(message = "{validation.customer.name.notEmpty}")
 	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "name")
 	String name;
 
-	@NotEmpty(message = "Niste unijeli prezime")
+	@NotEmpty(message = "{validation.customer.surname.notEmpty}")
 	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
 	@Column(name = "surname")
 	String surname;
 
-	@Size(min = 11, max = 11, message = "OIB treba imati toèno 11 znakova")
+	@Size(min = 11, max = 11, message = "{validation.customer.OIB.range}")
 	@Column(name = "OIB")
 	String OIB;
 
-	@Past(message = "Datum rodjena nije ispravan")
+	@Past(message = "{validation.customer.date}")
 	@Column(name = "birthdate")
 	public Date birthdate;
 
-	@NotBlank(message = "Unesite email adresu")
-	@Email(message= "Email adresa nije ispravno napisana")
+	@NotBlank(message = "{validation.customer.email.notEmpty}")
+	@Email(message= "{validation.customer.email}")
 	@Column(name = "email")
 	String email;
 
-	@NotEmpty(message = "Niste unjeli mjesto stanovanja")
-	@Size(min = 2, max = 50, message = "mjesto stanovanja treba imati izmeðu 2 i 50 znakova")
+	@NotEmpty(message = "{validation.customer.address.notEmpty}")
+	@Size(min = 2, max = 50, message = "{validation.customer.address.range}")
 	@Column(name = "address")
 	String address;
 
-	@NotEmpty(message = "Niste unjeli telefonski broj")
-	@Size(min = 2, max = 20, message = "Telefonski broj treba imati izmeðu 2 i 20 znakova")
+	@NotEmpty(message = "{validation.customer.phone.notEmpty}")
+	@Size(min = 2, max = 20, message = "{validation.customer.phone.range}")
 	@Column(name = "phone")
 	String phone;
 
