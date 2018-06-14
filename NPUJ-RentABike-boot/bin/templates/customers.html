@@ -21,10 +21,10 @@
 </head>
 <body>
 
-	<h1>Customers</h1>
+	<h3 th:text="#{customers}">Customers</h3>
 	<div th:replace="../fragments/header :: header"></div>
 	<div id="bb">
-		<a th:href="@{/customers/new}" class="btn btn-info">New</a>
+		<a th:href="@{/customers/new}" class="btn btn-info" th:text="#{customer.create}">New</a>
 	</div>
 	<hr></hr>
 	<div class="container-fluid">
@@ -32,11 +32,11 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Name</th>
-					<th>Membership</th>
-					<th>Discount</th>
-					<th>Edit</th>
-					<th>Delete</th>
+					<th th:text="#{customer.name}">Name</th>
+					<th th:text="#{customer.membership}">Membership</th>
+					<th th:text="#{customer.discount}">Discount</th>
+					<th th:text="#{customer.edit}">Edit</th>
+					<th th:text="#{customer.delete}">Delete</th>
 				</tr>
 			</thead>
 		</table>

@@ -1,5 +1,6 @@
 package hr.tvz.rentabike.hibernate;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -35,7 +36,8 @@ public class HibernateCustomerRepository implements CustomerRepository {
 	
 	@Override
 	public Customer save(Customer c){
-		sessionFactory.getCurrentSession().save(c);
+		Serializable id = sessionFactory.getCurrentSession().save(c);
+		c.setId((Integer) id);
 		return c;
 	}
 	

@@ -49,6 +49,9 @@ public class RentABikeController {
 
 	@Autowired
 	BikeRepository BikeRepository;
+	
+	@Autowired
+	CustomerRepository CustomerRepository;
 
 	@Autowired
 	hr.tvz.rentabike.db.JpaBikeRepository JpaBikeRepository;
@@ -58,9 +61,6 @@ public class RentABikeController {
 
 	@Autowired
 	UserRepository JdbcUserRepository;
-
-	@Autowired
-	CustomerRepository JdbcCustomerRepository;
 
 	@Autowired
 	MembershipTypeRepository JdbcMemberShipTypeRepository;
@@ -251,11 +251,40 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customers", JdbcCustomerRepository.findAll());
+		model.addAttribute("customers", CustomerRepository.findAll());
 		
 		String logMessage = messageSource.getMessage("logging.customersGet", null, locale);
 		log(logMessage);
 		return "customers";
+	}
+	
+	@GetMapping("/customers/new")
+	public String newCustomer(Model model, Locale locale) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+
+		model.addAttribute("customer", new Customer());
+		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
+		
+		String logMessage = messageSource.getMessage("logging.customersCreateGet", null, locale);
+		log(logMessage);
+		return "customersEdit";
+	}
+
+	@RequestMapping(value = "/customers/new", method = RequestMethod.POST)
+	public String newCustomerPost(@Valid @ModelAttribute("Customer") Customer c, Errors errors, BindingResult bindingResult, Model model,
+			Locale locale) {
+		if (errors.hasErrors()) {
+			model.addAttribute("membershipType",JdbcMemberShipTypeRepository.findAll());
+			return "customersEdit";
+		}
+
+		CustomerRepository.save(c);
+		
+		String logMessage = messageSource.getMessage("logging.customersCreatePost", null, locale);
+		log(logMessage);
+		return "redirect:/customers";
+
 	}
 
 	@RequestMapping(value = "/customers/details/{id}")
@@ -263,7 +292,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
+		model.addAttribute("customer", CustomerRepository.findOne(id));
 		
 		String logMessage = messageSource.getMessage("logging.customersDetails", null, locale);
 		log(logMessage);
@@ -275,7 +304,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customer", JdbcCustomerRepository.findOne(id));
+		model.addAttribute("customer", CustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 		
 		String logMessage = messageSource.getMessage("logging.customersEdit", null, locale);
@@ -289,7 +318,7 @@ public class RentABikeController {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 		}
-		JdbcCustomerRepository.updateCustomer(c);
+		CustomerRepository.updateCustomer(c);
 		
 		String logMessage = messageSource.getMessage("logging.customersEditId", null, locale);
 		log(logMessage);
@@ -299,7 +328,7 @@ public class RentABikeController {
 	@RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
 	public String deleteCustomer(@PathVariable("id") Integer id, Locale locale) {
 		if (id != 0)
-			JdbcCustomerRepository.deleteCustomer(id);
+			CustomerRepository.deleteCustomer(id);
 
 		String logMessage = messageSource.getMessage("logging.customersDelete", null, locale);
 		log(logMessage);

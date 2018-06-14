@@ -36,43 +36,41 @@
 
 <body>
 	<div th:replace="../fragments/header :: header"></div>
-	<h3>Edit customer</h3>
-
 
 	<div class="container-fluid" sec:authorize="isAuthenticated()">
 
 		<form method="POST" th:object="${customer}">
 
 			<div class="form-group row">
-				<label for="name" class="col-sm-1  col-form-label">Name: </label>
+				<label for="name" class="col-sm-1  col-form-label" th:text="#{customer.name}">Name: </label>
 				<div class="col-sm-5 mb-3">
 					<input type="text" th:field="*{name}" class="form-control" /> <span
 						class="validation-error" th:if="${#fields.hasErrors('name')}"
-						th:errors="*{customer.name}">Error in name field!</span>
+						th:errors="*{name}">Error in name field!</span>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="surname" class="col-sm-1  col-form-label">Surname:
+				<label for="surname" class="col-sm-1  col-form-label" th:text="#{customer.surname}">Surname:
 				</label>
 				<div class="col-sm-5 mb-3">
 					<input type="text" th:field="*{surname}" class="form-control" /> <span
 						class="validation-error" th:if="${#fields.hasErrors('surname')}"
-						th:errors="*{customer.surname}">Error in surname field!</span>
+						th:errors="*{surname}">Error in surname field!</span>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="OIB" class="col-sm-1  col-form-label">OIB: </label>
+				<label for="OIB" class="col-sm-1  col-form-label" th:text="#{customer.OIB}">OIB: </label>
 				<div class="col-sm-5 mb-3">
 					<input type="text" th:field="*{OIB}" class="form-control" /> <span
 						class="validation-error" th:if="${#fields.hasErrors('OIB')}"
-						th:errors="*{customer.OIB}">Error in OIB field!</span>
+						th:errors="*{OIB}">Error in OIB field!</span>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="birthdate" class="col-sm-1  col-form-label">Birthdate:
+				<label for="birthdate" class="col-sm-1  col-form-label" th:text="#{customer.birthdate}">Birthdate:
 				</label>
 				<div class="col-sm-5 mb-3">
 					<input name="birthdate" type="text" th:field="*{birthdate}"
@@ -84,39 +82,39 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="email" class="col-sm-1  col-form-label">Email: </label>
+				<label for="email" class="col-sm-1  col-form-label" th:text="#{customer.email}">Email: </label>
 				<div class="col-sm-5 mb-3">
 					<input type="text" th:field="*{email}" class="form-control" /> <span
 						class="validation-error" th:if="${#fields.hasErrors('email')}"
-						th:errors="*{customer.email}">Error in email field!</span>
+						th:errors="*{email}">Error in email field!</span>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="address" class="col-sm-1  col-form-label">Address:
+				<label for="address" class="col-sm-1  col-form-label" th:text="#{customer.address}">Address:
 				</label>
 				<div class="col-sm-5 mb-3">
 					<input type="text" th:field="*{address}" class="form-control" /> <span
 						class="validation-error" th:if="${#fields.hasErrors('address')}"
-						th:errors="*{customer.address}">Error in address field!</span>
+						th:errors="*{address}">Error in address field!</span>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="phone" class="col-sm-1  col-form-label">Phone: </label>
+				<label for="phone" class="col-sm-1  col-form-label" th:text="#{customer.phone}">Phone: </label>
 				<div class="col-sm-5 mb-3">
 					<input type="text" th:field="*{phone}" class="form-control" /> <span
 						class="validation-error" th:if="${#fields.hasErrors('phone')}"
-						th:errors="*{customer.phone}">Error in phone field!</span>
+						th:errors="*{phone}">Error in phone field!</span>
 				</div>
 			</div>
 
 			<div class="form-group row">
 
-				<label for="membershipType" class="col-sm-1  col-form-label">Select membership: </label>
+				<label for="membershipType" class="col-sm-1  col-form-label" th:text="#{customer.membership}">Select membership: </label>
 				<div class="col-sm-5 mb-3">
 					<select th:field="*{membershipType.id}" class="form-control">
-						<option value="0">--select membership type--</option>
+						<option value="0" th:text="#{customer.chooseValue}">--select membership type--</option>
 						<option th:each="membership : ${membershipType}" 
 						    th:value="${membership.id}"
 							th:text="${membership.name}"></option>
@@ -129,9 +127,8 @@
 				<div class="col-md-7 mb-3">
 				<!--  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />  -->
 			
-					<input 	type="submit" value="Save" class="btn btn-success"
-						data-toggle="tooltip" data-placement="bottom"
-						title="Click on save" />
+					<input 	type="submit" value="Save" class="btn btn-success" th:value="#{customer.save}"
+						data-toggle="tooltip" data-placement="bottom" />
 				</div>
 			</div>
 		</form>
