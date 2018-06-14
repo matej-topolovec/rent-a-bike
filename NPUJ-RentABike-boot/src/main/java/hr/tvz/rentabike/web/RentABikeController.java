@@ -263,7 +263,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customer", new Customer());
+		model.addAttribute("Customer", new Customer());
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 		
 		String logMessage = messageSource.getMessage("logging.customersCreateGet", null, locale);
@@ -271,6 +271,8 @@ public class RentABikeController {
 		return "customersEdit";
 	}
 
+	
+	
 	@RequestMapping(value = "/customers/new", method = RequestMethod.POST)
 	public String newCustomerPost(@Valid @ModelAttribute("Customer") Customer c, Errors errors, BindingResult bindingResult, Model model,
 			Locale locale) {
@@ -313,7 +315,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.POST)
-	public String editCustomer(@Valid @ModelAttribute("customer") Customer c, BindingResult bindingResult,
+	public String editCustomer(@Valid @ModelAttribute("customer") Customer c,  BindingResult bindingResult,
 			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
