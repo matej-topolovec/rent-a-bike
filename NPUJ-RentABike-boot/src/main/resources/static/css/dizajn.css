@@ -108,6 +108,33 @@ div.tableDiv{
 	color: #ff0000;
 }
 
+.mainMapContainer{
+	height:400px;
+}
+
+.mapColumn{
+	width:50%;
+	height:100%;
+	float:left;
+}
+
+.mapDescriptionColumn{
+	width:50%;
+	height:100%;
+	float:left;
+}
+
+#mapContainer{
+	widows:98%;
+	height:98%;
+	margin: 1%;
+}
+
+.mapDescription{
+	widows:98%;
+	height:98%;
+	margin: 1%;
+}
 
 
 

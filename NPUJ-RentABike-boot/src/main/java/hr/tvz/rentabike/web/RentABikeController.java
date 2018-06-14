@@ -465,4 +465,11 @@ public class RentABikeController {
 	public String Contacts(Model model, Locale locale) {
 		return "contacts";
 	}
+	
+	@RequestMapping(value = "/geolocator", method = RequestMethod.GET)
+	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	 public String Geolocator(Model model) 
+	 {
+		 return "geolocator";
+	 }
 }
