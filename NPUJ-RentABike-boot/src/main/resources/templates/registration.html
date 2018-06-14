@@ -21,34 +21,55 @@
 					<td th:text="#{register.name}"></td>
 					<td><input class="form-control" type='text' name='name' th:field='${User.name}'
 						value='' /></td>
+						<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" 
+							style="color:red"
+							th:text="#{validation.customer.name.notEmpty}"></td>
 				</tr>
 				<tr>
 					<td th:text="#{register.surname}"></td>
 					<td><input class="form-control" type='text' name='surname' th:field='${User.surname}'
 						value='' /></td>
+						<td th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" 
+							style="color:red"
+							th:text="#{validation.customer.surname.notEmpty}"></td>
 				</tr>
 				<tr>
 					<td th:text="#{register.username}"></td>
 					<td><input class="form-control" type='text' name='username' th:field='${User.username}'
 						value='' /></td>
+						<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}" 
+							style="color:red"
+							th:text="#{validation.customer.surname.notEmpty}"></td>
 				</tr>
 				<tr>
 					<td th:text="#{register.password}"></td>
 					<td><input class="form-control" type='password' th:field='${User.password}'
 						name='password' /></td>
+						<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" 
+							style="color:red"
+							th:text="#{validation.customer.surname.notEmpty}"></td>
 				</tr>
 				<tr>
 					<td th:text="#{register.email}"></td>
 					<td><input class="form-control" type='email' name='email' th:field='${User.email}'
 						value='' /></td>
+						<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}" 
+							style="color:red"
+							th:text="#{validation.customer.email}"></td>
 				</tr>
 				<tr>
 					<td th:text="#{register.address}"></td>
 					<td><input class="form-control" type='text' name='address' th:field='${User.address}' /></td>
+					<td th:if="${#fields.hasErrors('address')}" th:errors="*{address}" 
+							style="color:red"
+							th:text="#{validation.customer.address.range}"></td>
 				</tr>
 				<tr>
 					<td th:text="#{register.phone}"></td>
 					<td><input class="form-control" type='text' name='phone' th:field='${User.phone}' /></td>
+					<td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" 
+							style="color:red"
+							th:text="#{validation.customer.phone.range}"></td>
 				</tr>
 				<tr>
 					<td colspan='2'><button class="btn btn-success" name="submit"
