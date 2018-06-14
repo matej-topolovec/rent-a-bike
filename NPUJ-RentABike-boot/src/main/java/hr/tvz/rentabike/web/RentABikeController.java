@@ -345,9 +345,14 @@ public class RentABikeController {
 	}
 
 	@PostMapping("/registration")
-	public String RegistrationSave(@ModelAttribute("User") User user, Model model, Locale locale) {
+	public String RegistrationSave(@Valid @ModelAttribute("User") User user, BindingResult bindingResult,
+			Model model, Locale locale) {
 		String password = PasswordGenerator.hashPassword(user.getPassword());
 		user.setPassword(password);
+		
+		if (bindingResult.hasErrors()) {
+            return "registration";
+        }
 
 		if (registrationRepository.findByUsernameOrEmail(user.getUsername(), user.getEmail()) == null) {
 			registrationRepository.save(user);
