@@ -19,7 +19,10 @@ import javax.validation.Constraint;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -53,12 +56,13 @@ public class Bike implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public Date dateadded;
 	
-	@Min(0)
+	@Min(value = 0, message = "{validation.bike.name.min}")
 	@NotNull(message = "{validation.bike.notNull}")
 	@Column(name = "quantity")
 	private int quantity;
 	
-	@Min(0)
+	
+	@Min(value = 0, message = "{validation.bike.name.min}")
 	@NotNull(message = "{validation.bike.notNull}")
 	@Column(name = "available")
 	private int available;

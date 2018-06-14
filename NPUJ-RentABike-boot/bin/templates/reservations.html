@@ -41,10 +41,13 @@
          <td th:text="${line.user.username}"></td>
          <td th:text="${line.bike.name}"></td>
       </tr>
-     
     </table>
    </div>
-   
+
+	<div id="bb">
+		<a th:href="@{/reservations/new}" class="btn btn-info" >New</a>
+	</div>
+
    <div th:replace="../fragments/footer :: footer"></div>
 </body>
 </html>
