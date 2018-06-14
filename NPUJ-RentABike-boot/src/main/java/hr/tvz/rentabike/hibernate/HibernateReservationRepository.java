@@ -1,4 +1,4 @@
-package hr.tvz.rentabike.db;
+package hr.tvz.rentabike.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import hr.tvz.rentabike.interfaces.ReservationRepository;
 import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.Reservation;
 
