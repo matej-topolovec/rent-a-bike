@@ -1,4 +1,4 @@
-package hr.tvz.rentabike.db;
+package hr.tvz.rentabike.interfaces;
 
 import java.util.List;
 

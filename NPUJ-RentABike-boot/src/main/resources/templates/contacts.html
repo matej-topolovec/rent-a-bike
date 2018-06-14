@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Customers</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatable_customers.js"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+
+	<h3 th:text="#{contact}">Contact</h3>
+	<div style="text-indent: 12em;">	
+		<p th:text="#{contact.upperText}"></p>
+	</div>
+
+	
+	<div class="form-group row">
+		<label for="name" class="col-sm-1  col-form-label"
+			th:text="#{customer.name}">Name: </label>
+		<div class="col-sm-5 mb-3">
+				<input type="text" class="form-control" /> 
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="name" class="col-sm-1  col-form-label"
+			th:text="#{customer.surname}">Surname: </label>
+		<div class="col-sm-5 mb-3">
+				<input type="text" class="form-control" /> 
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label for="name" class="col-sm-1  col-form-label"
+			th:text="#{contact.text}">Mail Text: </label>
+		<div class="col-sm-5 mb-3">
+				<textarea rows="4" cols="97"></textarea>
+		</div>
+	</div>
+	
+	<div id="bb">
+		<a class="btn btn-info" th:text="#{contact.sendButton}">Send</a>
+	</div>
+	
+	<div th:replace="../fragments/header :: header"></div>
+	<div th:replace="../fragments/footer :: footer"></div>
+	
+</body>
+</html>

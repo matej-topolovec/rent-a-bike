@@ -25,19 +25,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import hr.tvz.rentabike.db.BikeRepository;
 import hr.tvz.rentabike.db.BikeTypeRepository;
 import hr.tvz.rentabike.db.MembershipTypeRepository;
-import hr.tvz.rentabike.db.ReservationRepository;
 import hr.tvz.rentabike.db.UserRepository;
 import hr.tvz.rentabike.helper.PasswordGenerator;
 import hr.tvz.rentabike.interfaces.CustomerRepository;
 import hr.tvz.rentabike.interfaces.LoggingRepository;
 import hr.tvz.rentabike.interfaces.RegistrationRepository;
+import hr.tvz.rentabike.interfaces.ReservationRepository;
 import hr.tvz.rentabike.interfaces.UserRoleRepository;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.Customer;
 import hr.tvz.rentabike.model.Logging;
+import hr.tvz.rentabike.model.Reservation;
 import hr.tvz.rentabike.model.User;
 import hr.tvz.rentabike.model.UserRole;
 
@@ -49,7 +51,7 @@ public class RentABikeController {
 
 	@Autowired
 	BikeRepository BikeRepository;
-	
+
 	@Autowired
 	CustomerRepository CustomerRepository;
 
@@ -73,7 +75,7 @@ public class RentABikeController {
 
 	@Autowired
 	ReservationRepository reservationRepository;
-	
+
 	@Autowired
 	MessageSource messageSource;
 
@@ -110,7 +112,7 @@ public class RentABikeController {
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("logging", loggingRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.loggingPageGet", null, locale);
 		log(logMessage);
 		return "logging";
@@ -125,7 +127,7 @@ public class RentABikeController {
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("bikes", BikeRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesPageGet", null, locale);
 		log(logMessage);
 
@@ -140,7 +142,7 @@ public class RentABikeController {
 
 		model.addAttribute("Bike", new Bike());
 		model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesCreateGet", null, locale);
 		log(logMessage);
 		return "EditBike";
@@ -163,7 +165,7 @@ public class RentABikeController {
 
 			System.out.println(b.getId() + " " + b.getName() + " " + b.getDate());
 		}
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesCreatePost", null, locale);
 		log(logMessage);
 		return "redirect:/bikes";
@@ -180,7 +182,7 @@ public class RentABikeController {
 		    	System.out.println(e);
 		    	return "ErrorHandlerModal";
 		    }
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesDelete", null, locale);
 		log(logMessage);
 		return "redirect:/bikes";
@@ -197,7 +199,7 @@ public class RentABikeController {
 			model.addAttribute("BikeTypes", JdbcBikeTypeRepository.findAll());
 			return "EditBike";
 		}
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesEdit", null, locale);
 		log(logMessage);
 		return "redirect:/bikes";
@@ -209,11 +211,11 @@ public class RentABikeController {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 
 			return "EditBike";
-		
+
 		}
 
 		BikeRepository.updateBike(bike);
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesEditId", null, locale);
 		log(logMessage);
 
@@ -228,7 +230,7 @@ public class RentABikeController {
 
 
 		model.addAttribute("bike", BikeRepository.findOne(id));
-		
+
 		String logMessage = messageSource.getMessage("logging.bikesDetails", null, locale);
 		log(logMessage);
 		return "bikeDetails";
@@ -239,12 +241,10 @@ public class RentABikeController {
 	public void initBinder(WebDataBinder binder) {
 		CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true);
 		binder.registerCustomEditor(Date.class, editor);
-		
-		
+
+
 	}
-    
-	
-	
+
 	// Customer controllers
 	@GetMapping("/customers")
 	public String showCustomers(Model model, Locale locale) {
@@ -252,12 +252,12 @@ public class RentABikeController {
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customers", CustomerRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.customersGet", null, locale);
 		log(logMessage);
 		return "customers";
 	}
-	
+
 	@GetMapping("/customers/new")
 	public String newCustomer(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -265,7 +265,7 @@ public class RentABikeController {
 
 		model.addAttribute("customer", new Customer());
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.customersCreateGet", null, locale);
 		log(logMessage);
 		return "customersEdit";
@@ -280,7 +280,7 @@ public class RentABikeController {
 		}
 
 		CustomerRepository.save(c);
-		
+
 		String logMessage = messageSource.getMessage("logging.customersCreatePost", null, locale);
 		log(logMessage);
 		return "redirect:/customers";
@@ -293,7 +293,7 @@ public class RentABikeController {
 		model.addAttribute("user", auth.getName());
 
 		model.addAttribute("customer", CustomerRepository.findOne(id));
-		
+
 		String logMessage = messageSource.getMessage("logging.customersDetails", null, locale);
 		log(logMessage);
 		return "customersDetails";
@@ -306,7 +306,7 @@ public class RentABikeController {
 
 		model.addAttribute("customer", CustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.customersEdit", null, locale);
 		log(logMessage);
 		return "customersEdit";
@@ -319,7 +319,7 @@ public class RentABikeController {
 			System.out.println(bindingResult);
 		}
 		CustomerRepository.updateCustomer(c);
-		
+
 		String logMessage = messageSource.getMessage("logging.customersEditId", null, locale);
 		log(logMessage);
 		return "redirect:/customers";
@@ -338,7 +338,7 @@ public class RentABikeController {
 	@GetMapping("/registration")
 	public String getRegistration(Model model, Locale locale) {
 		model.addAttribute("User", new User());
-		
+
 		String logMessage = messageSource.getMessage("logging.registrationGet", null, locale);
 		log(logMessage);
 		return "registration";
@@ -349,7 +349,7 @@ public class RentABikeController {
 			Model model, Locale locale) {
 		String password = PasswordGenerator.hashPassword(user.getPassword());
 		user.setPassword(password);
-		
+
 		if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -382,7 +382,7 @@ public class RentABikeController {
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
-		
+
 		String logMessage = messageSource.getMessage("logging.administratorGet", null, locale);
 		log(logMessage);
 		return "administrator";
@@ -398,7 +398,7 @@ public class RentABikeController {
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
-		
+
 		String logMessage = messageSource.getMessage("logging.administratorDelete", null, locale);
 		log(logMessage);
 		return "redirect:/administrator";
@@ -417,7 +417,7 @@ public class RentABikeController {
 
 		List<User> listUsera = registrationRepository.findAllUsers();
 		model.addAttribute("Newuser", listUsera);
-		
+
 		String logMessage = messageSource.getMessage("logging.administratorPost", null, locale);
 		log(logMessage);
 		return "redirect:/administrator";
@@ -428,11 +428,39 @@ public class RentABikeController {
 	public String Reservations(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-
 		model.addAttribute("reservations", reservationRepository.findAll());
-		
+
 		String logMessage = messageSource.getMessage("logging.reservationsGet", null, locale);
 		log(logMessage);
 		return "reservations";
+	}
+
+	@RequestMapping(value = "/reservations/new", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	public String newReservations(Model model, Locale locale) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("user", auth.getName());
+		model.addAttribute("bikes", BikeRepository.findAll());
+		model.addAttribute("customers", CustomerRepository.findAll());
+
+		String logMessage = messageSource.getMessage("logging.reservationsGet", null, locale);
+		log(logMessage);
+		return "reserveBike";
+	}
+	@RequestMapping(value = "/reservations/new", method = RequestMethod.POST)
+	public String saveReservation(@Valid @ModelAttribute("Reservation") Reservation r, BindingResult bindingResult,
+			Model model, Locale locale) {
+		if (bindingResult.hasErrors()) {
+			System.out.println(bindingResult);
+		}
+		model.addAttribute("Reservations", reservationRepository.findAll());
+		reservationRepository.save(r);
+		String logMessage = messageSource.getMessage("logging.customersEditId", null, locale);
+		log(logMessage);
+		return "redirect:/reservations";
+	}
+	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	public String Contacts(Model model, Locale locale) {
+		return "contacts";
 	}
 }
