@@ -121,7 +121,7 @@ public class RentABikeController {
 	// --------------BIKE ACTION-------------------------
 
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
-	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String RentABike(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -247,6 +247,7 @@ public class RentABikeController {
 
 	// Customer controllers
 	@GetMapping("/customers")
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String showCustomers(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -426,7 +427,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String Reservations(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -464,12 +465,13 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String Contacts(Model model, Locale locale) {
 		return "contacts";
 	}
 
 	@RequestMapping(value = "/geolocator", method = RequestMethod.GET)
-	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	 public String Geolocator(Model model)
 	 {
 		 return "geolocator";

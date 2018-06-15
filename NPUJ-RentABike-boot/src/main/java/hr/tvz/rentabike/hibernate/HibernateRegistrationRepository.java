@@ -75,4 +75,10 @@ public class HibernateRegistrationRepository implements RegistrationRepository {
 		List<User> testList = query.list();
 		return testList.get(0);
 	}
+
+	@Override
+	public void update(User user) {
+		sessionFactory.getCurrentSession().update(user);
+		
+	}
 }
