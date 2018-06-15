@@ -39,12 +39,12 @@ public class Customer implements Serializable{
 	private int id;
 
 	@NotEmpty(message = "{validation.customer.name.notEmpty}")
-	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
+	@Size(min = 2, max = 20, message = "{validation.customer.name.size}")
 	@Column(name = "name")
 	String name;
 
 	@NotEmpty(message = "{validation.customer.surname.notEmpty}")
-	@Size(min = 2, max = 20, message = "Ime treba imati izmeðu 2 i 20 znakova")
+	@Size(min = 2, max = 20, message = "{validation.customer.surname.size}")
 	@Column(name = "surname")
 	String surname;
 

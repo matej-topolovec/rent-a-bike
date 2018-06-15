@@ -21,7 +21,8 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" th:text="#{header.eBike}">eBike</a>
+				<a class="navbar-brand"><img class="img-circle" th:src="@{images/bike.jpg}"
+					style="width: 20px; height: 20px;" /></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -51,7 +52,7 @@
 						<a href="#" th:href="@{/reservations}"
 						th:text="#{tab.Reservations}">Reservations</a>
 					</li>
-					
+
 					<li th:if="${#authorization.expression('isAuthenticated()')}">
 						<a href="#" th:href="@{/geolocator}" th:text="#{tab.Geolocator}">Geolocator</a>
 					</li>
