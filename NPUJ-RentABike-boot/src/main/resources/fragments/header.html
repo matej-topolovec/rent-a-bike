@@ -51,7 +51,10 @@
 						<a href="#" th:href="@{/reservations}"
 						th:text="#{tab.Reservations}">Reservations</a>
 					</li>
-
+					
+					<li th:if="${#authorization.expression('isAuthenticated()')}">
+						<a href="#" th:href="@{/geolocator}" th:text="#{tab.Geolocator}">Geolocator</a>
+					</li>
 
 					<li th:classappend="${module == 'contact' ? 'active' : ''}"><a
 						href="#" th:href="@{/contact}" th:text="#{tab.Contact}">Contact</a></li>
