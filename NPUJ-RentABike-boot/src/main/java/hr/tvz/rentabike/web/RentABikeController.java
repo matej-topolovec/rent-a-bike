@@ -271,8 +271,8 @@ public class RentABikeController {
 		return "customersEdit";
 	}
 
-	
-	
+
+
 	@RequestMapping(value = "/customers/new", method = RequestMethod.POST)
 	public String newCustomerPost(@Valid @ModelAttribute("Customer") Customer c, Errors errors, BindingResult bindingResult, Model model,
 			Locale locale) {
@@ -445,7 +445,7 @@ public class RentABikeController {
 		model.addAttribute("bikes", BikeRepository.findAll());
 		model.addAttribute("customers", CustomerRepository.findAll());
 
-		String logMessage = messageSource.getMessage("logging.reservationsGet", null, locale);
+		String logMessage = messageSource.getMessage("logging.newReservation", null, locale);
 		log(logMessage);
 		return "reserveBike";
 	}
@@ -457,7 +457,7 @@ public class RentABikeController {
 		}
 		model.addAttribute("Reservations", reservationRepository.findAll());
 		reservationRepository.save(r);
-		String logMessage = messageSource.getMessage("logging.customersEditId", null, locale);
+		String logMessage = messageSource.getMessage("logging.saveReservation", null, locale);
 		log(logMessage);
 		return "redirect:/reservations";
 	}
