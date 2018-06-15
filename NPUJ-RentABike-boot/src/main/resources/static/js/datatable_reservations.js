@@ -17,7 +17,8 @@ $(document).ready( function () {
 		                var month = date.getMonth() + 1;
 		                return (month.length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
 		            }},
-		        { "mData": "customer.name" }
+		        { "mData": "customer.name" },
+		        { "mData": "bike.name" }
 				
 			]
 	 })

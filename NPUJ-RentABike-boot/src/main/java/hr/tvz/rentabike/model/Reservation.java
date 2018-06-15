@@ -46,13 +46,11 @@ public class Reservation implements Serializable {
 	public Date endTime;
 
 
-
 	@ManyToOne
 	@JoinColumn(name="customerid")
 	public Customer customer;
 
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="bikeid")
 	public Bike bike;
