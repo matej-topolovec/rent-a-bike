@@ -37,12 +37,12 @@ public class Reservation implements Serializable {
 
 
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@Column(name = "starttime")
+	@Column(name = "startTime")
 	public Date startTime;
 
 
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@Column(name = "endtime")
+	@Column(name = "endTime")
 	public Date endTime;
 
 

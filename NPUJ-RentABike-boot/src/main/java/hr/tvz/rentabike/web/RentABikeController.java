@@ -442,25 +442,27 @@ public class RentABikeController {
 	public String newReservations(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-		model.addAttribute("bikes", BikeRepository.findAll());
-		model.addAttribute("customers", CustomerRepository.findAll());
+		model.addAttribute("Reservation", new Reservation());
+		model.addAttribute("bike", BikeRepository.findAll());
+		model.addAttribute("customer", CustomerRepository.findAll());
 
 		String logMessage = messageSource.getMessage("logging.newReservation", null, locale);
 		log(logMessage);
 		return "reserveBike";
 	}
+	
 	@RequestMapping(value = "/reservations/new", method = RequestMethod.POST)
 	public String saveReservation(@Valid @ModelAttribute("Reservation") Reservation r, BindingResult bindingResult,
 			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 		}
-		model.addAttribute("Reservations", reservationRepository.findAll());
 		reservationRepository.save(r);
 		String logMessage = messageSource.getMessage("logging.saveReservation", null, locale);
 		log(logMessage);
-		return "/reservations/new";
+		return "redirect:/reservations";
 	}
+
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String Contacts(Model model, Locale locale) {
 		return "contacts";

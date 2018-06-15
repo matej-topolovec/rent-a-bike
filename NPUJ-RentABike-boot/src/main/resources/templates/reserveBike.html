@@ -13,92 +13,121 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
 <script>
-    $(document).ready(function(){
-      var date_input=$('input[name="startDate"]');
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
+	$(document).ready(
+			function() {
+				var date_input = $('input[name="startTime"]');
+				var container = $('.bootstrap-iso form').length > 0 ? $(
+						'.bootstrap-iso form').parent() : "body";
+				var options = {
+					format : 'mm-dd-yyyy',
+					container : container,
+					todayHighlight : true,
+					autoclose : true,
+				};
+				date_input.datepicker(options);
+			})
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 </script>
 <script>
-    $(document).ready(function(){
-      var date_input=$('input[name="endDate"]');
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
+	$(document).ready(
+			function() {
+				var date_input = $('input[name="endTime"]');
+				var container = $('.bootstrap-iso form').length > 0 ? $(
+						'.bootstrap-iso form').parent() : "body";
+				var options = {
+					format : 'mm-dd-yyyy',
+					container : container,
+					todayHighlight : true,
+					autoclose : true,
+				};
+				date_input.datepicker(options);
+			})
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 </script>
 </head>
 <body>
 
-<h1 th:text="#{tab.Reservations}">Reservations</h1>
-  <div th:replace="../fragments/header :: header"></div>
-  
-  <div class="container-fluid" sec:authorize="isAuthenticated()">
-	  <form method="POST" th:object="${Reservation}">
-	  
-	  <div class="form-group row">
-	      <label for="customerid" 
-					th:text="#{customer.name}">Name: </label>
-		  <select class="form-control" id="customerid" name="customerList">
-			   <option th:each="customer : ${customers}" th:text="${customer.name}"></option>
-		  </select>
-	  </div>
-	  
-	  <div class="form-group row">
-		  <label for="bikeid" th:text="#{bike.bikes}">Bikes: </label>
-		  <select class="form-control" name="bikeList">
-			   <option th:each="bike : ${bikes}" th:text="${bike.name}"></option>
-		  </select>
-	  </div>
-	  
-	  <div class="form-group row">
-		  <div class="row">
-		   <div class="col-md-6 col-sm-6 col-xs-12">
-		      <div class="form-group">
-		        <label class="control-label" for="startDate">Start date</label>
-		        <input type="text" class="form-control" id="startDate" name="startDate" placeholder="YYYY-MM-DD"/>
-		      </div>
-		    </div>
-		  </div>    
-	 </div>
-	 
-	 <div class="form-group row">
-		  <div class="row">
-		   <div class="col-md-6 col-sm-6 col-xs-12">
-		      <div class="form-group">
-		        <label class="control-label" for="endDate">End date</label>
-		        <input class="form-control" id="endDate" name="endDate" placeholder="YYYY-MM-DD" type="text"/>
-		      </div>
-		    </div>
-		  </div>    
-	 </div>
-	 <div class="form-group row">
-					<div class="col-md-7 mb-3">
-						<input type="submit" th:value="#{reservation.save}"
-							class="btn btn-success" data-toggle="tooltip"
-							data-placement="bottom" />
-					</div>
-	 </div>
-	 </form>
- </div>
- <div th:replace="../fragments/footer :: footer"></div>
+	<h1 th:text="#{tab.Reservations}">Reservations</h1>
+	<div th:replace="../fragments/header :: header"></div>
+
+	<div class="container-fluid" sec:authorize="isAuthenticated()">
+		<form method="POST" th:object="${Reservation}">
+
+			<div class="form-group row">
+
+				<label for="customers" class="col-sm-1  col-form-label"
+					th:text="#{reservation.customer}">Select customer: </label>
+				<div class="col-sm-5 mb-3">
+					<select th:field="*{customer.id}" class="form-control">
+						<option value="0">--select customer--</option>
+						<option th:each="c : ${customer}" th:value="${c.id}"
+							th:text="${c.name}"></option>
+					</select> <span class="validation-error"
+						th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}">Error
+						in membership field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+
+				<label for="bikes" class="col-sm-1  col-form-label"
+					th:text="#{reservation.bike}">Select customer: </label>
+				<div class="col-sm-5 mb-3">
+					<select th:field="*{bike.id}" class="form-control">
+						<option value="0">--select bike--</option>
+						<option th:each="b : ${bike}" th:value="${b.id}"
+							th:text="${b.name}"></option>
+					</select> <span class="validation-error"
+						th:if="${#fields.hasErrors('bike')}" th:errors="*{bike}">Error
+						in membership field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="startTime" class="col-sm-1  col-form-label" th:text="#{reservation.startTime}">Start
+					Time: </label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{startTime}" class="form-control"
+						id="datepicker" placeholder="MM-DD-YYYY" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('startTime')}"
+						th:errors="*{startTime}">Error in start date field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="endTime" class="col-sm-1  col-form-label" th:text="#{reservation.endTime}">Start
+					Date: </label>
+				<div class="col-sm-5 mb-3">
+					<input type="text" th:field="*{endTime}" class="form-control"
+						id="datepicker" placeholder="MM-DD-YYYY" /> <span
+						class="validation-error" th:if="${#fields.hasErrors('endTime')}"
+						th:errors="*{endTime}">Error in end date field!</span>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-md-7 mb-3">
+					<input type="submit" th:value="#{reservation.save}"
+						class="btn btn-success" data-toggle="tooltip"
+						data-placement="bottom" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<div th:replace="../fragments/footer :: footer"></div>
 
 </body>
 
