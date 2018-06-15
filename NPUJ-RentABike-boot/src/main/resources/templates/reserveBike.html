@@ -47,7 +47,7 @@
 </head>
 <body>
 
-<h1>Reservations</h1>
+<h1 th:text="#{tab.Reservations}">Reservations</h1>
   <div th:replace="../fragments/header :: header"></div>
   <p> Customers : </p>
   <form method="POST" th:object="${Reservation}">

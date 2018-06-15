@@ -90,10 +90,10 @@ CREATE TABLE reservation(
 id INT(11) IDENTITY PRIMARY KEY,
 startTime date not null,
 endTime date not null,
-userId INT DEFAULT 1,
-bikeId INT DEFAULT 1,
-FOREIGN KEY (userId) REFERENCES user (id),
-FOREIGN KEY (bikeId) REFERENCES bike (id)
+customerid INT DEFAULT 1,
+bikeid INT DEFAULT 1,
+FOREIGN KEY (customerid) REFERENCES customer (id),
+FOREIGN KEY (bikeid) REFERENCES bike (id)
 );
 
 

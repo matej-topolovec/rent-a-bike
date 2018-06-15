@@ -3,6 +3,7 @@ package hr.tvz.rentabike.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,9 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.Constraint;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -24,7 +22,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -74,13 +71,17 @@ public class Customer implements Serializable{
 	@Column(name = "phone")
 	String phone;
 
-	
+
 	@ManyToOne
 	//@JoinColumn(name="membershipId")
 	@JoinColumn(name="membershiptypeid")
 	public MembershipType membershipType;
 
-    public Customer() {}	
+	@JsonIgnore
+	@OneToMany(targetEntity=Reservation.class, mappedBy="customer", fetch=FetchType.EAGER)
+	public List<Reservation> reservations;
+
+    public Customer() {}
 
 	public Customer(String name, String surname, String OIB, Date birthdate, String email, String address, String phone){
 		this.name = name;
@@ -106,6 +107,16 @@ public class Customer implements Serializable{
 
 	public String getName() {
 		return name;
+	}
+
+	@JsonIgnore
+	public List<Reservation> getReservations() {
+		return this.reservations;
+	}
+
+	@JsonIgnore
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	public void setSurname(String surname) {
@@ -143,7 +154,7 @@ public class Customer implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getAddress() {
 		return this.address;
 	}

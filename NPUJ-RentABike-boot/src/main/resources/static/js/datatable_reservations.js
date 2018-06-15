@@ -7,8 +7,7 @@ $(document).ready( function () {
 			    { "mData": "id"},
 		        { "mData": "startTime"},
 		        { "mData": "endTime"},
-		        { "mData": "user" },
-				{ "mData": "bike" }
+		        { "mData": "customer.name" }
 				
 			]
 	 })
