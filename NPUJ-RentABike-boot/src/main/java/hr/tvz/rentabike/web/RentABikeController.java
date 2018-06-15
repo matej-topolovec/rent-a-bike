@@ -306,7 +306,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customer", CustomerRepository.findOne(id));
+		model.addAttribute("Customer", CustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 
 		String logMessage = messageSource.getMessage("logging.customersEdit", null, locale);
@@ -315,7 +315,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.POST)
-	public String editCustomer(@Valid @ModelAttribute("customer") Customer c,  BindingResult bindingResult,
+	public String editCustomer(@Valid @ModelAttribute("Customer") Customer c,  BindingResult bindingResult,
 			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
