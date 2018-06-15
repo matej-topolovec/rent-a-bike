@@ -459,16 +459,16 @@ public class RentABikeController {
 		reservationRepository.save(r);
 		String logMessage = messageSource.getMessage("logging.saveReservation", null, locale);
 		log(logMessage);
-		return "redirect:/reservations";
+		return "/reservations/new";
 	}
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String Contacts(Model model, Locale locale) {
 		return "contacts";
 	}
-	
+
 	@RequestMapping(value = "/geolocator", method = RequestMethod.GET)
 	 @Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
-	 public String Geolocator(Model model) 
+	 public String Geolocator(Model model)
 	 {
 		 return "geolocator";
 	 }
