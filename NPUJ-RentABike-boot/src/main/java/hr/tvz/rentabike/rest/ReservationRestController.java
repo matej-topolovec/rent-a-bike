@@ -32,7 +32,7 @@ public class ReservationRestController {
 		return ReservationRepository.findAll();
 	}
 	@GetMapping("/{id}")
-	public ResponseEntity<Reservation> findOne(@PathVariable String id) {
+	public ResponseEntity<Reservation> findOne(@PathVariable Integer id) {
 		Reservation reservation = ReservationRepository.findOne(id);
 		if(reservation != null) {
 			return new ResponseEntity<>(reservation, HttpStatus.OK);

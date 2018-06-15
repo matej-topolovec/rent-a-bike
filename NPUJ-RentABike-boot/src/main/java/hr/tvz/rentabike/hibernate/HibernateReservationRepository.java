@@ -28,7 +28,7 @@ public class HibernateReservationRepository implements ReservationRepository {
 	}
 
 	@Override
-	public Reservation findOne(String id) {
+	public Reservation findOne(Integer id) {
 		return sessionFactory.getCurrentSession().get(Reservation.class, id);
 	}
 

@@ -10,7 +10,7 @@ public interface ReservationRepository  {
 
     List<Reservation> findAll();
 	
-	Reservation findOne(String id);
+	Reservation findOne(Integer id);
 	
 	Reservation save(Reservation reservation);
 	
