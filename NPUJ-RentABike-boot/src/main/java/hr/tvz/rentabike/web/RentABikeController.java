@@ -306,7 +306,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customer", CustomerRepository.findOne(id));
+		model.addAttribute("Customer", CustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 
 		String logMessage = messageSource.getMessage("logging.customersEdit", null, locale);
