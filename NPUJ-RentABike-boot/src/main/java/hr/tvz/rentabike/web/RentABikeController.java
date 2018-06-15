@@ -315,7 +315,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.POST)
-	public String editCustomer(@Valid @ModelAttribute("customer") Customer c,  BindingResult bindingResult,
+	public String editCustomer(@Valid @ModelAttribute("Customer") Customer c,  BindingResult bindingResult,
 			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
