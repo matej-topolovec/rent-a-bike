@@ -27,8 +27,9 @@ public class RegistrationRestController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public User save(@RequestBody User user) {
-		return registrationRepository.save(user);
+	public ResponseEntity<User> save(@RequestBody User user) {
+		registrationRepository.save(user);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PutMapping(consumes="application/json")
