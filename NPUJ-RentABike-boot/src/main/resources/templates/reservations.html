@@ -11,8 +11,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"	href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+<script
+	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
-
+<script src="/js/datatable_reservations.js"></script>
 
 
 <link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
@@ -21,31 +24,25 @@
 </head>
 <body>
 
-<h1>Reservations</h1>
+<h1 th:text="#{tab.Reservations}">Reservations</h1>
   <div th:replace="../fragments/header :: header"></div>
   
-      <div class="container-fluid">
-      <table class="display" >
-      <thead>
-			<tr>
-				<th th:text="#{reservation.startDate}">Start date</th>
-				<th th:text="#{reservation.endDate}">End date</th>
-				<th th:text="#{reservation.customer}">Customer</th> 
-				<th th:text="#{reservation.bike}">Bike</th> 
-			</tr>
-     </thead>
-
-      <tr th:each="line : ${reservations}">
-         <td th:text="${line.startTime}"></td>
-         <td th:text="${line.endTime}"></td>
-         <td th:text="${line.user.username}"></td>
-         <td th:text="${line.bike.name}"></td>
-      </tr>
-    </table>
-   </div>
+	<div class="container-fluid">
+		<table id="reservationTable" class="display">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th th:text="#{reservation.startTime}">Start Time</th>
+					<th th:text="#{reservation.endTime}">End Time</th>
+					<th th:text="#{reservation.customer}">Customer</th>
+					<th th:text="#{reservation.bike}">Bike</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
 
 	<div id="bb">
-		<a th:href="@{/reservations/new}" class="btn btn-info" >New</a>
+		<a th:href="@{/reservations/new}" class="btn btn-info" th:text="#{reservation.new}">New</a>
 	</div>
 
    <div th:replace="../fragments/footer :: footer"></div>

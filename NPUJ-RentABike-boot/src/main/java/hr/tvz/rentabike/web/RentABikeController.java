@@ -121,7 +121,7 @@ public class RentABikeController {
 	// --------------BIKE ACTION-------------------------
 
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
-	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String RentABike(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -245,6 +245,7 @@ public class RentABikeController {
 
 	// Customer controllers
 	@GetMapping("/customers")
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String showCustomers(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -269,8 +270,8 @@ public class RentABikeController {
 		return "customersEdit";
 	}
 
-	
-	
+
+
 	@RequestMapping(value = "/customers/new", method = RequestMethod.POST)
 	public String newCustomerPost(@Valid @ModelAttribute("Customer") Customer c, Errors errors, BindingResult bindingResult, Model model,
 			Locale locale) {
@@ -304,7 +305,7 @@ public class RentABikeController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
 
-		model.addAttribute("customer", CustomerRepository.findOne(id));
+		model.addAttribute("Customer", CustomerRepository.findOne(id));
 		model.addAttribute("membershipType", JdbcMemberShipTypeRepository.findAll());
 
 		String logMessage = messageSource.getMessage("logging.customersEdit", null, locale);
@@ -313,7 +314,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/customers/edit/{id}", method = RequestMethod.POST)
-	public String editCustomer(@Valid @ModelAttribute("customer") Customer c,  BindingResult bindingResult,
+	public String editCustomer(@Valid @ModelAttribute("Customer") Customer c,  BindingResult bindingResult,
 			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
@@ -424,7 +425,7 @@ public class RentABikeController {
 	}
 
 	@RequestMapping(value = "/reservations", method = RequestMethod.GET)
-	@Secured({ "ROLE_DEMO", "ROLE_ADMIN" })
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String Reservations(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -440,27 +441,37 @@ public class RentABikeController {
 	public String newReservations(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-		model.addAttribute("bikes", BikeRepository.findAll());
-		model.addAttribute("customers", CustomerRepository.findAll());
+		model.addAttribute("Reservation", new Reservation());
+		model.addAttribute("bike", BikeRepository.findAll());
+		model.addAttribute("customer", CustomerRepository.findAll());
 
-		String logMessage = messageSource.getMessage("logging.reservationsGet", null, locale);
+		String logMessage = messageSource.getMessage("logging.newReservation", null, locale);
 		log(logMessage);
 		return "reserveBike";
 	}
+	
 	@RequestMapping(value = "/reservations/new", method = RequestMethod.POST)
 	public String saveReservation(@Valid @ModelAttribute("Reservation") Reservation r, BindingResult bindingResult,
 			Model model, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult);
 		}
-		model.addAttribute("Reservations", reservationRepository.findAll());
 		reservationRepository.save(r);
-		String logMessage = messageSource.getMessage("logging.customersEditId", null, locale);
+		String logMessage = messageSource.getMessage("logging.saveReservation", null, locale);
 		log(logMessage);
 		return "redirect:/reservations";
 	}
+
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
 	public String Contacts(Model model, Locale locale) {
 		return "contacts";
 	}
+
+	@RequestMapping(value = "/geolocator", method = RequestMethod.GET)
+	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
+	 public String Geolocator(Model model)
+	 {
+		 return "geolocator";
+	 }
 }

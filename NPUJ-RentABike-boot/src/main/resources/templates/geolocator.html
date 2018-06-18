@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+<title>Geolocator</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/dizajn.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+<div th:replace="../fragments/header :: header"></div>
+
+	<h1>Geolocator</h1>
+	
+	<div class="mainMapContainer">
+		<div class="mapColumn">
+			<div id="mapContainer"></div>
+			<p class="mapDisclaimer">
+				<span th:text="#{geolocator.disclaimer}">Map marker icons:</span>
+				<a href="http://mapicons.mapsmarker.com/">Map Icons Collection</a>
+			</p>
+		</div>
+		<div class="mapDescriptionColumn">
+			<div class="mapDescription">
+				<p th:text="#{geolocator.description}">You can find our bikes on the locations marked on map.</p>
+				<p th:text="#{geolocator.linksDescription}">You can use these links to center the map on the locations of our locations:</p>
+				<ul>
+					<li>
+						<a href="#" onclick="centerMap(45.8130097,15.9771325)">Trg bana Jelačića</a>
+					</li>
+					<li>
+						<a href="#" onclick="centerMap(45.8046784,15.9787794)">Glavni kolodvor</a>
+					</li>
+					<li>
+						<a href="#" onclick="centerMap(45.81513,15.9348726)">Črnomerec</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<div th:replace="../fragments/footer :: footer"></div>
+
+<script th:inline="javascript">
+var iconPath = /*[[@{/images/bicycle-icon-default.png}]]*/;
+
+function myMap() {
+	var mapProp= {
+	    center:new google.maps.LatLng(45.8130097,15.9771325),
+	    zoom:15,
+	};
+	var map=new google.maps.Map(document.getElementById("mapContainer"),mapProp);
+	
+	position = {lat: 45.8130097, lng: 15.9771325};
+	marker = new google.maps.Marker({position: position, map: map, icon: iconPath});
+	
+	position = {lat: 45.8046784, lng: 15.9787794};
+	marker = new google.maps.Marker({position: position, map: map, icon: iconPath});
+	
+	position = {lat: 45.81513, lng: 15.9348726};
+	marker = new google.maps.Marker({position: position, map: map, icon: iconPath});
+}
+
+function centerMap(latitude, longitude) {
+	var mapProp= {
+	    center:new google.maps.LatLng(latitude,longitude),
+	    zoom:15,
+	};
+	var map=new google.maps.Map(document.getElementById("mapContainer"),mapProp);
+	
+	position = {lat: 45.8130097, lng: 15.9771325};
+	var marker = new google.maps.Marker({position: position, map: map, icon: iconPath});
+	
+	position = {lat: 45.8046784, lng: 15.9787794};
+	marker = new google.maps.Marker({position: position, map: map, icon: iconPath});
+	
+	position = {lat: 45.81513, lng: 15.9348726};
+	marker = new google.maps.Marker({position: position, map: map, icon: iconPath});
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDj8rglgiUY-W_xCjUL_1F4kOosr_yObQU&amp;callback=myMap"></script>
+
+</body>
+</html>

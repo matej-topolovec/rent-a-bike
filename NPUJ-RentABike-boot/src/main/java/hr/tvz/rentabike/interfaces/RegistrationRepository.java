@@ -19,4 +19,5 @@ public interface RegistrationRepository {
 	User findById(int id);
 	void delete(User user);
 	void delete(int id);
+	void update(User user);
 }

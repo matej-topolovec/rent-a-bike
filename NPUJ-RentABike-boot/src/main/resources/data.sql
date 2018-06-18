@@ -76,5 +76,15 @@ Values('Trek', '2018-05-10' , 5 , 1 , 1);
 INSERT INTO bike(name, dateadded, quantity, available, typeid)
 Values('Scott', '2018-05-17' , 3 , 1 , 1);
 
-INSERT INTO reservation(startTime, endTime, userId, bikeId)
+INSERT INTO reservation(startTime, endTime, customerid, bikeid)
 Values('2018-6-1', '2018-6-1', 1, 1);
+INSERT INTO reservation(startTime, endTime, customerid, bikeid)
+Values('2018-7-17', '2018-7-20', 2, 2);
+INSERT INTO reservation(startTime, endTime, customerid, bikeid)
+Values('2018-6-20', '2018-6-23', 4, 1);
+INSERT INTO reservation(startTime, endTime, customerid, bikeid)
+Values('2018-8-1', '2018-8-28', 7, 1);
+INSERT INTO reservation(startTime, endTime, customerid, bikeid)
+Values('2018-7-1', '2018-7-17', 10, 2);
+INSERT INTO reservation(startTime, endTime, customerid, bikeid)
+Values('2018-6-15', '2018-6-17', 6, 2);
