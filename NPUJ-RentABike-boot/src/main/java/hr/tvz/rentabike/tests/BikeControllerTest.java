@@ -1,8 +1,6 @@
 package hr.tvz.rentabike.tests;
 
 
-
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
