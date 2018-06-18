@@ -121,7 +121,7 @@ public class RentABikeController {
 	// --------------BIKE ACTION-------------------------
 
 	@RequestMapping(value = "/bikes", method = RequestMethod.GET)
-	@Secured({ "ROLE_DEMO", "ROLE_ADMIN","ROLE_USER" })
+	@Secured({  "ROLE_ADMIN" })
 	public String RentABike(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
@@ -146,6 +146,8 @@ public class RentABikeController {
 		return "EditBike";
 	}
 
+	
+	
 	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
 	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Model model,
 			Locale locale) {
@@ -190,7 +192,6 @@ public class RentABikeController {
 	public String processEditBike(@PathVariable("id") Integer id, Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-
 		Bike bike = BikeRepository.findOne(id);
 		if (bike != null) {
 			model.addAttribute("Bike", bike);
@@ -223,10 +224,7 @@ public class RentABikeController {
 	public String getInfo(@PathVariable("id") Integer id, Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-
-
 		model.addAttribute("bike", BikeRepository.findOne(id));
-
 		String logMessage = messageSource.getMessage("logging.bikesDetails", null, locale);
 		log(logMessage);
 		return "bikeDetails";
