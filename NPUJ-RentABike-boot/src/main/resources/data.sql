@@ -8,6 +8,8 @@ INSERT INTO membershipType(name, discountRate, durationInMonths)
 VALUES('Annually', 50, 12);
 
 INSERT INTO customer(name, surname, OIB, birthdate, email, address, phone, membershipTypeId)
+VALUES ('Pero','Periæ','12345678901','2018-01-01', 'pero.peric@net.hr', 'Ulica 1, 10000 Zagreb', '012/3456-789', 1);
+INSERT INTO customer(name, surname, OIB, birthdate, email, address, phone, membershipTypeId)
 VALUES ('Matej','Topolovec','12345897859','1990-06-05', 'matej.topolovec@net.hr', 'Ilica 22, 10000 Zagreb', '092/3455-575', 1);
 INSERT INTO customer(name, surname, OIB, birthdate, email, address, phone, membershipTypeId)
 VALUES ('Tin','Topolovec','46546546545','1990-06-05', 'tin.topolovec@net.hr', 'Svetoivanska 55, 10000 Zagreb', '092/3455-785', 1);
