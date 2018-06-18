@@ -30,9 +30,7 @@ public class HibernateBikeRepository implements BikeRepository{
 	@Override
 	public List<Bike> findAll() {
 		List<Bike> bikes = 
-
-
-				sessionFactory.getCurrentSession().createQuery("FROM Bike").list();	
+         sessionFactory.getCurrentSession().createQuery("FROM Bike").list();	
 		Hibernate.initialize(bikes);
 		return bikes;
 

@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import hr.tvz.rentabike.db.BikeRepository;
-import hr.tvz.rentabike.db.JdbcBikeRepository;
 import hr.tvz.rentabike.model.Bike;
 
 
@@ -42,7 +40,7 @@ public class BikeRestControler {
 
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Bike> findOne(@PathVariable Integer id) {
+	public ResponseEntity<Bike> findOne(@PathVariable("id") Integer id) {
 		Bike bike = BikeRepository.findOne(id);
 		if(bike != null) {
 			return new ResponseEntity<>(bike, HttpStatus.OK);
