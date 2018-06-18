@@ -23,6 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
+import hr.tvz.rentabike.model.User;
 
 
 
@@ -108,12 +109,13 @@ public class BikeControllerTest {
 	
 	
 	@Test(expected= Exception.class)
-	public void BikeDeleteOne() throws Exception{
+	public void BikeDeleteOneException() throws Exception{
 		List<Bike> Before = BikeRepository.findAll();
 		BikeRepository.delete(2);
 		assertThat(Before, is(not(BikeRepository.findAll())));
 	}
 	
+		
 	
 	@Test
 	public void BikeUpdateOne() throws Exception{
@@ -150,11 +152,36 @@ public class BikeControllerTest {
 		
 		Bike lastbike = bikes.get(bikes.size() -1);
 		
-		assertEquals(lastbike.getId(), 3);
+		assertEquals(lastbike.getId(), 4);
 		assertEquals(lastbike.getName(), "Fuji");
 		assertEquals(lastbike.getBikeType().getName(), "Cestovni");
 	}
 
+	
+	@Test
+	public void BikeDeleteOne() throws Exception{
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
+	    BikeType bt = new BikeType();
+	    bt.setId(1);
+	    
+		Bike bike = new Bike();
+		bike.setName("Fuji");
+		bike.setDate(date);
+		bike.setQuantity(3);
+		bike.setAvailable(3);
+		bike.setBikeType(bt);
+		
+		BikeRepository.save(bike);
+		
+		
+	List<Bike> listBefore = BikeRepository.findAll();
+		
+		BikeRepository.delete(bike.getId());
+		
+		assertThat(listBefore, is(not(BikeRepository.findAll())));
+	}
+	
 	
 	
 }
