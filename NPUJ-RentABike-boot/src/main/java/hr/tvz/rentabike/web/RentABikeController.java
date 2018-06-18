@@ -125,9 +125,7 @@ public class RentABikeController {
 	public String RentABike(Model model, Locale locale) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("user", auth.getName());
-
 		model.addAttribute("bikes", BikeRepository.findAll());
-
 		String logMessage = messageSource.getMessage("logging.bikesPageGet", null, locale);
 		log(logMessage);
 
