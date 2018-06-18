@@ -207,9 +207,7 @@ public class RentABikeController {
 	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Locale locale) {
 		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
-
 			return "EditBike";
-
 		}
 
 		BikeRepository.updateBike(bike);
