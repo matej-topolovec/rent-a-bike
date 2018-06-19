@@ -8,7 +8,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -64,6 +66,18 @@ public class BikeControllerTest {
 		.andExpect(model().attributeExists("BikeTypes"))
 		.andExpect(view().name("EditBike"));
 			}
+	
+	//Post create test
+//	@Test
+//	public void BikePostCreateView() throws Exception{
+//		mockMvc.perform(post("/bike/create")
+//				.with(user("admin").password("password").roles("ADMIN")))
+//	            .andExpect(status().is3xxRedirection())      
+//	            .andExpect(view().name("redirect:bikes"))
+//                .andExpect(redirectedUrl("/bikes"));
+//
+//			}
+	
 	
 	
 	@Test
@@ -173,14 +187,11 @@ public class BikeControllerTest {
 		bike.setBikeType(bt);
 		
 		BikeRepository.save(bike);
-		
-		
-	List<Bike> listBefore = BikeRepository.findAll();
-		
-		BikeRepository.delete(bike.getId());
-		
+	    List<Bike> listBefore = BikeRepository.findAll();
+		BikeRepository.delete(bike.getId());	
 		assertThat(listBefore, is(not(BikeRepository.findAll())));
 	}
+	
 	
 	
 	
