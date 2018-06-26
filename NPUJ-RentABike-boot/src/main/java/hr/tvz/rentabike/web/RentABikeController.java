@@ -159,13 +159,6 @@ public class RentABikeController {
 
 		BikeRepository.save(bike);
 
-		List<Bike> listabike = BikeRepository.findAll();
-
-		for (Bike b : listabike) {
-
-			System.out.println(b.getId() + " " + b.getName() + " " + b.getDate());
-		}
-
 		String logMessage = messageSource.getMessage("logging.bikesCreatePost", null, locale);
 		log(logMessage);
 		return "redirect:/bikes";
@@ -174,7 +167,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id, Locale locale) {
-		if (id != 0)
+		
 			try {
 				BikeRepository.delete(id);
 			}
