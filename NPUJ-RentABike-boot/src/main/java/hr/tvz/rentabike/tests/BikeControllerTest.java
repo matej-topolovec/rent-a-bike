@@ -25,6 +25,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.Errors;
+
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.User;
@@ -100,6 +102,43 @@ public class BikeControllerTest {
 			}
 	
 		
+	@Test
+	public void BikeGetDeleteNotParametar() throws Exception{
+		
+		mockMvc.perform(get("/bike/delete/")
+				.with(user("admin").password("password").roles("ADMIN")))
+		        .andExpect(status().is(404));
+		        
+			}
+	
+	@Test
+	public void BikePostTestCreate() throws Exception{
+		List<Bike> listBefore = BikeRepository.findAll();
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
+	    BikeType bt = new BikeType();
+	    bt.setId(1);
+	    
+		Bike bike = new Bike();
+		bike.setId(5);
+		bike.setName("Fuji");
+		bike.setDate(date);
+		bike.setQuantity(3);
+		bike.setAvailable(3);
+		bike.setBikeType(bt);
+        Error e  = new Error();
+       
+       
+		
+		mockMvc.perform(post("bike/create", bike))
+		.andExpect(status().is3xxRedirection());
+		 
+		List<Bike> listAfter= BikeRepository.findAll();
+		
+		assertThat(listBefore, is(not(listAfter)));
+	}
+	
+	
 	
 	@Test
 	public void BikeFindOne() throws Exception{
