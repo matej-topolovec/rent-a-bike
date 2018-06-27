@@ -7,8 +7,8 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath ("org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4")
-		classpath ("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+		classpath("org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4")
+		classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
 	}
 }
 
@@ -48,7 +48,6 @@ dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M4")
     testCompile("org.junit.platform:junit-platform-runner:1.0.0-M4")
- 
 	testCompile('org.springframework.security:spring-security-test')
 }
 

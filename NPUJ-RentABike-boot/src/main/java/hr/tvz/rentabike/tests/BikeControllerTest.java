@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,16 +22,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.Errors;
+
 import hr.tvz.rentabike.model.Bike;
 import hr.tvz.rentabike.model.BikeType;
 import hr.tvz.rentabike.model.User;
-
-
-
-
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -67,17 +66,6 @@ public class BikeControllerTest {
 		.andExpect(view().name("EditBike"));
 			}
 	
-	//Post create test
-//	@Test
-//	public void BikePostCreateView() throws Exception{
-//		mockMvc.perform(post("/bike/create")
-//				.with(user("admin").password("password").roles("ADMIN")))
-//	            .andExpect(status().is3xxRedirection())      
-//	            .andExpect(view().name("redirect:bikes"))
-//                .andExpect(redirectedUrl("/bikes"));
-//
-//			}
-	
 	
 	
 	@Test
@@ -104,6 +92,53 @@ public class BikeControllerTest {
 			}
 
 	
+	@Test
+	public void BikeGetDeleteView() throws Exception{
+		
+		mockMvc.perform(get("/bike/delete/1")
+				.with(user("admin").password("password").roles("ADMIN")))
+		        .andExpect(status().isOk())
+		        .andExpect(view().name("ErrorHandlerModal"));
+			}
+	
+		
+	@Test
+	public void BikeGetDeleteNotParametar() throws Exception{
+		
+		mockMvc.perform(get("/bike/delete/")
+				.with(user("admin").password("password").roles("ADMIN")))
+		        .andExpect(status().is(404));
+		        
+			}
+	
+	@Test
+	public void BikePostTestCreate() throws Exception{
+		List<Bike> listBefore = BikeRepository.findAll();
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
+	    BikeType bt = new BikeType();
+	    bt.setId(1);
+	    
+		Bike bike = new Bike();
+		bike.setId(5);
+		bike.setName("Fuji");
+		bike.setDate(date);
+		bike.setQuantity(3);
+		bike.setAvailable(3);
+		bike.setBikeType(bt);
+        Error e  = new Error();
+       
+       
+		
+		mockMvc.perform(post("bike/create", bike))
+		.andExpect(status().is3xxRedirection());
+		 
+		List<Bike> listAfter= BikeRepository.findAll();
+		
+		assertThat(listBefore, is(not(listAfter)));
+	}
+	
+	
 	
 	@Test
 	public void BikeFindOne() throws Exception{
@@ -125,11 +160,13 @@ public class BikeControllerTest {
 	@Test(expected= Exception.class)
 	public void BikeDeleteOneException() throws Exception{
 		List<Bike> Before = BikeRepository.findAll();
-		BikeRepository.delete(2);
-		assertThat(Before, is(not(BikeRepository.findAll())));
+		BikeRepository.delete(1);
+	  	assertThat(Before, is(not(BikeRepository.findAll())));
 	}
 	
-		
+
+	
+	
 	
 	@Test
 	public void BikeUpdateOne() throws Exception{
@@ -191,7 +228,6 @@ public class BikeControllerTest {
 		BikeRepository.delete(bike.getId());	
 		assertThat(listBefore, is(not(BikeRepository.findAll())));
 	}
-	
 	
 	
 	

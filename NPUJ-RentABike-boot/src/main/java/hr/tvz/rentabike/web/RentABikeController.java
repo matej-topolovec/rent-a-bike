@@ -148,23 +148,16 @@ public class RentABikeController {
 
 	
 	
-	@RequestMapping(value = "/bike/create", method = RequestMethod.POST)
+	@RequestMapping(value = "bikes/create", method = RequestMethod.POST)
 	public String processCreateBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Model model,
 			Locale locale) {
-		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
+		if (errors.hasErrors()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 			model.addAttribute("BikeTypes",JdbcBikeTypeRepository.findAll());
 			return "EditBike";
 		}
 
 		BikeRepository.save(bike);
-
-		List<Bike> listabike = BikeRepository.findAll();
-
-		for (Bike b : listabike) {
-
-			System.out.println(b.getId() + " " + b.getName() + " " + b.getDate());
-		}
 
 		String logMessage = messageSource.getMessage("logging.bikesCreatePost", null, locale);
 		log(logMessage);
@@ -174,7 +167,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/delete/{id}", method = RequestMethod.GET)
 	public String processDeleteBike(@PathVariable("id") Integer id, Locale locale) {
-		if (id != 0)
+		
 			try {
 				BikeRepository.delete(id);
 			}
@@ -206,7 +199,7 @@ public class RentABikeController {
 
 	@RequestMapping(value = "/bike/edit/{id}", method = RequestMethod.POST)
 	public String processEditBikeForm(@Valid @ModelAttribute("Bike") Bike bike, Errors errors, BindingResult bindingResult, Locale locale) {
-		if (errors.hasErrors() || bike.getQuantity() < bike.getAvailable()) {
+		if (errors.hasErrors()) {
 			System.out.println("Error : " + errors + bike.getQuantity() + " < " + bike.getAvailable());
 			return "EditBike";
 		}
