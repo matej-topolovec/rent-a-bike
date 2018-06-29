@@ -39,6 +39,7 @@ dependencies {
 	compile('org.hibernate:hibernate-entitymanager:5.3.1.Final')
 	compile ('org.quartz-scheduler:quartz:2.2.1')
 	compile ('org.springframework:spring-context-support')
+	compile('org.springframework:spring-webmvc')
 	runtime('com.h2database:h2')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
