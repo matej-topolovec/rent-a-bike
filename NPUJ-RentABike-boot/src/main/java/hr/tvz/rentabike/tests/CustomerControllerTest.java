@@ -33,7 +33,7 @@ public class CustomerControllerTest {
 	private MockMvc mockMvc;
 	
 	@Autowired
-	hr.tvz.rentabike.db.JdbcCustomerRepository CustomerRepository;
+	hr.tvz.rentabike.interfaces.CustomerRepository CustomerRepository;
 	
 	@Test
 	public void CustomerGetFindAllView() throws Exception{
